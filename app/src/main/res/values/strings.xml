@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Kateringin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="terms_and_conditions">
+    <![CDATA[
+    \n
+        Syarat dan Ketentuan Penggunaan Aplikasi Kateringin\n\n
+        Diperbarui terakhir pada 12 Maret 2024\n\n
+        Pengantar\n\n
+        Terima kasih telah menggunakan aplikasi Kateringin. Aplikasi ini dirancang untuk menyediakan platform yang menghubungkan pengguna dengan berbagai usaha mikro, kecil, dan menengah (UMKM) di bidang katering. Sebelum Anda melanjutkan penggunaan aplikasi ini, kami meminta Anda untuk membaca dengan seksama dan memahami syarat dan ketentuan penggunaan yang tercantum di bawah ini.\n\n
+        1. Penerimaan Syarat dan Ketentuan\n\nDengan mengakses atau menggunakan aplikasi Kateringin, Anda secara otomatis setuju untuk terikat oleh semua syarat dan ketentuan yang tercantum dalam dokumen ini. Jika Anda tidak setuju dengan salah satu bagian dari syarat dan ketentuan ini, Anda tidak diperbolehkan menggunakan aplikasi Kateringin.\n\n
+        2. Layanan yang Disediakan\n\nAplikasi Kateringin bertujuan untuk menyediakan platform yang menghubungkan pengguna dengan UMKM di bidang katering. Kami tidak bertanggung jawab atas kualitas, ketersediaan, atau kesesuaian produk dan layanan yang disediakan oleh UMKM pihak ketiga. Kami berhak untuk mengubah atau menghentikan layanan, baik secara sementara maupun permanen, tanpa pemberitahuan sebelumnya.\n\n
+        3. Penggunaan Aplikasi\n\nAnda bertanggung jawab penuh atas informasi yang Anda berikan kepada kami selama penggunaan aplikasi. Anda setuju untuk menggunakan aplikasi ini sesuai dengan hukum yang berlaku dan tidak akan menggunakan aplikasi ini untuk tujuan yang melanggar hukum atau merugikan orang lain. Anda tidak diperbolehkan menggunakan aplikasi ini untuk tujuan komersial tanpa izin tertulis dari kami.\n\n
+        4. Privasi dan Keamanan\n\nKami menghargai privasi Anda dan berkomitmen untuk melindungi data pribadi Anda sesuai dengan kebijakan privasi kami. Anda bertanggung jawab untuk menjaga kerahasiaan informasi akun Anda dan tidak boleh memberikan akses ke akun Anda kepada pihak lain.\n\n
+        5. Perubahan pada Syarat dan Ketentuan\n\nKami berhak untuk mengubah syarat dan ketentuan ini kapan saja tanpa pemberitahuan sebelumnya. Setiap perubahan pada syarat dan ketentuan akan efektif segera setelah kami memposting versi yang diperbarui di aplikasi.\n\n
+        6. Penutup\n\nSyarat dan ketentuan ini merupakan kesepakatan lengkap antara Anda dan kami sehubungan dengan penggunaan aplikasi Kateringin. Jika ada ketentuan dalam syarat dan ketentuan ini yang dinyatakan tidak sah oleh pengadilan yang berwenang, ketentuan tersebut akan dihapus tanpa mempengaruhi sisa syarat dan ketentuan.\n\n
+        Jika Anda memiliki pertanyaan atau keluhan tentang syarat dan ketentuan ini, silakan hubungi kami melalui +62412312331.\n\n
+        Terima kasih telah membaca dan memahami syarat dan ketentuan penggunaan aplikasi Kateringin. Silakan hubungi kami jika Anda memiliki pertanyaan lebih lanjut.\n\n\n\n
+    ]]>
+</string>
+
+
+</resources>

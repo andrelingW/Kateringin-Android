@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "991310793242",
+    "project_id": "kateringin-dc8f1",
+    "storage_bucket": "kateringin-dc8f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991310793242:android:3833bf5ca8153284781fa3",
+        "android_client_info": {
+          "package_name": "project.skripsi.kateringin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKh1B7LQk7ur2SSoBsMiCcAgqJTahbXpQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

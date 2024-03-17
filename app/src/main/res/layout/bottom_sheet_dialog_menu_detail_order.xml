@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/custom_default_bottom_sheet_style">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/bottomDialogMenuDetailCalendar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/custom_normal_edit_text"
+            android:drawableEnd="@drawable/custom_black_baseline_calendar_today_24"
+            android:focusable="false"
+            android:hint="Select Date"
+            android:padding="10dp"
+
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView38" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addToCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+
+            android:background="@drawable/custom_active_button"
+            android:text="Add to Cart"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottomSheetMenuDetailQuantity" />
+
+        <TextView
+            android:id="@+id/textView38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:text="Tanggal"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="75dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/custom_radius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textView51"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Waktu"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottomDialogMenuDetailCalendar" />
+
+        <TextView
+            android:id="@+id/textView52"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="Jumlah"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottomSheetMenuDetailTimeGroup" />
+
+        <EditText
+            android:id="@+id/bottomSheetMenuDetailQuantity"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_normal_edit_text"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:digits="0123456789"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toStartOf="@+id/bottomSheetMenuDetailPlus"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/bottomSheetMenuDetailMines"
+            app:layout_constraintTop_toBottomOf="@+id/textView52" />
+
+        <ImageButton
+            android:id="@+id/bottomSheetMenuDetailMines"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/bottomSheetMenuDetailQuantity"
+            app:layout_constraintEnd_toStartOf="@+id/bottomSheetMenuDetailQuantity"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bottomSheetMenuDetailQuantity"
+            app:srcCompat="@drawable/mines_icon"
+            android:background="@drawable/custom_plus_mines_button_bg"/>
+
+        <ImageButton
+            android:id="@+id/bottomSheetMenuDetailPlus"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/bottomSheetMenuDetailQuantity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/bottomSheetMenuDetailQuantity"
+            app:layout_constraintTop_toTopOf="@+id/bottomSheetMenuDetailQuantity"
+            app:srcCompat="@drawable/plus_icon"
+            android:background="@drawable/custom_plus_mines_button_bg"/>
+
+        <RadioGroup
+            android:id="@+id/bottomSheetMenuDetailTimeGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView51">
+
+            <RadioButton
+                android:id="@+id/bottomSheetMenuDetailMorningTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/custom_radio_selector"
+                android:button="@android:color/transparent"
+                android:text="08:00 - 12:00"
+                android:textAlignment="center"
+                android:textColor="@drawable/custom_radio_button_text_color"
+                android:textSize="12dp" />
+
+            <RadioButton
+                android:id="@+id/bottomSheetMenuDetailAfternoonTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/custom_radio_selector"
+                android:button="@android:color/transparent"
+                android:text="12:00 - 16:00"
+                android:textAlignment="center"
+                android:textColor="@drawable/custom_radio_button_text_color"
+                android:textSize="12dp" />
+
+            <RadioButton
+                android:id="@+id/bottomSheetMenuDetailNightTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/custom_radio_selector"
+                android:button="@android:color/transparent"
+                android:text="16:00 - 20:00"
+                android:textAlignment="center"
+                android:textColor="@drawable/custom_radio_button_text_color"
+                android:textSize="12dp" />
+        </RadioGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
