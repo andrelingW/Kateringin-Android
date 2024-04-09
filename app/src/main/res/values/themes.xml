@@ -24,4 +24,10 @@
 
 
     <style name="Theme.Kateringin" parent="Base.Theme.Kateringin" />
+    <style name="Theme.Kateringin.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.Kateringin.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Kateringin.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -29,10 +29,13 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import project.skripsi.kateringin.R;
 
@@ -42,8 +45,11 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
     RadioGroup time;
     ImageButton plus, mines;
     String quantityText;
+    String timeRange;
     Integer quantityCounter = 0;
     AppCompatButton addToCart;
+    FirebaseAuth mAuth;
+    FirebaseFirestore database;
 
     public interface BottomSheetListener {
         void addToCartSuccess();
@@ -72,14 +78,32 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bottom_sheet_dialog_menu_detail_order, container, false);
-        addToCart = view.findViewById(R.id.addToCart);
-
-        addToCart.setOnClickListener(v ->{
-            if (mListener != null) {
-                mListener.addToCartSuccess();
-            }
-            dismiss();
-        });
+//        addToCart = view.findViewById(R.id.addToCart);
+//        mAuth = FirebaseAuth.getInstance();
+//        addToCart.setOnClickListener(v ->{
+//            if (mListener != null) {
+//                String menuId;
+//                String userId;
+//                String date;
+//                int timeRange;
+//                int quantity;
+//                boolean processed;
+//                Map<String, Object> newCart = new HashMap<>();
+//                newCart.put("menuId", "M0001" );
+//                newCart.put("userId", mAuth.getCurrentUser().getUid());
+//                newCart.put("date", user.getPhoneNumber());
+//                newCart.put("DOB", user.getBOD());
+//                newCart.put("gender",user.getGender());
+//                newCart.put("profileImage", null);
+//                newCart.put("email", email);
+//
+//                // Add a new document with a generated ID
+//                database.collection("users").document(mAuth.getCurrentUser().getUid().toString())
+//                        .set(newCart)
+//                mListener.addToCartSuccess();
+//            }
+//            dismiss();
+//        });
 
         return view;
     }
@@ -88,22 +112,25 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseFirestore.getInstance();
+
         time = view.findViewById(R.id.bottomSheetMenuDetailTimeGroup);
         calendar = view.findViewById(R.id.bottomDialogMenuDetailCalendar);
         quantity = view.findViewById(R.id.bottomSheetMenuDetailQuantity);
         plus = view.findViewById(R.id.bottomSheetMenuDetailPlus);
         mines = view.findViewById(R.id.bottomSheetMenuDetailMines);
-
+        addToCart = view.findViewById(R.id.addToCart);
 
         time.setOnCheckedChangeListener((group, checkId) -> {
             RadioButton radioButton = view.findViewById(checkId);
             if (radioButton != null) {
                 if (checkId == R.id.bottomSheetMenuDetailMorningTime) {
-                    Log.d("RadioButton", "Option 1 selected");
+                    timeRange = "08:00 - 12:00";
                 } else if (checkId == R.id.bottomSheetMenuDetailAfternoonTime) {
-                    Log.d("RadioButton", "Option 2 selected");
+                    timeRange = "12:00 - 16:00";
                 } else if (checkId == R.id.bottomSheetMenuDetailNightTime) {
-                    Log.d("RadioButton", "Option 3 selected");
+                    timeRange = "16:00 - 20:00";
                 }
             }
         });
@@ -144,61 +171,26 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
             materialDatePicker.show(getChildFragmentManager(), "tag");
         });
 
-//        addToCart.setOnClickListener(v ->{
-//
-//            dismiss();
-//
-//        });
+        addToCart.setOnClickListener(v ->{
+            if (mListener != null) {
+
+                Map<String, Object> newCart = new HashMap<>();
+                newCart.put("cartItemId", "haaha");
+                newCart.put("menuId", "M0001" );
+                newCart.put("userId", mAuth.getCurrentUser().getUid());
+                newCart.put("date", "asdasdasd");
+                newCart.put("timeRange", timeRange);
+                newCart.put("price", 15000);
+                newCart.put("quantity", Integer.parseInt(quantity.getText().toString()));
+                newCart.put("processed", false);
+
+                // Add a new document with a generated ID
+                database.collection("cartItem").document().set(newCart);
+                mListener.addToCartSuccess();
+            }
+            dismiss();
+        });
 
     }
-//    private void showSnackbar() {
-//        // Use requireView() to get the root view of the fragment's layout
-//        View rootView = requireView();
-//
-//        // Provide a meaningful message for the Snackbar
-//        String message = "Item added to cart";
-//
-//        // Create the Snackbar with the provided message and duration
-//        Snackbar snackbar = Snackbar.make(rootView, message, Snackbar.LENGTH_SHORT);
-//
-//        // Inflate the custom Snackbar layout
-//        View customSnackView = getLayoutInflater().inflate(R.layout.custom_snackbar_add_to_cart_success, null);
-//
-//        // Get the Snackbar layout
-//        Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbar.getView();
-//
-//        // Set the background of the default Snackbar as transparent
-//        snackbarLayout.setBackgroundColor(Color.TRANSPARENT);
-//
-//        // Add the custom Snackbar layout to the Snackbar layout
-//        snackbarLayout.addView(customSnackView, 0);
-//
-//        // Show the Snackbar
-//        snackbar.show();
-//    }
-
-
-//    private void showSnackbar(View v){
-//        // create an instance of the snackbar
-//        final Snackbar snackbar = Snackbar.make(v, "", Snackbar.LENGTH_LONG);
-//
-//        // inflate the custom_snackbar_view created previously
-//        View customSnackView = getLayoutInflater().inflate(R.layout.custom_snackbar_add_to_cart_success, null);
-//
-//        // set the background of the default snackbar as transparent
-//        snackbar.getView().setBackgroundColor(Color.TRANSPARENT);
-//
-//        // now change the layout of the snackbar
-//        @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbar.getView();
-//
-//        // set padding of the all corners as 0
-//        snackbarLayout.setPadding(0, 0, 0, 0);
-//
-//
-//        // add the custom snack bar layout to snackbar layout
-//        snackbarLayout.addView(customSnackView, 0);
-//
-//        snackbar.show();
-//    }
 
 }

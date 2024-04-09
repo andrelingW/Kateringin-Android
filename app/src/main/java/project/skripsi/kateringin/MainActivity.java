@@ -5,10 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import project.skripsi.kateringin.Controller.FoodResultController;
-import project.skripsi.kateringin.Controller.LoginController;
-import project.skripsi.kateringin.Controller.SearchPageController;
-import project.skripsi.kateringin.Controller.SplashScreen;
+import project.skripsi.kateringin.Controller.MidtransController;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
+        Intent intent = new Intent(getApplicationContext(), MidtransController.class);
         startActivity(intent);
         finish();
     }

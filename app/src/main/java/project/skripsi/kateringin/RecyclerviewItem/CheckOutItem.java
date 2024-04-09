@@ -1,24 +1,17 @@
 package project.skripsi.kateringin.RecyclerviewItem;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import androidx.annotation.NonNull;
-
-import java.io.Serializable;
-
-public class CartItem implements Serializable {
+public class CheckOutItem {
 
     String foodId;
     String foodName;
-    Integer foodPrice;
+    String foodPrice;
     String storeId;
     String storeName;
     Integer quantity;
     String date;
     String time;
 
-    public CartItem(String foodId, String foodName, Integer foodPrice, String storeId, String storeName, Integer quantity, String date, String time) {
+    public CheckOutItem(String foodId, String foodName, String foodPrice, String storeId, String storeName, Integer quantity, String date, String time) {
         this.foodId = foodId;
         this.foodName = foodName;
         this.foodPrice = foodPrice;
@@ -45,11 +38,11 @@ public class CartItem implements Serializable {
         this.foodName = foodName;
     }
 
-    public Integer getFoodPrice() {
+    public String getFoodPrice() {
         return foodPrice;
     }
 
-    public void setFoodPrice(Integer foodPrice) {
+    public void setFoodPrice(String foodPrice) {
         this.foodPrice = foodPrice;
     }
 
@@ -92,6 +85,4 @@ public class CartItem implements Serializable {
     public void setTime(String time) {
         this.time = time;
     }
-
-
 }
