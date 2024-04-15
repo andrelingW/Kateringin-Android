@@ -1,4 +1,4 @@
-package project.skripsi.kateringin.Controller;
+package project.skripsi.kateringin.Controller.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import project.skripsi.kateringin.Controller.Authentication.LoginController;
 import project.skripsi.kateringin.R;
 
 public class EmailVerificationController extends AppCompatActivity {

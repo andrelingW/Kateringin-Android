@@ -17,7 +17,7 @@
   >
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profile_info_imagePicture2"
+            android:id="@+id/checkout_item_menu_image"
             android:layout_width="85dp"
             android:layout_height="85dp"
             android:layout_marginStart="15dp"
@@ -29,35 +29,35 @@
             app:srcCompat="@drawable/ic_launcher_background" />
 
         <TextView
-            android:id="@+id/cartFoodName"
+            android:id="@+id/checkout_item_menu_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="Nasi Goreng Cakalang"
             android:textSize="16dp"
-            app:layout_constraintStart_toEndOf="@+id/profile_info_imagePicture2"
-            app:layout_constraintTop_toTopOf="@+id/profile_info_imagePicture2" />
+            app:layout_constraintStart_toEndOf="@+id/checkout_item_menu_image"
+            app:layout_constraintTop_toTopOf="@+id/checkout_item_menu_image" />
 
         <TextView
-            android:id="@+id/textView57"
+            android:id="@+id/checkout_item_store_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="12dp"
             android:text="Warung Mbak Riska"
-            app:layout_constraintBottom_toTopOf="@+id/textView58"
-            app:layout_constraintStart_toEndOf="@+id/profile_info_imagePicture2"
-            app:layout_constraintTop_toBottomOf="@+id/cartFoodName" />
+            app:layout_constraintBottom_toTopOf="@+id/checkout_item_menu_price"
+            app:layout_constraintStart_toEndOf="@+id/checkout_item_menu_image"
+            app:layout_constraintTop_toBottomOf="@+id/checkout_item_menu_name" />
 
         <TextView
-            android:id="@+id/textView58"
+            android:id="@+id/checkout_item_menu_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="Rp 15.000,00"
             android:textSize="16dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_info_imagePicture2"
-            app:layout_constraintStart_toEndOf="@+id/profile_info_imagePicture2" />
+            app:layout_constraintBottom_toBottomOf="@+id/checkout_item_menu_image"
+            app:layout_constraintStart_toEndOf="@+id/checkout_item_menu_image" />
 
         <TextView
             android:id="@+id/textView59"
@@ -72,7 +72,7 @@
             app:layout_constraintTop_toBottomOf="@+id/divider17" />
 
         <TextView
-            android:id="@+id/textView60"
+            android:id="@+id/checkout_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -88,11 +88,11 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:text="Time"
-            app:layout_constraintEnd_toStartOf="@+id/textView62"
+            app:layout_constraintEnd_toStartOf="@+id/checkout_item_time"
             app:layout_constraintTop_toBottomOf="@+id/divider17" />
 
         <TextView
-            android:id="@+id/textView62"
+            android:id="@+id/checkout_item_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -109,17 +109,17 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
+            app:layout_constraintTop_toBottomOf="@+id/checkout_item_note" />
 
         <TextView
-            android:id="@+id/textView73"
+            android:id="@+id/checkout_item_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="x1"
-            app:layout_constraintBottom_toBottomOf="@+id/textView58"
+            app:layout_constraintBottom_toBottomOf="@+id/checkout_item_menu_price"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView58" />
+            app:layout_constraintTop_toTopOf="@+id/checkout_item_menu_price" />
 
         <View
             android:id="@+id/divider18"
@@ -129,7 +129,7 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_info_imagePicture2" />
+            app:layout_constraintTop_toBottomOf="@+id/checkout_item_menu_image" />
 
         <TextView
             android:id="@+id/textView74"
@@ -142,7 +142,7 @@
             app:layout_constraintTop_toBottomOf="@+id/divider18" />
 
         <EditText
-            android:id="@+id/editTextText3"
+            android:id="@+id/checkout_item_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

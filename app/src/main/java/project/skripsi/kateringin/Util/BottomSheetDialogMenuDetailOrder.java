@@ -177,6 +177,7 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
                 Map<String, Object> newCart = new HashMap<>();
                 newCart.put("cartItemId", "haaha");
                 newCart.put("menuId", "M0001" );
+                newCart.put("storeId", "M0003" );
                 newCart.put("userId", mAuth.getCurrentUser().getUid());
                 newCart.put("date", "asdasdasd");
                 newCart.put("timeRange", timeRange);

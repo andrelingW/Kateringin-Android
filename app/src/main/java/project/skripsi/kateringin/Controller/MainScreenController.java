@@ -6,23 +6,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 import project.skripsi.kateringin.Fragment.CartFragment;
 import project.skripsi.kateringin.Fragment.ExploreFragment;
 import project.skripsi.kateringin.Fragment.OrderFragment;
 import project.skripsi.kateringin.Fragment.UserFragment;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.databinding.ActivityMainBinding;
 
-public class HomeScreenController extends AppCompatActivity {
+public class MainScreenController extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     FrameLayout frameLayout;

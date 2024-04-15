@@ -18,6 +18,12 @@
         android:windowSoftInputMode="adjustResize"
         tools:targetApi="31">
         <activity
+            android:name=".Controller.OrderDetailController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Helper.PaymentSuccessController"
+            android:exported="false" />
+        <activity
             android:name=".Controller.Checkout.ChoosePaymentController"
             android:exported="false" />
         <activity
@@ -27,19 +33,15 @@
             android:name=".Controller.Checkout.CheckOutContactEditController"
             android:exported="false" />
         <activity
-            android:name=".Controller.MidtransController"
-            android:exported="false" />
-        <activity
             android:name=".Controller.Checkout.CheckOutController"
             android:exported="false" />
         <activity
             android:name=".Controller.MenuDetailController"
-            android:exported="false" />
-        <!-- <activity -->
+            android:exported="false" /> <!-- <activity -->
         <!-- android:name=".Controller.SplashScreen" -->
         <!-- android:exported="false" /> -->
         <activity
-            android:name=".Controller.TermsAndConditionController"
+            android:name=".Controller.Helper.TermsAndConditionController"
             android:exported="false" />
         <activity
             android:name=".Controller.FoodResultController"
@@ -48,34 +50,34 @@
             android:name=".Controller.SearchPageController"
             android:exported="false" />
         <activity
-            android:name=".Controller.ForgotPasswordController"
+            android:name=".Controller.Authentication.ForgotPasswordController"
             android:exported="false" />
         <activity
             android:name="com.canhub.cropper.CropImageActivity"
             android:theme="@style/CustomNeedActionBar" />
         <activity
-            android:name=".Controller.EditUserController"
+            android:name=".Controller.User.EditUserController"
             android:exported="false" />
         <activity
-            android:name=".Controller.UserController"
+            android:name=".Controller.User.UserController"
             android:exported="false" />
         <activity
-            android:name=".Controller.HomeScreenController"
+            android:name=".Controller.MainScreenController"
             android:exported="false" />
         <activity
-            android:name=".Controller.AuthRegisterController"
+            android:name=".Controller.Authentication.AuthRegisterController"
             android:exported="false" />
         <activity
-            android:name=".Controller.EmailVerificationController"
+            android:name=".Controller.Authentication.EmailVerificationController"
             android:exported="false" />
         <activity
-            android:name=".Controller.RegisterController"
+            android:name=".Controller.Authentication.RegisterController"
             android:exported="false" />
         <activity
-            android:name=".Controller.LoginController"
+            android:name=".Controller.Authentication.LoginController"
             android:exported="false" />
         <activity
-            android:name=".Controller.SplashScreen"
+            android:name=".Controller.Helper.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

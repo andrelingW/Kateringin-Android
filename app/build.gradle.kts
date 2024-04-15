@@ -57,4 +57,11 @@ dependencies {
 
     //Midtrans Sandbox
     implementation("com.midtrans:uikit:2.0.0-SANDBOX")
+
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    implementation("com.google.android.material:material:1.11.0-alpha01")
+
 }

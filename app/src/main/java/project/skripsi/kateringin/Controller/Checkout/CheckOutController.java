@@ -9,38 +9,43 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-import project.skripsi.kateringin.Controller.EmailVerificationController;
-import project.skripsi.kateringin.Model.Order;
+import project.skripsi.kateringin.Model.Cart;
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.CheckOutRecyclerviewAdapter;
-import project.skripsi.kateringin.RecyclerviewItem.CartItem;
-import project.skripsi.kateringin.RecyclerviewItem.CheckOutItem;
 
 public class CheckOutController extends AppCompatActivity {
+    private static final String PREF_NAME = "CHECK_OUT_ITEM_PREF";
+    private static final String KEY_MY_LIST = "CHECK_OUT_ITEM";
+
     ImageButton contactEdit, locEdit;
     TextView contactNameTV, contactPhoneTV, addressTV, subTotalTV, feeTV, totalPriceTV;
     AppCompatButton checkout;
-
     RecyclerView recyclerView;
+    EditText test;
 
     FirebaseFirestore database;
     FirebaseAuth mAuth;
-    ArrayList<CheckOutItem> checkOutItems;
+
+    ArrayList<Cart> cartItems = new ArrayList<>();
+    CheckOutRecyclerviewAdapter checkOutRecyclerviewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class CheckOutController extends AppCompatActivity {
         bindView();
         setView();
         buttonAction();
+
     }
 
     public void bindView(){
@@ -79,18 +85,31 @@ public class CheckOutController extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
 
-        //TESTING
-        checkOutItems = new ArrayList<CheckOutItem>();
-        checkOutItems.add(new CheckOutItem(null,"nasi goreng cakalang",null,null,null,null,null,null));
-        checkOutItems.add(new CheckOutItem(null,"nasi goreng ",null,null,null,null,null,null));
+        readCartData(this::cartAdapter);
 
-        CheckOutRecyclerviewAdapter checkOutRecycleviewAdapter = new CheckOutRecyclerviewAdapter(checkOutItems,this);
-        recyclerView.setAdapter(checkOutRecycleviewAdapter);
-
-        subTotal();
-        TotalPrice();
+//        //TESTING
+//        checkOutItems = new ArrayList<CheckOutItem>();
+//        checkOutItems.add(new CheckOutItem(null,"nasi goreng cakalang",null,null,null,null,null,null));
+//        checkOutItems.add(new CheckOutItem(null,"nasi goreng ",null,null,null,null,null,null));
+//
+//        CheckOutRecyclerviewAdapter checkOutRecycleviewAdapter = new CheckOutRecyclerviewAdapter(checkOutItems,this);
+//        recyclerView.setAdapter(checkOutRecycleviewAdapter);
 
     }
+
+    public void cartAdapter(ArrayList<Cart> cartItems){
+        checkOutRecyclerviewAdapter = new CheckOutRecyclerviewAdapter(cartItems,this);
+        recyclerView.setAdapter(checkOutRecyclerviewAdapter);
+        setTotalPrice(cartItems);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(cartItems);
+        prefsEditor.putString(KEY_MY_LIST, json).apply();
+        prefsEditor.commit();
+    }
+
 
 
     public void buttonAction(){
@@ -105,10 +124,35 @@ public class CheckOutController extends AppCompatActivity {
         });
 
         checkout.setOnClickListener(v ->{
+            User user = getUserDataFromStorage();
+
             Intent intent = new Intent(getApplicationContext(), ChoosePaymentController.class);
+
+            intent.putExtra("CUSTOMER_NAME", contactNameTV.getText().toString());
+            intent.putExtra("CUSTOMER_PHONE", contactPhoneTV.getText().toString());
+            intent.putExtra("CUSTOMER_EMAIL", user.getEmail().toString());
+            intent.putExtra("CUSTOMER_ADDRESS", addressTV.getText().toString());
+            intent.putExtra("TOTAL_PRICE", Integer.parseInt(totalPriceTV.getText().toString()));
             startActivity(intent);
         });
 
+    }
+
+    private void setTotalPrice(ArrayList<Cart> cartItems){
+        int subTotalPrice = calculateSubTotalPrice(cartItems);
+        int totalPrice = subTotalPrice + 15000;
+        subTotalTV.setText("Rp " + subTotalPrice);
+        feeTV.setText("Rp 15.000");
+        totalPriceTV.setText(String.valueOf(totalPrice));
+
+    }
+
+    private int calculateSubTotalPrice(ArrayList<Cart> cartItems) {
+        int totalPrice = 0;
+        for (Cart item : cartItems) {
+            totalPrice += item.getPrice() * item.getQuantity();
+        }
+        return totalPrice;
     }
 
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
@@ -138,22 +182,57 @@ public class CheckOutController extends AppCompatActivity {
         return user;
     }
 
-    public void subTotal(){
-//        int subTotalPrice = calculateItemsTotalPrice();
-//        subTotalTV.setText("Rp " + subTotalPrice);
-    }
-    public void TotalPrice() {
-//        int totalPrice = calculateItemsTotalPrice() + 15000;
-//        totalPriceTV.setText("Rp " + totalPrice);
-    }
 
-//    private int calculateItemsTotalPrice() {
-//        int totalPrice = 0;
-//        for (CartItem item : cartItems) {
-//            totalPrice += item.getFoodPrice() * item.getQuantity();
-//        }
-//        return totalPrice;
+//    public void subTotal(){
+////        int subTotalPrice = calculateItemsTotalPrice();
+////        subTotalTV.setText("Rp " + subTotalPrice);
 //    }
+//    public void TotalPrice() {
+////        int totalPrice = calculateItemsTotalPrice() + 15000;
+////        totalPriceTV.setText("Rp " + totalPrice);
+//    }
+
+    private void readCartData(FirestoreCallback firestoreCallback){
+        CollectionReference collectionRef = database.collection("cartItem");
+        Query query = collectionRef.whereEqualTo("userId", mAuth.getCurrentUser().getUid());
+
+        query.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String cartId = document.getId();
+                    String storeId = document.getString("storeId");
+                    String menuId = document.getString("menuId");
+                    String date = document.getString("date");
+                    String timeRange = document.getString("timeRange");
+                    int quantity = document.getLong("quantity").intValue();
+                    int price = document.getLong("price").intValue();
+                    boolean process = document.getBoolean("processed");
+
+                    cartItems.add(new Cart(
+                            cartId,
+                            menuId,
+                            storeId,
+                            mAuth.getCurrentUser().getUid(),
+                            date,
+                            timeRange,
+                            quantity,
+                            price,
+                            process
+                    ));
+                }
+                firestoreCallback.onCallback(cartItems);
+            } else {
+                Exception e = task.getException();
+                if (e != null) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+    private interface FirestoreCallback{
+        void onCallback(ArrayList<Cart> list);
+    }
 
 }
 

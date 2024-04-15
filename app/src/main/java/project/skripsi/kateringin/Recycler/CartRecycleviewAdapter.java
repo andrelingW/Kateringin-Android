@@ -3,9 +3,11 @@ package project.skripsi.kateringin.Recycler;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -37,7 +39,6 @@ import project.skripsi.kateringin.RecyclerviewItem.FoodItem;
 
 public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleviewAdapter.ViewHolder> {
     private OnDeleteItemClickListener onDeleteItemClickListener;
-//    private ArrayList<CartItem> cartItems;
 
     private ArrayList<Cart> cartItems;
     private OnClickListener onClickListener;
@@ -48,106 +49,6 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
     private Store store;
     private FirebaseFirestore database;
     private FirebaseAuth mAuth;
-
-//    public void setOnDeleteItemClickListener(OnDeleteItemClickListener listener) {
-//        this.onDeleteItemClickListener = listener;
-//    }
-//
-//
-//    public CartRecycleviewAdapter(ArrayList<CartItem> cartItems, CartFragment cartFragment) {
-//        this.cartItems = cartItems;
-//        this.fragment = cartFragment;
-//    }
-//
-//    @NonNull
-//    @Override
-//    public CartRecycleviewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.component_cart_item_card, parent, false);
-//        return new ViewHolder(view);
-//    }
-//    public interface OnDeleteItemClickListener {
-//        void onDeleteItemClick(int position);
-//    }
-//    @Override
-//    public void onBindViewHolder(@NonNull CartRecycleviewAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-//        database = FirebaseFirestore.getInstance();
-//        final CartItem cartItem = cartItems.get(position);
-//
-//        holder.foodName.setText(cartItem.getFoodName());
-//        holder.quantity.setText(cartItem.getQuantity().toString());
-//        holder.foodPrice.setText(cartItem.getFoodPrice().toString());
-//
-//        holder.delete.setOnClickListener(v -> {
-//            if (onDeleteItemClickListener != null) {
-//                onDeleteItemClickListener.onDeleteItemClick(position); // Pass position to listener
-//            }
-//        });
-//
-//        holder.plus.setOnClickListener(v ->{
-//            cartItem.setQuantity(cartItem.getQuantity() + 1);
-//            holder.quantity.setText(String.valueOf(cartItem.getQuantity()));
-//            notifyDataSetChanged();
-//            fragment.updateTotalPrice();
-//        });
-//
-//
-//        holder.mines.setOnClickListener(v ->{
-//            if(cartItem.getQuantity() > 1){
-//                cartItem.setQuantity(cartItem.getQuantity() - 1);
-//                holder.quantity.setText(String.valueOf(cartItem.getQuantity()));
-//                notifyDataSetChanged();
-//                fragment.updateTotalPrice();
-//            }
-//
-//        });
-//
-//        holder.itemView.setOnClickListener(view -> {
-//            if (onClickListener != null) {
-//                onClickListener.onClick(position, cartItem);
-//            }
-//        });
-//
-//    }
-//
-//    public void removeAt(int position) {
-//        cartItems.remove(position);
-//        notifyItemRemoved(position);
-//        notifyItemRangeChanged(position, cartItems.size());
-//    }
-//
-//    public void setOnClickListener(OnClickListener onClickListener) {
-//        this.onClickListener = onClickListener;
-//    }
-//
-//    public interface OnClickListener {
-//        void onClick(int position, CartItem model);
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return cartItems.size();
-//    }
-//
-//    public class ViewHolder extends RecyclerView.ViewHolder {
-//
-//        TextView foodName, foodPrice, storeName, date, time;
-//        ImageButton plus, mines, delete;
-//
-//        EditText quantity;
-//
-//        public ViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//            foodName = itemView.findViewById(R.id.cart_item_foodName);
-//            foodPrice = itemView.findViewById(R.id.cart_item_foodPrice);
-//            storeName = itemView.findViewById(R.id.cart_item_storeName);
-//            quantity = itemView.findViewById(R.id.cart_item_foodQuantity);
-//            date = itemView.findViewById(R.id.cart_item_date_tv);
-//            time = itemView.findViewById(R.id.cart_item_time_tv);
-//            plus = itemView.findViewById(R.id.cart_item_plus_button);
-//            mines = itemView.findViewById(R.id.cart_item_mines_button);
-//            delete = itemView.findViewById(R.id.cart_item_delete_button);
-//        }
-//    }
 
     public void setOnDeleteItemClickListener(OnDeleteItemClickListener listener) {
         this.onDeleteItemClickListener = listener;
@@ -168,20 +69,17 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
     public interface OnDeleteItemClickListener {
         void onDeleteItemClick(int position);
     }
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull CartRecycleviewAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         final Cart cartItem = cartItems.get(position);
-
 //        getStoreData(cartItem.getStoreId());
 //        getMenuData(cartItem.getMenuId());
 
-//        holder.foodName.setText(menu.getMenuName());
-//        holder.foodPrice.setText(String.valueOf(menu.getMenuPrice()));
         holder.foodName.setText("menu.getMenuName()");
         holder.foodPrice.setText("String.valueOf(menu.getMenuPrice())");
-//        holder.storeName.setText(store.getStoreName());
         holder.storeName.setText("store.getStoreName()");
         holder.quantity.setText(String.valueOf(cartItem.getQuantity()));
         holder.time.setText(cartItem.getTimeRange());
@@ -189,8 +87,16 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
 
         holder.delete.setOnClickListener(v -> {
             if (onDeleteItemClickListener != null) {
-                onDeleteItemClickListener.onDeleteItemClick(position); // Pass position to listener
+                onDeleteItemClickListener.onDeleteItemClick(position);
             }
+        });
+
+        holder.quantity.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE || event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                notifyDataSetChanged();
+                return true;
+            }
+            return false;
         });
 
         holder.plus.setOnClickListener(v ->{
@@ -275,7 +181,7 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
 
 
     /** CUSTOM FUNCTION **/
-    public void updateAllData(){
+    public void updateAllData(FirebaseFirestore database, FirebaseAuth mAuth){
         String userId = mAuth.getCurrentUser().getUid();
         CollectionReference cartCollectionRef = database.collection("cartItem");
 
@@ -293,13 +199,13 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
                             }
                         }
                     } else {
-                        // Handle failed fetch
                         Exception e = task.getException();
                         if (e != null) {
                             e.printStackTrace();
                         }
                     }
                 });
+
     }
 
     private void updateToFirestore(String cartItemId, int newQuantity) {
@@ -310,19 +216,7 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
         Map<String, Object> updates = new HashMap<>();
         updates.put("quantity", newQuantity);
 
-        docRef.update(updates)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Quantity updated successfully in Firestore
-                        // Handle success
-                    } else {
-                        // Handle failure
-                        Exception e = task.getException();
-                        if (e != null) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+        docRef.update(updates);
     }
 
     public void getStoreData(String storeId){

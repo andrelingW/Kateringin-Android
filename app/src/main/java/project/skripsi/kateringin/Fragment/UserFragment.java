@@ -19,13 +19,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
-import project.skripsi.kateringin.Controller.TermsAndConditionController;
-import project.skripsi.kateringin.Controller.UserController;
+import project.skripsi.kateringin.Controller.Helper.TermsAndConditionController;
+import project.skripsi.kateringin.Controller.User.UserController;
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Util.BottomSheetDialogProfileHelp;

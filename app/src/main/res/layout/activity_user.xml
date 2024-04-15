@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Controller.UserController">
+    tools:context=".Controller.User.UserController">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profile_info_imagePicture"

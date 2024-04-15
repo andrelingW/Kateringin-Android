@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
-import project.skripsi.kateringin.Controller.LoginController;
+import project.skripsi.kateringin.Controller.Authentication.LoginController;
 import project.skripsi.kateringin.R;
 
 public class BottomSheetDialogProfileLogout extends BottomSheetDialogFragment {

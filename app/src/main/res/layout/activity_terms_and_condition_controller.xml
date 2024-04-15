@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.TermsAndConditionController">
+    tools:context=".Controller.Helper.TermsAndConditionController">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/termAndConditionToolbar"

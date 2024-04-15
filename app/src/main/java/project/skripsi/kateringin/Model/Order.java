@@ -4,15 +4,36 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Order implements Serializable {
+    String orderId;
     String storeId;
     String userId;
-    String userAddress;
-    String userName;
-    String userPhone;
-    String orderDate;
-    ArrayList<String> orderItem;
-    Integer totalPrice;
-    String orderStatus;
+    String receiverAddress;
+    String receiverName;
+    String receiverPhone;
+    String receiverEmail;
+    ArrayList<OrderItem> orderItem;
+
+    public Order() {
+    }
+
+    public Order(String orderId, String storeId, String userId, String receiverAddress, String receiverName, String receiverPhone, String receiverEmail, ArrayList<OrderItem> orderItem) {
+        this.orderId = orderId;
+        this.storeId = storeId;
+        this.userId = userId;
+        this.receiverAddress = receiverAddress;
+        this.receiverName = receiverName;
+        this.receiverPhone = receiverPhone;
+        this.receiverEmail = receiverEmail;
+        this.orderItem = orderItem;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
 
     public String getStoreId() {
         return storeId;
@@ -30,59 +51,57 @@ public class Order implements Serializable {
         this.userId = userId;
     }
 
-    public String getUserAddress() {
-        return userAddress;
+    public String getReceiverAddress() {
+        return receiverAddress;
     }
 
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
+    public void setReceiverAddress(String receiverAddress) {
+        this.receiverAddress = receiverAddress;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getReceiverName() {
+        return receiverName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
     }
 
-    public String getUserPhone() {
-        return userPhone;
+    public String getReceiverPhone() {
+        return receiverPhone;
     }
 
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
+    public void setReceiverPhone(String receiverPhone) {
+        this.receiverPhone = receiverPhone;
     }
 
-    public String getOrderDate() {
-        return orderDate;
+    public String getReceiverEmail() {
+        return receiverEmail;
     }
 
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
+    public void setReceiverEmail(String receiverEmail) {
+        this.receiverEmail = receiverEmail;
     }
 
-    public ArrayList<String> getOrderItem() {
+    public ArrayList<OrderItem> getOrderItem() {
         return orderItem;
     }
 
-    public void setOrderItem(ArrayList<String> orderItem) {
+    public void setOrderItem(ArrayList<OrderItem> orderItem) {
         this.orderItem = orderItem;
     }
 
-    public Integer getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Integer totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId='" + orderId + '\'' +
+                ", storeId='" + storeId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", receiverAddress='" + receiverAddress + '\'' +
+                ", receiverName='" + receiverName + '\'' +
+                ", receiverPhone='" + receiverPhone + '\'' +
+                ", receiverEmail='" + receiverEmail + '\'' +
+                ", orderItem=" + orderItem +
+                '}';
     }
 }
