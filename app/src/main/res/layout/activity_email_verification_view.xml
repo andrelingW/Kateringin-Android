@@ -9,9 +9,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="374dp"
-        android:layout_height="317dp"
-        android:layout_marginTop="110dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginBottom="325dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,11 +23,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cek email kamu!"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        android:textSize="30dp"
-        android:textStyle="bold"/>
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/textView6"
@@ -36,22 +37,23 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
         android:text="Kami sudah mengirimkan pesan verifikasi ke email kamu"
-        android:textSize="18dp"
+        android:textAppearance="@style/normalGrayText"
+        android:textSize="16sp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/backToLogin"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/custom_active_button"
         android:text="Back to Login Page"
-        android:textSize="16dp"
+        android:textAppearance="@style/activeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />

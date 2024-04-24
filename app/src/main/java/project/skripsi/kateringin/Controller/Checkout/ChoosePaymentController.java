@@ -1,15 +1,26 @@
 package project.skripsi.kateringin.Controller.Checkout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.common.reflect.TypeToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -42,6 +53,7 @@ import project.skripsi.kateringin.Controller.Helper.PaymentSuccessController;
 import project.skripsi.kateringin.Model.TransactionResponse;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Repository.TransactionStatusInterface;
+import project.skripsi.kateringin.Util.IdrFormat;
 import project.skripsi.kateringin.Util.SdkConfig;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,12 +65,12 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
     private static final String PREF_NAME = "CHECK_OUT_ITEM_PREF";
     private static final String KEY_MY_LIST = "CHECK_OUT_ITEM";
 
-    private ImageButton bcaVA, mandiriVA, bniVA, briVA, permataVA, cimbVA;
+    private ConstraintLayout bcaVA, mandiriVA, bniVA, briVA, permataVA, cimbVA;
 
     FirebaseFirestore database;
     FirebaseAuth mAuth;
     String name, phone, email, address;
-    int totalPrice;
+    int totalPrice, feeLayanan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +84,16 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
         email = (String) getIntent().getSerializableExtra("CUSTOMER_EMAIL");
         address = (String) getIntent().getSerializableExtra("CUSTOMER_ADDRESS");
         totalPrice = (int) getIntent().getSerializableExtra("TOTAL_PRICE");
-
+        feeLayanan = (int) getIntent().getSerializableExtra("FEE_LAYANAN");
         bindViews();
         initActionButtons();
         initMidtransSdk();
     }
 
     private void bindViews() {
+        Toolbar toolbar = findViewById(R.id.payment_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         bcaVA = findViewById(R.id.bca_va_method);
         mandiriVA = findViewById(R.id.mandiri_va_method);
         bniVA = findViewById(R.id.bni_va_method);
@@ -129,12 +144,26 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
         ArrayList<ItemDetails> itemDetailsList = new ArrayList<>();
 
         for (Cart item : listOfCartItems) {
-            ItemDetails itemDetails = new ItemDetails(item.getCartItemId(), (double) item.getPrice(), item.getQuantity(), "nasi goreng");
-            itemDetailsList.add(itemDetails);
+            DocumentReference menuDocRef = database.collection("menu").document(item.getMenuId());
+            menuDocRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String menuName = document.getString("menuName");
+                        ItemDetails itemDetails = new ItemDetails(item.getCartItemId(), (double) item.getPrice(), item.getQuantity(), menuName);
+                        itemDetailsList.add(itemDetails);
+                    } else {
+                        System.out.println("No such document");
+                    }
+                } else {
+                    Exception e = task.getException();
+                    if (e != null) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
 
-        ItemDetails itemDetails = new ItemDetails("fee-" + System.currentTimeMillis(), 15000.0, 1, "FEE_LAYANAN");
-        itemDetailsList.add(itemDetails);
 
         transactionRequestNew.setItemDetails(itemDetailsList);
         return transactionRequestNew;
@@ -150,6 +179,16 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
         mCustomerDetails.setBillingAddress(billingAddress);
 
         return mCustomerDetails;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initMidtransSdk() {
@@ -261,7 +300,8 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
                     item.getPrice(),
                     item.getQuantity(),
                     item.getTimeRange(),
-                    item.getDate()
+                    item.getDate(),
+                    item.getNote()
             );
             orderMap.get(storeId).add(temp);
 //            orderMap.get(storeId).add(item);
@@ -327,8 +367,7 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
     public static void clearSharedPreferences(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
+        editor.clear().apply();
     }
 
 }

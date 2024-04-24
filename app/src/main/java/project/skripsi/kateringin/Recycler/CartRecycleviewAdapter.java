@@ -2,6 +2,8 @@ package project.skripsi.kateringin.Recycler;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -14,8 +16,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -36,6 +45,7 @@ import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.RecyclerviewItem.CartItem;
 import project.skripsi.kateringin.RecyclerviewItem.FoodItem;
+import project.skripsi.kateringin.Util.IdrFormat;
 
 public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleviewAdapter.ViewHolder> {
     private OnDeleteItemClickListener onDeleteItemClickListener;
@@ -43,9 +53,12 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
     private ArrayList<Cart> cartItems;
     private OnClickListener onClickListener;
     private CartFragment fragment;
+    private Context context;
 
     //TEST
     private Menu menu;
+    String menuName, storeName, menuPhotoUrl;
+    long menuPrice;
     private Store store;
     private FirebaseFirestore database;
     private FirebaseAuth mAuth;
@@ -55,9 +68,10 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
     }
 
 
-    public CartRecycleviewAdapter(ArrayList<Cart> cartItems, CartFragment cartFragment) {
+    public CartRecycleviewAdapter(ArrayList<Cart> cartItems, CartFragment cartFragment, Context context) {
         this.cartItems = cartItems;
         this.fragment = cartFragment;
+        this.context = context;
     }
 
     @NonNull
@@ -75,12 +89,67 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         final Cart cartItem = cartItems.get(position);
-//        getStoreData(cartItem.getStoreId());
-//        getMenuData(cartItem.getMenuId());
 
-        holder.foodName.setText("menu.getMenuName()");
-        holder.foodPrice.setText("String.valueOf(menu.getMenuPrice())");
-        holder.storeName.setText("store.getStoreName()");
+        DocumentReference docRef = database.collection("store").document(cartItem.getStoreId());
+
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    storeName = document.getString("storeName");
+                    holder.storeName.setText(storeName);
+                } else {
+                    System.out.println("No such document");
+                }
+            } else {
+                Exception e = task.getException();
+                if (e != null) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+        DocumentReference menuDocRef = database.collection("menu").document(cartItem.getMenuId());
+        menuDocRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    menuName = document.getString("menuName");
+                    menuPrice = document.getLong("menuPrice");
+                    menuPhotoUrl = document.getString("menuPhotoUrl");
+                    holder.foodName.setText(menuName);
+                    holder.foodPrice.setText(IdrFormat.format(menuPrice));
+
+
+                    Glide.with(context)
+                            .load(menuPhotoUrl)
+                            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                            .apply(RequestOptions.skipMemoryCacheOf(true))
+                            .into(new CustomTarget<Drawable>() {
+                                @Override
+                                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                    holder.foodImage.setImageDrawable(resource);
+                                }
+
+                                @Override
+                                public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                                }
+                            });
+                } else {
+                    System.out.println("No such document");
+                }
+            } else {
+                Exception e = task.getException();
+                if (e != null) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+
         holder.quantity.setText(String.valueOf(cartItem.getQuantity()));
         holder.time.setText(cartItem.getTimeRange());
         holder.date.setText(cartItem.getDate());
@@ -162,12 +231,14 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
 
         TextView foodName, foodPrice, storeName, date, time;
         ImageButton plus, mines, delete;
+        ImageView foodImage;
 
         EditText quantity;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             foodName = itemView.findViewById(R.id.cart_item_foodName);
+            foodImage = itemView.findViewById(R.id.cart_item_image);
             foodPrice = itemView.findViewById(R.id.cart_item_foodPrice);
             storeName = itemView.findViewById(R.id.cart_item_storeName);
             quantity = itemView.findViewById(R.id.cart_item_foodQuantity);
@@ -219,49 +290,46 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
         docRef.update(updates);
     }
 
-    public void getStoreData(String storeId){
+//    public void getStoreData(String storeId){
+//
+//        DocumentReference docRef = database.collection("store").document(storeId);
+//
+//        docRef.get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                DocumentSnapshot document = task.getResult();
+//                if (document.exists()) {
+//                    storeName = document.getString("storeName");
+//                } else {
+//                    System.out.println("No such document");
+//                }
+//            } else {
+//                Exception e = task.getException();
+//                if (e != null) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
 
-        store = new Store();
-
-        DocumentReference docRef = database.collection("store").document(storeId);
-
-        docRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (document.exists()) {
-                    store.setStoreName(document.getString("storeName"));
-                } else {
-                    System.out.println("No such document");
-                }
-            } else {
-                Exception e = task.getException();
-                if (e != null) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    public void getMenuData(String menuId){
-        menu = new Menu();
-
-        DocumentReference docRef = database.collection("menu").document(menuId);
-
-        docRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (document.exists()) {
-                    menu.setMenuName(document.getString("menuName"));
-                    menu.setMenuPrice(Integer.parseInt(document.getString("menuPrice")));
-                } else {
-                    System.out.println("No such document");
-                }
-            } else {
-                Exception e = task.getException();
-                if (e != null) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+//    public void getMenuData(String menuId){
+//
+//        DocumentReference docRef = database.collection("menu").document(menuId);
+//
+//        docRef.get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                DocumentSnapshot document = task.getResult();
+//                if (document.exists()) {
+//                    menuName = document.getString("menuName");
+//                    menuPrice = document.getLong("menuPrice").intValue();
+//                } else {
+//                    System.out.println("No such document");
+//                }
+//            } else {
+//                Exception e = task.getException();
+//                if (e != null) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
 }

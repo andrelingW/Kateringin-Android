@@ -1,5 +1,7 @@
 package project.skripsi.kateringin.Controller.User;
 
+import static project.skripsi.kateringin.Util.LoadingUtil.animateView;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -8,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +20,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,7 +34,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.canhub.cropper.CropImageContract;
 import com.canhub.cropper.CropImageContractOptions;
 import com.canhub.cropper.CropImageOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,6 +54,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import project.skripsi.kateringin.Controller.Authentication.EmailVerificationController;
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Util.LoadingDialog;
@@ -65,6 +72,9 @@ public class EditUserController extends AppCompatActivity {
     RadioButton male, female;
     RadioGroup radioGroup;
     Button save, cancel, changeImage, dobButton;
+    View progressOverlay;
+
+    Bitmap cropped;
 
     //Field
     String docId;
@@ -84,6 +94,7 @@ public class EditUserController extends AppCompatActivity {
         prefsEditor.putString("userObject", gson.toJson(user));
         prefsEditor.commit();
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +122,8 @@ public class EditUserController extends AppCompatActivity {
         changeImage = findViewById(R.id.edit_profile_change_button);
         dobButton = findViewById(R.id.edit_profile_dob_button);
         radioGroup = findViewById(R.id.editProfile_radioGroup);
-
-        final LoadingDialog loadingDialog = new LoadingDialog(EditUserController.this);
+        progressOverlay = findViewById(R.id.progress_overlay);
+        progressOverlay.bringToFront();
         setField();
 
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -126,18 +137,8 @@ public class EditUserController extends AppCompatActivity {
         });
 
         save.setOnClickListener(v ->{
-//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
             updateProfile(getUserDataFromStorage());
-            loadingDialog.startLoading();
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    loadingDialog.dismissDialog();
-                    finish();
-                    // this code will be executed after 2 seconds
-                }
-            }, 5000);
-
         });
 
         cancel.setOnClickListener(v ->{
@@ -186,8 +187,10 @@ public class EditUserController extends AppCompatActivity {
     // Set image profile after cropping
     ActivityResultLauncher<CropImageContractOptions> cropImage = registerForActivityResult(new CropImageContract(), result -> {
         if (result.isSuccessful()) {
-            Bitmap cropped = BitmapFactory.decodeFile(result.getUriFilePath(getApplicationContext(), true));
+            cropped = BitmapFactory.decodeFile(result.getUriFilePath(getApplicationContext(), true));
             profileImage.setImageBitmap(cropped);
+        } else{
+            Log.d("TAG", ": "+ result);
         }
     });
 
@@ -264,31 +267,29 @@ public class EditUserController extends AppCompatActivity {
         uploadTask.addOnFailureListener(exception -> {
             Log.e("ERROR", "uploading image failure");
         }).addOnSuccessListener(taskSnapshot -> {
-            taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Log.i("testing", uri.toString());
-                    user.setProfileImageUrl(uri.toString());
+            taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
+                user.setProfileImageUrl(uri.toString());
+                // Update to database
+                database.collection("user")
+                        .document(docId)
+                        .update("profileImage",uri.toString()).addOnCompleteListener(task -> {
+                            updateUserDataToStorage(user);
 
-                    // Update to database
-                    database.collection("users")
-                            .document(docId)
-                            .update("profileImage",uri.toString());
-                }
+                            Map<String, Object> map= new HashMap<>();
+                            map.put("name", user.getName());
+                            map.put("phone", user.getPhoneNumber());
+                            map.put("gender", user.getGender());
+                            map.put("DOB", user.getBOD());
+                            map.put("profileImage", user.getProfileImageUrl());
+
+                            database.collection("user")
+                                    .document(docId)
+                                    .update(map).addOnCompleteListener(task1 -> {
+                                        animateView(progressOverlay, View.GONE, 0, 200);
+                                        finish();
+                                    });
+                        });
             });
         });
-        updateUserDataToStorage(user);
-
-        Map<String, Object> map= new HashMap<>();
-        map.put("name", user.getName());
-        map.put("phone", user.getPhoneNumber());
-        map.put("gender", user.getGender());
-        map.put("DOB", user.getBOD());
-        map.put("profileImage", user.getProfileImageUrl());
-
-        // Update to database
-        database.collection("users")
-                .document(docId)
-                .update(map);
     }
 }

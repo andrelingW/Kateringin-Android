@@ -4,8 +4,10 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -30,27 +33,35 @@ import project.skripsi.kateringin.Model.Cart;
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.CheckOutRecyclerviewAdapter;
+import project.skripsi.kateringin.Util.IdrFormat;
 
 public class CheckOutController extends AppCompatActivity {
     private static final String PREF_NAME = "CHECK_OUT_ITEM_PREF";
     private static final String KEY_MY_LIST = "CHECK_OUT_ITEM";
 
     ImageButton contactEdit, locEdit;
-    TextView contactNameTV, contactPhoneTV, addressTV, subTotalTV, feeTV, totalPriceTV;
+    TextView contactNameTV, contactPhoneTV, addressTV, subTotalTV, feeTV, totalPriceTV, miniTotalPriceTV;
     AppCompatButton checkout;
     RecyclerView recyclerView;
-    EditText test;
 
     FirebaseFirestore database;
     FirebaseAuth mAuth;
 
     ArrayList<Cart> cartItems = new ArrayList<>();
+    ArrayList<Cart> sharedPreference = new ArrayList<>();
+
     CheckOutRecyclerviewAdapter checkOutRecyclerviewAdapter;
+
+    int subTotalPrice, feeLayanan, totalPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_out_view);
+        Toolbar toolbar = findViewById(R.id.checkout_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
 
@@ -71,6 +82,7 @@ public class CheckOutController extends AppCompatActivity {
         subTotalTV = findViewById(R.id.checkout_subtotal_tv);
         feeTV = findViewById(R.id.checkout_fee_tv);
         totalPriceTV = findViewById(R.id.checkout_total_price_tv);
+        miniTotalPriceTV = findViewById(R.id.checkout_total_fee_tv);
     }
 
 
@@ -98,32 +110,15 @@ public class CheckOutController extends AppCompatActivity {
     }
 
     public void cartAdapter(ArrayList<Cart> cartItems){
-        checkOutRecyclerviewAdapter = new CheckOutRecyclerviewAdapter(cartItems,this);
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        checkOutRecyclerviewAdapter = new CheckOutRecyclerviewAdapter(cartItems,this, sharedPreferences);
         recyclerView.setAdapter(checkOutRecyclerviewAdapter);
         setTotalPrice(cartItems);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(cartItems);
-        prefsEditor.putString(KEY_MY_LIST, json).apply();
-        prefsEditor.commit();
-    }
-
-
-
-    public void buttonAction(){
-        contactEdit.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), CheckOutContactEditController.class);
-            someActivityResultLauncher.launch(intent);
-        });
-
-        locEdit.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), CheckOutLocationEditController.class);
-            someActivityResultLauncher.launch(intent);
-        });
-
         checkout.setOnClickListener(v ->{
+            if(checkOutRecyclerviewAdapter != null){
+                checkOutRecyclerviewAdapter.createSharedPreference();
+            }
             User user = getUserDataFromStorage();
 
             Intent intent = new Intent(getApplicationContext(), ChoosePaymentController.class);
@@ -132,18 +127,53 @@ public class CheckOutController extends AppCompatActivity {
             intent.putExtra("CUSTOMER_PHONE", contactPhoneTV.getText().toString());
             intent.putExtra("CUSTOMER_EMAIL", user.getEmail().toString());
             intent.putExtra("CUSTOMER_ADDRESS", addressTV.getText().toString());
-            intent.putExtra("TOTAL_PRICE", Integer.parseInt(totalPriceTV.getText().toString()));
+            intent.putExtra("TOTAL_PRICE", totalPrice);
+            intent.putExtra("FEE_LAYANAN", feeLayanan);
             startActivity(intent);
         });
 
     }
 
+
+
+    public void buttonAction(){
+        contactEdit.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), CheckOutContactEditController.class);
+            intent.putExtra("CONTACT_EDIT_NAME", contactNameTV.getText().toString());
+            intent.putExtra("CONTACT_EDIT_PHONE", contactPhoneTV.getText().toString());
+            someActivityResultLauncher.launch(intent);
+        });
+
+        locEdit.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), CheckOutLocationEditController.class);
+            intent.putExtra("LOCATION_EDIT", addressTV.getText().toString());
+            someActivityResultLauncher.launch(intent);
+        });
+
+//        checkout.setOnClickListener(v ->{
+//            User user = getUserDataFromStorage();
+//
+//            Intent intent = new Intent(getApplicationContext(), ChoosePaymentController.class);
+//
+//            intent.putExtra("CUSTOMER_NAME", contactNameTV.getText().toString());
+//            intent.putExtra("CUSTOMER_PHONE", contactPhoneTV.getText().toString());
+//            intent.putExtra("CUSTOMER_EMAIL", user.getEmail().toString());
+//            intent.putExtra("CUSTOMER_ADDRESS", addressTV.getText().toString());
+//            intent.putExtra("TOTAL_PRICE", totalPrice);
+//            intent.putExtra("FEE_LAYANAN", feeLayanan);
+//            startActivity(intent);
+//        });
+
+    }
+
     private void setTotalPrice(ArrayList<Cart> cartItems){
-        int subTotalPrice = calculateSubTotalPrice(cartItems);
-        int totalPrice = subTotalPrice + 15000;
-        subTotalTV.setText("Rp " + subTotalPrice);
-        feeTV.setText("Rp 15.000");
-        totalPriceTV.setText(String.valueOf(totalPrice));
+        subTotalPrice = calculateSubTotalPrice(cartItems);
+        feeLayanan = subTotalPrice / 100;
+        totalPrice = subTotalPrice + feeLayanan;
+        subTotalTV.setText(IdrFormat.format(subTotalPrice));
+        feeTV.setText(IdrFormat.format(feeLayanan));
+        totalPriceTV.setText(IdrFormat.format(totalPrice));
+        miniTotalPriceTV.setText(IdrFormat.format(totalPrice));
 
     }
 
@@ -194,7 +224,9 @@ public class CheckOutController extends AppCompatActivity {
 
     private void readCartData(FirestoreCallback firestoreCallback){
         CollectionReference collectionRef = database.collection("cartItem");
-        Query query = collectionRef.whereEqualTo("userId", mAuth.getCurrentUser().getUid());
+        Query query = collectionRef
+                .whereEqualTo("userId", mAuth.getCurrentUser().getUid())
+                .whereEqualTo("processed", false);
 
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -205,6 +237,7 @@ public class CheckOutController extends AppCompatActivity {
                     String menuId = document.getString("menuId");
                     String date = document.getString("date");
                     String timeRange = document.getString("timeRange");
+                    String note = document.getString("note");
                     int quantity = document.getLong("quantity").intValue();
                     int price = document.getLong("price").intValue();
                     boolean process = document.getBoolean("processed");
@@ -216,6 +249,7 @@ public class CheckOutController extends AppCompatActivity {
                             mAuth.getCurrentUser().getUid(),
                             date,
                             timeRange,
+                            note,
                             quantity,
                             price,
                             process
@@ -232,6 +266,16 @@ public class CheckOutController extends AppCompatActivity {
     }
     private interface FirestoreCallback{
         void onCallback(ArrayList<Cart> list);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -30,7 +30,7 @@ public class RegisterController extends AppCompatActivity {
     Button nextButton, dateButton;
     RadioButton male,female;
     RadioGroup radioGroup;
-    TextView nameAlert, phoneAlert, dateAlert, genderAlert, dateTxt;
+    TextView nameAlert, phoneAlert, dateAlert, genderAlert, dateTxt, redirect;
 
     //Field
     String name,phoneNumber,gender;
@@ -79,6 +79,7 @@ public class RegisterController extends AppCompatActivity {
         female = findViewById(R.id.radioButtonFemale);
         dateTxt = findViewById(R.id.dateEditField);
         radioGroup = findViewById(R.id.register_radioGroup);
+        redirect = findViewById(R.id.loginRedirect);
 
         //Button
         nextButton = findViewById(R.id.nextButton);
@@ -95,7 +96,11 @@ public class RegisterController extends AppCompatActivity {
 
         });
 
-
+        redirect.setOnClickListener(v ->{
+            Intent intent = new Intent(this, LoginController.class);
+            startActivity(intent);
+            finish();
+        });
 
         dateButton.setOnClickListener(v -> {
             MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
@@ -160,7 +165,7 @@ public class RegisterController extends AppCompatActivity {
             phoneAlert.setVisibility(View.GONE);
             phoneNumberTxt.setBackgroundResource(R.drawable.custom_normal_edit_text);
         }
-        if(DOB == null && user.getBOD() == null){
+        if(DOB == null){
             dateAlert.setVisibility(View.VISIBLE);
             dateTxt.setBackgroundResource(R.drawable.custom_alert_edit_text);
             status = false;

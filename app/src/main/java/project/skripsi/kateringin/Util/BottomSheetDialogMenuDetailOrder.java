@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import project.skripsi.kateringin.Model.newMenu;
 import project.skripsi.kateringin.R;
 
 public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment {
@@ -45,7 +46,7 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
     RadioGroup time;
     ImageButton plus, mines;
     String quantityText;
-    String timeRange;
+    String timeRange, date;
     Integer quantityCounter = 0;
     AppCompatButton addToCart;
     FirebaseAuth mAuth;
@@ -62,6 +63,13 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
         mListener = listener;
     }
 
+    public static BottomSheetDialogMenuDetailOrder newInstance(newMenu menu) {
+        BottomSheetDialogMenuDetailOrder fragment = new BottomSheetDialogMenuDetailOrder();
+        Bundle args = new Bundle();
+        args.putSerializable("myObject", menu); // You can use Parcelable or other serialization methods
+        fragment.setArguments(args);
+        return fragment;
+    }
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -104,7 +112,6 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
 //            }
 //            dismiss();
 //        });
-
         return view;
     }
 
@@ -121,6 +128,8 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
         plus = view.findViewById(R.id.bottomSheetMenuDetailPlus);
         mines = view.findViewById(R.id.bottomSheetMenuDetailMines);
         addToCart = view.findViewById(R.id.addToCart);
+
+        newMenu menu = (newMenu) getArguments().getSerializable("myObject");
 
         time.setOnCheckedChangeListener((group, checkId) -> {
             RadioButton radioButton = view.findViewById(checkId);
@@ -164,7 +173,7 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
             materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
                 @Override
                 public void onPositiveButtonClick(Long selection) {
-                    String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date(selection));
+                    date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date(selection));
                     calendar.setText(date);
                 }
             });
@@ -175,13 +184,13 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
             if (mListener != null) {
 
                 Map<String, Object> newCart = new HashMap<>();
-                newCart.put("cartItemId", "haaha");
-                newCart.put("menuId", "M0001" );
-                newCart.put("storeId", "M0003" );
+                newCart.put("menuId", menu.getMenuId() );
+                newCart.put("storeId", menu.getStoreId() );
                 newCart.put("userId", mAuth.getCurrentUser().getUid());
-                newCart.put("date", "asdasdasd");
+                newCart.put("date", date);
                 newCart.put("timeRange", timeRange);
-                newCart.put("price", 15000);
+                newCart.put("price", menu.getMenuPrice());
+                newCart.put("note", null);
                 newCart.put("quantity", Integer.parseInt(quantity.getText().toString()));
                 newCart.put("processed", false);
 

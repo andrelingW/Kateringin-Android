@@ -7,27 +7,30 @@
     android:background="@color/white"
     tools:context=".Controller.Checkout.CheckOutController">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/edit_profile_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:minHeight="?attr/actionBarSize"
-            android:paddingStart="20dp"
-            android:paddingEnd="25dp"
-            android:theme="@style/CustomActionBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:title="Check Out"
-            app:titleTextAppearance="@color/blue" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/checkout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:background="@drawable/custom_bottom_border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/CustomActionBar"
+        app:title="Check Out"
+        app:titleTextAppearance="@style/navbarTitle" />
+
+
+
+
+
 
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="62dp"
-        android:paddingBottom="100dp">
+        app:layout_anchor="@id/checkout_toolbar"
+        android:layout_marginTop="63dp"
+        android:paddingBottom="90dp"
+       >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,6 +43,8 @@
 
                 <TextView
                     android:id="@+id/checkOuttv1"
+                    android:textAppearance="@style/componentBoldTitle"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -65,6 +70,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:textAppearance="@style/boldText"
+
                     android:text="TextView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/checkOutdiv1"
@@ -76,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
+                    android:textAppearance="@style/normalText"
                     android:layout_marginBottom="15dp"
                     android:text="TextView"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -103,6 +111,8 @@
 
                 <TextView
                     android:id="@+id/checkOuttv3"
+                    android:textAppearance="@style/componentBoldTitle"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -127,6 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="TextView"
+                    android:textAppearance="@style/normalText"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView8"
                     app:layout_constraintStart_toEndOf="@+id/imageView8"
                     app:layout_constraintTop_toTopOf="@+id/imageView8" />
@@ -165,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_normal_edit_text"
                 android:layout_margin="10dp"
-                android:layout_marginBottom="120dp">
+             >
 
                 <TextView
                     android:id="@+id/textView56"
@@ -173,6 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
+                    android:textAppearance="@style/componentBoldTitle"
                     android:text="Informasi Pembayaran"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -180,6 +192,7 @@
 
                 <TextView
                     android:id="@+id/textView67"
+                    android:textAppearance="@style/normalGrayText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -194,6 +207,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="8dp"
+                    android:textAppearance="@style/normalGrayText"
+
                     android:text="Fee layanan"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView67" />
@@ -204,6 +219,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:text="TextView"
+                    android:textAppearance="@style/normalGrayText"
+
                     app:layout_constraintBottom_toBottomOf="@+id/textView67"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textView67" />
@@ -213,7 +230,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="Rp 15000"
+                    android:text="Rp 15000,00"
+                    android:textAppearance="@style/normalGrayText"
+
                     app:layout_constraintBottom_toBottomOf="@+id/textView68"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textView68" />
@@ -236,6 +255,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
+                    android:textAppearance="@style/boldText"
                     android:layout_marginBottom="10dp"
                     android:text="Total Pembayaran"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -243,11 +263,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/divider19" />
 
                 <TextView
-                    android:id="@+id/textView72"
+                    android:id="@+id/checkout_total_fee_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:text="TextView"
+                    android:textAppearance="@style/normalText"
                     app:layout_constraintBottom_toBottomOf="@+id/textView71"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textView71" />
@@ -261,34 +282,33 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:layout_gravity="bottom"
-        android:background="@color/white">
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:background="@drawable/custom_top_border">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/checkout_order_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/custom_active_button"
             android:paddingStart="39dp"
             android:paddingEnd="39dp"
-            android:layout_marginEnd="20dp"
-            android:textColor="@color/white"
-            android:background="@drawable/custom_active_button"
             android:text="Order"
+            android:textAppearance="@style/activeButton"
             app:layout_constraintBottom_toBottomOf="@+id/checkout_total_price_tv"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/checkout_total_price_tv"
             app:layout_constraintTop_toTopOf="@+id/textView63" />
 
         <TextView
             android:id="@+id/textView63"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="15dp"
             android:text="Total"
-            android:textSize="16dp"
+            android:textAppearance="@style/normalGrayText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -296,15 +316,11 @@
             android:id="@+id/checkout_total_price_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="15dp"
             android:text="Rp 15.000"
             android:textColor="@color/blue"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/checkout_order_button"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView63" />

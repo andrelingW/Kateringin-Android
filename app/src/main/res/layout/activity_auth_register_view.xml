@@ -9,53 +9,25 @@
 
     <CheckBox
         android:id="@+id/tncCheckbox"
-        android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
         android:layout_alignParentStart="true"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="40dp"
-        android:text="Dengan ini anda telah menyetujui syarat dan ketentuan yang sudah berlaku"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="35dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etPasswordLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:passwordToggleEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_normal_edit_text"
-            android:inputType="textPassword"
-            android:paddingLeft="15dp"
-            android:paddingTop="12dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="12dp"
-            android:textSize="14dp" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="28dp"
         android:text="Password"
-        android:textSize="16dp"
-        android:textStyle="bold"
+        android:textAppearance="@style/componentBoldTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
@@ -67,10 +39,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="35dp"
         android:text="Cari makanan bergizi dan praktis bersama kami!"
-        android:textSize="16dp"
+        android:textAppearance="@style/normalGrayText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -98,8 +70,7 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="20dp"
         android:text="Email"
-        android:textSize="16dp"
-        android:textStyle="bold"
+        android:textAppearance="@style/componentBoldTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -119,9 +90,9 @@
         android:hint="example@gmail.com"
         android:inputType="textEmailAddress"
         android:paddingLeft="15dp"
-        android:paddingTop="10dp"
+        android:paddingTop="15dp"
         android:paddingRight="10dp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="15dp"
         android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,6 +109,7 @@
         android:text="*Invalid email"
         android:textColor="@color/red"
         android:visibility="gone"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
@@ -151,14 +123,29 @@
         android:text="*Invalid password"
         android:textColor="@color/red"
         android:visibility="gone"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPasswordLayout" />
 
+    <TextView
+        android:id="@+id/confirm_password_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="5dp"
+        android:text="*Password not match"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordLayout2" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout7"
-        android:layout_width="354dp"
-        android:layout_height="59dp"
-        android:layout_marginBottom="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -166,35 +153,121 @@
         <Button
             android:id="@+id/backButton"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="138dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="5dp"
             android:text="Back"
-            android:textColor="@color/red"
+            android:textAllCaps="false"
+            android:textColor="@color/light_black"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/registerButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:strokeColor="#713636" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/registerButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="5dp"
+            android:background="@drawable/custom_active_button"
             android:text="Register"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAppearance="@style/activeButton"
+            app:layout_constraintBottom_toBottomOf="@+id/backButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/backButton" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+
+            app:layout_constraintStart_toEndOf="@+id/backButton"
+            app:layout_constraintTop_toTopOf="@+id/backButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    \
+    <TextView
+        android:id="@+id/textView40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="85dp"
+        android:text="Confirm Password"
+        android:textAppearance="@style/componentBoldTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:ignore="NotSibling" />
 
+    <TextView
+        android:id="@+id/textView57"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="35dp"
+        android:text="Saya telah membaca dan menyetujui"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tncCheckbox"
+        app:layout_constraintTop_toTopOf="@+id/tncCheckbox" />
+
+    <TextView
+        android:id="@+id/auth_register_tnc_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="syarat dan ketentuan"
+        android:textColor="@color/blue"
+        app:layout_constraintStart_toEndOf="@+id/tncCheckbox"
+        app:layout_constraintTop_toBottomOf="@+id/textView57" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etPasswordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/auth_register_password_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_normal_edit_text"
+            android:inputType="textPassword"
+            android:paddingLeft="15dp"
+            android:textSize="14dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etPasswordLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView40"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/auth_register_confirm_password_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_normal_edit_text"
+            android:inputType="textPassword"
+            android:paddingLeft="15dp"
+            android:textSize="14dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/include_progress_overlay"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

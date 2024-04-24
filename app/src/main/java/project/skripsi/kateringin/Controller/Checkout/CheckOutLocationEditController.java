@@ -17,15 +17,24 @@ public class CheckOutLocationEditController extends AppCompatActivity {
     AppCompatButton save;
     EditText addressET;
     Toolbar toolbar;
+    String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_out_location_edit_controller);
+
+        address = getIntent().getStringExtra("LOCATION_EDIT");
+
         bindView();
+        setField();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         buttonAction();
+    }
+
+    public void setField(){
+        addressET.setText(address);
     }
 
     public void bindView(){

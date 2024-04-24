@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_marginRight="20dp"
     android:layout_marginLeft="20dp"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
     app:cardCornerRadius="15dp"
     android:background="@drawable/custom_card_outline"
     android:layout_height="wrap_content">
@@ -21,41 +22,42 @@
             android:layout_height="85dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-
+            android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/RoundedSquare"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            app:srcCompat="@drawable/menu_placeholder" />
 
         <TextView
             android:id="@+id/cart_item_foodName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="Nasi Goreng Cakalang"
-            android:textSize="16dp"
+            android:text="-"
+            android:textAppearance="@style/boldText"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/cart_item_image"
             app:layout_constraintTop_toTopOf="@+id/cart_item_image" />
 
         <TextView
             android:id="@+id/cart_item_storeName"
             android:layout_width="wrap_content"
+            android:textAppearance="@style/normalGrayText"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="Warung Mbak Riska"
-            app:layout_constraintBottom_toTopOf="@+id/cart_item_foodPrice"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:text="-"
             app:layout_constraintStart_toEndOf="@+id/cart_item_image"
-            app:layout_constraintTop_toBottomOf="@+id/cart_item_foodName"
-            app:layout_constraintVertical_bias="0.454" />
+            app:layout_constraintTop_toBottomOf="@+id/cart_item_foodName" />
 
         <TextView
             android:id="@+id/cart_item_foodPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="Rp 15.000,00"
-            android:textSize="16dp"
-            android:textStyle="bold"
+            android:text="Rp 0,00"
+            android:textSize="15sp"
+            android:textAppearance="@style/normalPriceText"
             app:layout_constraintBottom_toBottomOf="@+id/cart_item_image"
             app:layout_constraintStart_toEndOf="@+id/cart_item_image" />
 
@@ -113,6 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:textAppearance="@style/normalGrayText"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:text="Date"
@@ -136,6 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:textAppearance="@style/normalGrayText"
             android:text="Time"
             app:layout_constraintEnd_toStartOf="@+id/cart_item_time_tv"
             app:layout_constraintTop_toBottomOf="@+id/divider17" />

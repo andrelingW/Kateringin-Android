@@ -27,6 +27,7 @@ import project.skripsi.kateringin.Controller.Checkout.CheckOutController;
 import project.skripsi.kateringin.Model.Cart;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.CartRecycleviewAdapter;
+import project.skripsi.kateringin.Util.IdrFormat;
 
 public class CartFragment extends Fragment {
     ArrayList<Cart> cartItems = new ArrayList<>();
@@ -69,7 +70,7 @@ public class CartFragment extends Fragment {
     }
 
     public void cartAdapter(ArrayList<Cart> cartItems){
-        cartRecycleviewAdapter = new CartRecycleviewAdapter(cartItems,this);
+        cartRecycleviewAdapter = new CartRecycleviewAdapter(cartItems,this, getContext());
         recyclerView.setAdapter(cartRecycleviewAdapter);
 
         cartRecycleviewAdapter.setOnDeleteItemClickListener(position -> {
@@ -89,7 +90,7 @@ public class CartFragment extends Fragment {
 
     public void updateTotalPrice(ArrayList<Cart> cartItems) {
         int totalPrice = calculateTotalPrice(cartItems);
-        totalPriceTV.setText("Rp " + totalPrice);
+        totalPriceTV.setText(IdrFormat.format(totalPrice));
     }
 
     private int calculateTotalPrice(ArrayList<Cart> cartItems) {
@@ -127,6 +128,7 @@ public class CartFragment extends Fragment {
                             mAuth.getCurrentUser().getUid(),
                             date,
                             timeRange,
+                            null,
                             quantity,
                             price,
                             process

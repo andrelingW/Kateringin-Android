@@ -21,25 +21,25 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="Total"
-            android:textSize="14dp"
-            android:textStyle="bold"
+            android:text="Total Payment"
+            android:textSize="14sp"
+            android:textAppearance="@style/normalGrayText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cart_checkout_button"
-            android:layout_width="wrap_content"
-            android:background="@drawable/custom_active_button"
-            android:textColor="@color/white"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
             android:layout_marginEnd="20dp"
+            android:background="@drawable/custom_active_button"
             android:text="Order"
+            android:textAppearance="@style/activeButton"
             app:layout_constraintBottom_toBottomOf="@+id/cart_total_price"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/cart_total_price"
-            app:layout_constraintTop_toTopOf="@+id/cart_total_price" />
+            app:layout_constraintStart_toEndOf="@+id/textView53"
+            app:layout_constraintTop_toTopOf="@+id/textView53" />
 
         <TextView
             android:id="@+id/cart_total_price"
@@ -48,12 +48,11 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="20dp"
-            android:text="Rp 15.000,00"
-            android:textSize="20dp"
+            android:text="Rp 0,00"
+            android:textAppearance="@style/normalPriceText"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cart_checkout_button"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView53" />
@@ -75,7 +74,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="Cart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/navbarTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,7 +92,7 @@
         android:id="@+id/cartRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingBottom="30dp"
+
         app:layout_constraintBottom_toTopOf="@+id/divider15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

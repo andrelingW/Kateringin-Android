@@ -42,6 +42,33 @@ public class UserFragment extends Fragment {
     ImageView profileImage;
 
     @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+
+
+        String json = sharedPreferences.getString("userObject", "");
+        User user = gson.fromJson(json, User.class);
+        if(user.getProfileImageUrl() == null){
+            Glide.with(this)
+                    .load(R.drawable.default_image_profile)
+                    .into(profileImage);
+        }else{
+            RequestBuilder<Drawable> requestBuilder= Glide.with(profileImage.getContext())
+                    .asDrawable().sizeMultiplier(0.1f);
+
+            Glide.with(this)
+                    .load(user.getProfileImageUrl())
+                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                    .thumbnail(requestBuilder)
+                    .placeholder(R.drawable.default_image_profile)
+                    .apply(RequestOptions.skipMemoryCacheOf(true))
+                    .into(profileImage);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_user, container, false);

@@ -22,17 +22,27 @@ public class CheckOutContactEditController extends AppCompatActivity {
     AppCompatButton save;
     EditText nameET, phoneET;
     Toolbar toolbar;
+    String name,phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_out_contact_edit_view);
         toolbar = findViewById(R.id.checkout_contact_edit_toolbar);
-        bindView();
 
+        name = getIntent().getStringExtra("CONTACT_EDIT_NAME");
+        phone = getIntent().getStringExtra("CONTACT_EDIT_PHONE");
+
+        bindView();
+        setField();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         buttonAction();
+    }
+
+    public void setField(){
+        nameET.setText(name);
+        phoneET.setText(phone);
     }
 
     public void bindView(){

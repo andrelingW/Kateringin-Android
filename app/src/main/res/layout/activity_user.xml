@@ -25,8 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginTop="30dp"
-        android:textSize="16dp"
-        android:textStyle="bold"
+        android:textAppearance="@style/componentBoldTitle"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_info_imagePicture" />
@@ -37,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginTop="10dp"
-        android:textSize="14dp"
+        android:textAppearance="@style/normalText"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -48,8 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:textSize="16dp"
+        android:textAppearance="@style/componentBoldTitle"
         android:text="Phone Number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_info_name" />
@@ -60,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginTop="10dp"
+        android:textAppearance="@style/normalText"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -70,9 +69,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginTop="20dp"
-        android:textStyle="bold"
+        android:textAppearance="@style/componentBoldTitle"
         android:text="Date of Birth"
-        android:textSize="16dp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_info_phoneNumber" />
 
@@ -82,6 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginTop="10dp"
+        android:textAppearance="@style/normalText"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
@@ -92,6 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginTop="10dp"
+        android:textAppearance="@style/normalText"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
@@ -101,10 +102,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:textStyle="bold"
+        android:textAppearance="@style/componentBoldTitle"
         android:layout_marginTop="20dp"
         android:text="Gender"
-        android:textSize="16dp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_info_dob" />
 
@@ -114,8 +115,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:textSize="16dp"
+       android:textAppearance="@style/componentBoldTitle"
         android:text="User ID"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider6" />
@@ -126,6 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginTop="10dp"
+        android:textAppearance="@style/normalText"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
@@ -137,8 +138,7 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="20dp"
         android:text="Email"
-        android:textSize="16dp"
-        android:textStyle="bold"
+        android:textAppearance="@style/componentBoldTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_info_user_id" />
 
@@ -148,25 +148,25 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginTop="10dp"
+        android:textAppearance="@style/normalText"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/profile_toolbar"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+
         android:minHeight="?attr/actionBarSize"
-        android:paddingStart="20dp"
-        android:paddingEnd="25dp"
         android:theme="@style/CustomActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Profile Information"
-        app:titleTextAppearance="@color/blue" />
+        app:titleTextAppearance="@style/navbarTitle" />
 
     <View
         android:id="@+id/divider5"
@@ -180,9 +180,9 @@
     <View
         android:id="@+id/divider6"
         android:layout_width="409dp"
-        android:layout_height="3dp"
-        android:layout_marginTop="40dp"
-        android:background="@color/gray"
+        android:layout_height="2dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/light_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

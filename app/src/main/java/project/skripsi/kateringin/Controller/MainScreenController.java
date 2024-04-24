@@ -31,7 +31,21 @@ public class MainScreenController extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_nav_bar);
         frameLayout = findViewById(R.id.frame_layout);
 
-        loadFragement(new ExploreFragment(), true);
+        int fragmentId = getIntent().getIntExtra("fragmentId", -1);
+        int menuItemId = getIntent().getIntExtra("menuItemId", -1);
+        if (fragmentId != -1 && menuItemId != -1) {
+            // Navigate to the specified fragment
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frame_layout, OrderFragment.newInstance())
+                    .commit();
+
+            // Set the selected menu item in the bottom navigation bar
+            BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_bar);
+            bottomNavigationView.setSelectedItemId(menuItemId);
+        } else{
+            loadFragement(new ExploreFragment(), true);
+        }
+
 
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

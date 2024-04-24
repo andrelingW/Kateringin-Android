@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:elevation="0dp"
+    android:layout_marginTop="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
-    android:layout_marginBottom="20dp"
+    android:layout_marginBottom="10dp"
     app:cardCornerRadius="15dp"
     android:background="@drawable/custom_card_outline"
     android:layout_height="wrap_content">
@@ -18,23 +19,24 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/checkout_item_menu_image"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
+            android:layout_width="95dp"
+            android:layout_height="100dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
+            android:scaleType="centerCrop"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/RoundedSquare"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            app:srcCompat="@drawable/menu_placeholder" />
 
         <TextView
             android:id="@+id/checkout_item_menu_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@style/boldText"
             android:layout_marginStart="15dp"
-            android:text="Nasi Goreng Cakalang"
-            android:textSize="16dp"
+            android:text="-"
             app:layout_constraintStart_toEndOf="@+id/checkout_item_menu_image"
             app:layout_constraintTop_toTopOf="@+id/checkout_item_menu_image" />
 
@@ -42,9 +44,10 @@
             android:id="@+id/checkout_item_store_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="Warung Mbak Riska"
-            app:layout_constraintBottom_toTopOf="@+id/checkout_item_menu_price"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="2dp"
+            android:text="-"
+            android:textAppearance="@style/normalGrayText"
             app:layout_constraintStart_toEndOf="@+id/checkout_item_menu_image"
             app:layout_constraintTop_toBottomOf="@+id/checkout_item_menu_name" />
 
@@ -53,9 +56,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="Rp 15.000,00"
-            android:textSize="16dp"
-            android:textStyle="bold"
+            android:text="Rp 0,00"
+            android:textAppearance="@style/normalPriceText"
             app:layout_constraintBottom_toBottomOf="@+id/checkout_item_menu_image"
             app:layout_constraintStart_toEndOf="@+id/checkout_item_menu_image" />
 
@@ -63,10 +65,11 @@
             android:id="@+id/textView59"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:text="Date"
+            android:textAppearance="@style/normalGrayText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider17" />
@@ -76,7 +79,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="TextView"
+            android:textAppearance="@style/normalBlackText"
+            android:text="-"
             app:layout_constraintBottom_toBottomOf="@+id/textView59"
             app:layout_constraintStart_toEndOf="@+id/textView59"
             app:layout_constraintTop_toTopOf="@+id/textView59" />
@@ -87,6 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:textAppearance="@style/normalGrayText"
             android:text="Time"
             app:layout_constraintEnd_toStartOf="@+id/checkout_item_time"
             app:layout_constraintTop_toBottomOf="@+id/divider17" />
@@ -95,8 +100,9 @@
             android:id="@+id/checkout_item_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:text="11:00 - 12:00"
+            android:layout_marginEnd="15dp"
+            android:text="-"
+            android:textAppearance="@style/normalBlackText"
             app:layout_constraintBottom_toBottomOf="@+id/textView61"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView61" />
@@ -135,9 +141,10 @@
             android:id="@+id/textView74"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:text="Note"
+            android:textAppearance="@style/boldText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider18" />
 
@@ -145,18 +152,36 @@
             android:id="@+id/checkout_item_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:imeOptions="actionDone"
+            android:layout_marginEnd="15dp"
             android:background="@drawable/custom_normal_edit_text"
-            android:padding="10dp"
-            android:textSize="12dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="20dp"
             android:ems="10"
             android:inputType="text"
-            android:text="Name"
+            android:padding="13dp"
+            android:hint="Silahkan tinggalkan pesan"
+            android:textAppearance="@style/normalGrayText"
+            android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView74" />
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/custom_completed_detail_button"
+            android:gravity="center_vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="Termasuk Ongkir"
+            android:textColor="@color/green"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/checkout_item_menu_price"
+            app:layout_constraintStart_toEndOf="@+id/checkout_item_menu_image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

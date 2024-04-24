@@ -13,14 +13,12 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
-        android:paddingStart="20dp"
-        android:paddingEnd="25dp"
         android:theme="@style/CustomActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Syarat dan Ketentuan"
-        app:titleTextAppearance="@color/blue" />
+        app:titleTextAppearance="@style/navbarTitle" />
 
     <View
         android:id="@+id/divider10"

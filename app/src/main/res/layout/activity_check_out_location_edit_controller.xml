@@ -13,13 +13,12 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
-        android:paddingEnd="25dp"
         android:theme="@style/CustomActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Edit Alamat Pengiriman"
-        app:titleTextAppearance="@color/blue" />
+        app:titleTextAppearance="@style/navbarTitle" />
 
     <EditText
         android:id="@+id/checkout_location_address_et"
@@ -29,16 +28,16 @@
 
         android:layout_centerInParent="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/custom_normal_edit_text"
         android:ems="10"
-        android:hint="Name"
+        android:hint="Enter your address"
         android:inputType="text"
         android:paddingLeft="15dp"
-        android:paddingTop="10dp"
+        android:paddingTop="15dp"
         android:paddingRight="10dp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="15dp"
         android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,10 +48,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="20dp"
         android:text="Alamat pengiriman"
-        android:textSize="16dp"
-        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textAppearance="@style/componentBoldTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider20" />
 
@@ -66,9 +65,7 @@
 
         android:background="@drawable/custom_active_button"
         android:text="Save"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="14dp"
+        android:textAppearance="@style/activeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"

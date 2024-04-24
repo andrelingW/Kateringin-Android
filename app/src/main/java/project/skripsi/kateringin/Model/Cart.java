@@ -9,24 +9,33 @@ public class Cart implements Serializable {
     String userId;
     String date;
     String timeRange;
+    String note;
     int quantity;
     int price;
     boolean processed;
 
-    public Cart(String cartItemId, String menuId, String storeId, String userId, String date, String timeRange, int quantity, int price, boolean processed) {
+    public Cart(String cartItemId, String menuId, String storeId, String userId, String date, String timeRange, String note, int quantity, int price, boolean processed) {
         this.cartItemId = cartItemId;
         this.menuId = menuId;
         this.storeId = storeId;
         this.userId = userId;
         this.date = date;
         this.timeRange = timeRange;
+        this.note = note;
         this.quantity = quantity;
         this.price = price;
         this.processed = processed;
     }
 
-
     public Cart() {
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public String getCartItemId() {

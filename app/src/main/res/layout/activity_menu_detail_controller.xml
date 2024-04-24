@@ -21,18 +21,10 @@
             android:layout_height="match_parent"
             android:background="@color/white">
 
-            <TextView
-                android:id="@+id/textView40"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="1200dp"
-                android:text="TextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
 
             <TextView
-                android:id="@+id/textView39"
+                android:id="@+id/menu_detail_menu_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -44,7 +36,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                app:layout_constraintTop_toBottomOf="@+id/menu_detail_menu_image" />
 
             <View
                 android:id="@+id/divider11"
@@ -53,10 +45,10 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                app:layout_constraintTop_toBottomOf="@+id/menu_detail_menu_image" />
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/menu_detail_menu_image"
                 android:layout_width="wrap_content"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
@@ -69,11 +61,11 @@
                 android:id="@+id/imageView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
                 android:layout_marginEnd="20dp"
                 android:src="@drawable/start_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/menu_detail_menu_price"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView39" />
+                app:layout_constraintTop_toTopOf="@+id/menu_detail_menu_price" />
 
             <ImageButton
                 android:id="@+id/button"
@@ -89,7 +81,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView41"
+                android:id="@+id/menu_detail_menu_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -97,10 +89,10 @@
                 android:text="Rp 15.000,00"
                 android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView39" />
+                app:layout_constraintTop_toBottomOf="@+id/menu_detail_menu_name" />
 
             <TextView
-                android:id="@+id/textView42"
+                android:id="@+id/menu_detail_menu_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4,75"
@@ -126,7 +118,7 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView39" />
+                app:layout_constraintTop_toTopOf="@+id/menu_detail_menu_name" />
 
 <!--            <ImageButton-->
 <!--                android:id="@+id/imageButton2"-->
@@ -147,16 +139,14 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toStartOf="@+id/textView44"
-                app:layout_constraintHorizontal_bias="0.5"
+                android:src="@drawable/user_icon"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider12"
-                android:src="@drawable/user_icon"
                 app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
             <TextView
-                android:id="@+id/textView44"
+                android:id="@+id/menu_detail_store_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -168,7 +158,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageButton2" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button2"
+                android:id="@+id/menu_detail_store_redirect_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
@@ -204,7 +194,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/divider13" />
 
             <TextView
-                android:id="@+id/textView46"
+                android:id="@+id/menu_detail_menu_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -225,10 +215,10 @@
                 android:textStyle="bold"
                 android:text="Kalori"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView46" />
+                app:layout_constraintTop_toBottomOf="@+id/menu_detail_menu_description" />
 
             <TextView
-                android:id="@+id/textView48"
+                android:id="@+id/menu_detail_menu_calorie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -247,7 +237,7 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView48" />
+                app:layout_constraintTop_toBottomOf="@+id/menu_detail_menu_calorie" />
 
             <TextView
                 android:id="@+id/textView49"
@@ -273,10 +263,10 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/menu_detail_review_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView49" />
@@ -286,13 +276,15 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/menuDetailOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="40dp"
+        android:textAppearance="@style/activeButton"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/custom_active_button"
         android:text="Order"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

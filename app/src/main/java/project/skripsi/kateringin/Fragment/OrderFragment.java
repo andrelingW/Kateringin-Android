@@ -18,6 +18,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import project.skripsi.kateringin.Controller.Checkout.CheckOutController;
 import project.skripsi.kateringin.Controller.FoodResultController;
@@ -33,7 +34,6 @@ import project.skripsi.kateringin.Recycler.OrderRecycleviewAdapter;
 import project.skripsi.kateringin.RecyclerviewItem.FoodItem;
 
 public class OrderFragment extends Fragment {
-    public static final String NEXT_SCREEN = "DETAILS_SCREEN";
 
     RecyclerView recyclerView;
     OrderRecycleviewAdapter orderRecycleviewAdapter;
@@ -42,6 +42,14 @@ public class OrderFragment extends Fragment {
     FirebaseFirestore database;
     FirebaseAuth mAuth;
 
+    public static OrderFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        OrderFragment fragment = new OrderFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,7 +67,7 @@ public class OrderFragment extends Fragment {
     }
 
     public void orderAdapter(ArrayList<Order> cartItems){
-        orderRecycleviewAdapter = new OrderRecycleviewAdapter(orders,this, requireContext());
+        orderRecycleviewAdapter = new OrderRecycleviewAdapter(orders,this, getContext());
         recyclerView.setAdapter(orderRecycleviewAdapter);
 
     }
@@ -82,7 +90,22 @@ public class OrderFragment extends Fragment {
                     String receiverPhone = document.getString("receiverPhone");
                     String receiverAddress = document.getString("receiverAddress");
 
-                    ArrayList<OrderItem> orderItems = (ArrayList<OrderItem>) document.get("orderItems");
+                    ArrayList<Map<String, Object>> orderItemsList = (ArrayList<Map<String, Object>>) document.get("orderItems");
+
+                    ArrayList<OrderItem> listOfOrderItem = new ArrayList<>();
+                    for (Map<String, Object> item : orderItemsList) {
+                        OrderItem order = new OrderItem();
+
+                        order.setCartItemId((String) item.get("cartItemId"));
+                        order.setDate((String) item.get("date"));
+                        order.setNote((String) item.get("note"));
+                        order.setMenuId((String) item.get("menuId"));
+                        order.setPrice(((Long) item.get("price")).intValue());
+                        order.setQuantity(((Long) item.get("quantity")).intValue());
+                        order.setTimeRange((String) item.get("timeRange"));
+
+                        listOfOrderItem.add(order);
+                    }
 
                     orders.add(new Order(
                             orderId,
@@ -92,7 +115,7 @@ public class OrderFragment extends Fragment {
                             receiverName,
                             receiverPhone,
                             receiverEmail,
-                            orderItems
+                            listOfOrderItem
                     ));
                 }
                 firestoreCallback.onCallback(orders);

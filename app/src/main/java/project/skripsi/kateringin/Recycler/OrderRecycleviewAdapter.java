@@ -37,6 +37,7 @@ import project.skripsi.kateringin.Fragment.OrderFragment;
 import project.skripsi.kateringin.Model.Cart;
 import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.Model.Order;
+import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.R;
 
@@ -46,6 +47,9 @@ public class OrderRecycleviewAdapter extends RecyclerView.Adapter<OrderRecyclevi
     private OnClickListener onClickListener;
     private OrderFragment fragment;
     private Context context;
+    private FirebaseFirestore database;
+    private FirebaseAuth mAuth;
+
 
     public OrderRecycleviewAdapter(ArrayList<Order> orderItems, OrderFragment orderFragment, Context context) {
         this.orderItems = orderItems;
@@ -62,11 +66,31 @@ public class OrderRecycleviewAdapter extends RecyclerView.Adapter<OrderRecyclevi
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull OrderRecycleviewAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        database = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         final Order orderItem = orderItems.get(position);
 
-        holder.orderId.setText("Order No " + orderItem.getOrderId());
-        holder.storeName.setText("Warung Riska");
+        holder.orderId.setText("Order No #" + orderItem.getOrderId());
         holder.orderStatus.setText("Ongoing");
+
+        DocumentReference docRef = database.collection("store").document(orderItem.getStoreId());
+
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    String storeName = document.getString("storeName");
+                    holder.storeName.setText(storeName);
+                } else {
+                    System.out.println("No such document");
+                }
+            } else {
+                Exception e = task.getException();
+                if (e != null) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         holder.detailButton.setOnClickListener(v ->{
                 Intent intent = new Intent(context, OrderDetailController.class);

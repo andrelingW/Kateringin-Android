@@ -9,14 +9,27 @@ public class OrderItem implements Serializable {
     int quantity;
     String timeRange;
     String date;
+    String note;
 
-    public OrderItem(String cartItemId, String menuId, int price, int quantity, String timeRange, String date) {
+    public OrderItem() {
+    }
+
+    public OrderItem(String cartItemId, String menuId, int price, int quantity, String timeRange, String date, String note) {
         this.cartItemId = cartItemId;
         this.menuId = menuId;
         this.price = price;
         this.quantity = quantity;
         this.timeRange = timeRange;
         this.date = date;
+        this.note = note;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public String getCartItemId() {
