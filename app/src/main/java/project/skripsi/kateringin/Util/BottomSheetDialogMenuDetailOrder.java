@@ -1,13 +1,7 @@
 package project.skripsi.kateringin.Util;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +21,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -37,7 +30,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import project.skripsi.kateringin.Model.newMenu;
+import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
 
 public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment {
@@ -58,15 +51,14 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
 
     private BottomSheetListener mListener;
 
-    // This method will be called by the hosting Activity to set the listener
     public void setBottomSheetListener(BottomSheetListener listener) {
         mListener = listener;
     }
 
-    public static BottomSheetDialogMenuDetailOrder newInstance(newMenu menu) {
+    public static BottomSheetDialogMenuDetailOrder newInstance(Menu menu) {
         BottomSheetDialogMenuDetailOrder fragment = new BottomSheetDialogMenuDetailOrder();
         Bundle args = new Bundle();
-        args.putSerializable("myObject", menu); // You can use Parcelable or other serialization methods
+        args.putSerializable("myObject", menu);
         fragment.setArguments(args);
         return fragment;
     }
@@ -86,32 +78,6 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bottom_sheet_dialog_menu_detail_order, container, false);
-//        addToCart = view.findViewById(R.id.addToCart);
-//        mAuth = FirebaseAuth.getInstance();
-//        addToCart.setOnClickListener(v ->{
-//            if (mListener != null) {
-//                String menuId;
-//                String userId;
-//                String date;
-//                int timeRange;
-//                int quantity;
-//                boolean processed;
-//                Map<String, Object> newCart = new HashMap<>();
-//                newCart.put("menuId", "M0001" );
-//                newCart.put("userId", mAuth.getCurrentUser().getUid());
-//                newCart.put("date", user.getPhoneNumber());
-//                newCart.put("DOB", user.getBOD());
-//                newCart.put("gender",user.getGender());
-//                newCart.put("profileImage", null);
-//                newCart.put("email", email);
-//
-//                // Add a new document with a generated ID
-//                database.collection("users").document(mAuth.getCurrentUser().getUid().toString())
-//                        .set(newCart)
-//                mListener.addToCartSuccess();
-//            }
-//            dismiss();
-//        });
         return view;
     }
 
@@ -129,7 +95,7 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
         mines = view.findViewById(R.id.bottomSheetMenuDetailMines);
         addToCart = view.findViewById(R.id.addToCart);
 
-        newMenu menu = (newMenu) getArguments().getSerializable("myObject");
+        Menu menu = (Menu) getArguments().getSerializable("myObject");
 
         time.setOnCheckedChangeListener((group, checkId) -> {
             RadioButton radioButton = view.findViewById(checkId);

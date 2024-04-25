@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,9 +33,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.canhub.cropper.CropImageContract;
 import com.canhub.cropper.CropImageContractOptions;
 import com.canhub.cropper.CropImageOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -51,66 +47,43 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import project.skripsi.kateringin.Controller.Authentication.EmailVerificationController;
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Util.LoadingDialog;
 
 public class EditUserController extends AppCompatActivity {
 
-    // Firebase + Other Need
-    FirebaseFirestore database;
-    FirebaseAuth mAuth;
-    FirebaseStorage storage;
-
-    // View
+    //XML
     ImageView profileImage;
     EditText name,phonenumber,dob;
     RadioButton male, female;
     RadioGroup radioGroup;
     Button save, cancel, changeImage, dobButton;
     View progressOverlay;
-
     Bitmap cropped;
+    Toolbar toolbar;
+
 
     //Field
     String docId;
-
-    private User getUserDataFromStorage(){
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        User user = gson.fromJson(sharedPreferences.getString("userObject", ""), User.class);
-
-        return user;
-    }
-
-    private void updateUserDataToStorage(User user){
-        Gson gson = new Gson();
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
-        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
-        prefsEditor.putString("userObject", gson.toJson(user));
-        prefsEditor.commit();
-    }
-
+    FirebaseFirestore database;
+    FirebaseAuth mAuth;
+    FirebaseStorage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
-        Toolbar toolbar = findViewById(R.id.edit_profile_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setTitle("Edit Profile");
+        binding();
+        setField();
+        button();
+    }
 
+    private void binding(){
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        storage = FirebaseStorage.getInstance();
-
         docId = mAuth.getCurrentUser().getUid();
-
+        storage = FirebaseStorage.getInstance();
         profileImage = findViewById(R.id.edit_profile_info_imagePicture);
         name = findViewById(R.id.edit_profile_name_field);
         phonenumber = findViewById(R.id.edit_profile_phoneNumber_field);
@@ -123,9 +96,48 @@ public class EditUserController extends AppCompatActivity {
         dobButton = findViewById(R.id.edit_profile_dob_button);
         radioGroup = findViewById(R.id.editProfile_radioGroup);
         progressOverlay = findViewById(R.id.progress_overlay);
-        progressOverlay.bringToFront();
-        setField();
+        toolbar = findViewById(R.id.edit_profile_toolbar);
+    }
 
+    private void setField(){
+        progressOverlay.bringToFront();
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setTitle("Edit Profile");
+
+        User user = getUserDataFromStorage();
+
+        name.setText(user.getName());
+        phonenumber.setText(user.getPhoneNumber());
+        dob.setText(user.getBOD());
+
+        //set image
+        if(user.getProfileImageUrl() == null){
+            Glide.with(this)
+                     .load(R.drawable.default_image_profile)
+                     .into(profileImage);
+        }else{
+            RequestBuilder<Drawable> requestBuilder= Glide.with(profileImage.getContext())
+                    .asDrawable().sizeMultiplier(0.1f);
+
+            Glide.with(this)
+                    .load(user.getProfileImageUrl())
+                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                    .thumbnail(requestBuilder)
+                    .placeholder(R.drawable.default_image_profile)
+                    .apply(RequestOptions.skipMemoryCacheOf(true))
+                    .into(profileImage);
+        }
+
+        //set gender
+        if(user.getGender().equals("male")){
+            male.setChecked(true);
+        }else if(user.getGender().equals("female")){
+            female.setChecked(true);
+        }
+    }
+
+    private void button(){
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             RadioButton radioButton = findViewById(checkedId);
 
@@ -165,14 +177,20 @@ public class EditUserController extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    private User getUserDataFromStorage(){
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        User user = gson.fromJson(sharedPreferences.getString("userObject", ""), User.class);
+
+        return user;
+    }
+
+    private void updateUserDataToStorage(User user){
+        Gson gson = new Gson();
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+        prefsEditor.putString("userObject", gson.toJson(user));
+        prefsEditor.commit();
     }
 
     // Single mode image picker
@@ -194,39 +212,6 @@ public class EditUserController extends AppCompatActivity {
         }
     });
 
-    private void setField(){
-        User user = getUserDataFromStorage();
-
-        name.setText(user.getName());
-        phonenumber.setText(user.getPhoneNumber());
-        dob.setText(user.getBOD());
-
-        //set image
-        if(user.getProfileImageUrl() == null){
-            Glide.with(this)
-                     .load(R.drawable.default_image_profile)
-                     .into(profileImage);
-        }else{
-            RequestBuilder<Drawable> requestBuilder= Glide.with(profileImage.getContext())
-                    .asDrawable().sizeMultiplier(0.1f);
-
-            Glide.with(this)
-                    .load(user.getProfileImageUrl())
-                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-                    .thumbnail(requestBuilder)
-                    .placeholder(R.drawable.default_image_profile)
-                    .apply(RequestOptions.skipMemoryCacheOf(true))
-                    .into(profileImage);
-        }
-
-        //set gender
-        if(user.getGender().equals("male")){
-            male.setChecked(true);
-        }else if(user.getGender().equals("female")){
-            female.setChecked(true);
-        }
-    }
-
     private void cropImageProperties(Uri uri){
         CropImageOptions cropImageOptions = new CropImageOptions();
         cropImageOptions.imageSourceIncludeGallery = false;
@@ -237,7 +222,6 @@ public class EditUserController extends AppCompatActivity {
         CropImageContractOptions cropImageContractOptions = new CropImageContractOptions(uri, cropImageOptions);
         cropImage.launch(cropImageContractOptions);
     }
-
 
     private void updateProfile(User user){
         user.setName(name.getText().toString());
@@ -291,5 +275,15 @@ public class EditUserController extends AppCompatActivity {
                         });
             });
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

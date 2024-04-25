@@ -1,18 +1,11 @@
 package project.skripsi.kateringin.Recycler;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,25 +13,15 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
-import project.skripsi.kateringin.Controller.OrderDetailController;
-import project.skripsi.kateringin.Fragment.CartFragment;
+import project.skripsi.kateringin.Controller.Order.OrderDetailController;
 import project.skripsi.kateringin.Fragment.OrderFragment;
-import project.skripsi.kateringin.Model.Cart;
-import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.Model.Order;
-import project.skripsi.kateringin.Model.OrderItem;
-import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.R;
 
 public class OrderRecycleviewAdapter extends RecyclerView.Adapter<OrderRecycleviewAdapter.ViewHolder> {
@@ -133,31 +116,5 @@ public class OrderRecycleviewAdapter extends RecyclerView.Adapter<OrderRecyclevi
 
         }
     }
-
-
-    /** CUSTOM FUNCTION **/
-
-//    public void getStoreData(String storeId){
-//
-//        store = new Store();
-//
-//        DocumentReference docRef = database.collection("store").document(storeId);
-//
-//        docRef.get().addOnCompleteListener(task -> {
-//            if (task.isSuccessful()) {
-//                DocumentSnapshot document = task.getResult();
-//                if (document.exists()) {
-//                    store.setStoreName(document.getString("storeName"));
-//                } else {
-//                    System.out.println("No such document");
-//                }
-//            } else {
-//                Exception e = task.getException();
-//                if (e != null) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
 
 }

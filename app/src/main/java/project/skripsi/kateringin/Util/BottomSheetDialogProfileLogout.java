@@ -12,10 +12,8 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.gson.Gson;
 
 import project.skripsi.kateringin.Controller.Authentication.LoginController;
-import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 
 public class BottomSheetDialogProfileLogout extends BottomSheetDialogFragment {
@@ -31,9 +29,6 @@ public class BottomSheetDialogProfileLogout extends BottomSheetDialogFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
         logout = view.findViewById(R.id.logOutButton);
 
         logout.setOnClickListener(v ->{
@@ -48,6 +43,5 @@ public class BottomSheetDialogProfileLogout extends BottomSheetDialogFragment {
             startActivity(intent);
             dismiss();
         });
-        // Setup your dialog content here
     }
 }

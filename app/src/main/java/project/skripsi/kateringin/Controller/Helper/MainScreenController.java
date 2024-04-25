@@ -1,4 +1,4 @@
-package project.skripsi.kateringin.Controller;
+package project.skripsi.kateringin.Controller.Helper;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +20,7 @@ import project.skripsi.kateringin.R;
 
 public class MainScreenController extends AppCompatActivity {
 
+    //XML
     BottomNavigationView bottomNavigationView;
     FrameLayout frameLayout;
 
@@ -34,19 +35,15 @@ public class MainScreenController extends AppCompatActivity {
         int fragmentId = getIntent().getIntExtra("fragmentId", -1);
         int menuItemId = getIntent().getIntExtra("menuItemId", -1);
         if (fragmentId != -1 && menuItemId != -1) {
-            // Navigate to the specified fragment
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frame_layout, OrderFragment.newInstance())
                     .commit();
 
-            // Set the selected menu item in the bottom navigation bar
             BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_bar);
             bottomNavigationView.setSelectedItemId(menuItemId);
         } else{
             loadFragement(new ExploreFragment(), true);
         }
-
-
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -65,8 +62,6 @@ public class MainScreenController extends AppCompatActivity {
                 return true;
             }
         });
-
-
     }
 
     private void loadFragement(Fragment fragment, boolean isAppInitialized){

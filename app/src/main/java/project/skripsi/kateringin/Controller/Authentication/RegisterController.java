@@ -13,26 +13,24 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import project.skripsi.kateringin.Controller.Authentication.AuthRegisterController;
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 
 public class RegisterController extends AppCompatActivity {
 
-    //Xml
+    //XML
     EditText nameTxt,phoneNumberTxt;
     Button nextButton, dateButton;
     RadioButton male,female;
     RadioGroup radioGroup;
     TextView nameAlert, phoneAlert, dateAlert, genderAlert, dateTxt, redirect;
 
-    //Field
+    //FIELD
     String name,phoneNumber,gender;
     String DOB;
     User user;
@@ -41,7 +39,6 @@ public class RegisterController extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        //Field
         user = (User) getIntent().getSerializableExtra("USER_OBJECT");
 
         if(user != null){
@@ -57,7 +54,6 @@ public class RegisterController extends AppCompatActivity {
                 female.setChecked(true);
             }
         }
-
     }
 
     @SuppressLint("MissingInflatedId")
@@ -65,7 +61,11 @@ public class RegisterController extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_view);
+        binding();
+        button();
+    }
 
+    private void binding(){
         //Alert
         nameAlert = findViewById(R.id.nameAlert);
         phoneAlert = findViewById(R.id.phoneNumberAlert);
@@ -84,16 +84,16 @@ public class RegisterController extends AppCompatActivity {
         //Button
         nextButton = findViewById(R.id.nextButton);
         dateButton = findViewById(R.id.selectDate);
+    }
 
+    private void button(){
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             RadioButton radioButton = findViewById(checkedId);
-
             if(radioButton.getText() == "Perempuan"){
                 radioButton.setChecked(true);
             }else if(radioButton.getText() == "Laki - Laki"){
                 radioButton.setChecked(true);
             }
-
         });
 
         redirect.setOnClickListener(v ->{
@@ -108,20 +108,16 @@ public class RegisterController extends AppCompatActivity {
                     .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                     .build();
 
-            materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
-                @Override
-                public void onPositiveButtonClick(Long selection) {
-                    String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date(selection));
-                        DOB = date;
-                        dateTxt.setText(date);
-                }
+            materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+                String date = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date(selection));
+                DOB = date;
+                dateTxt.setText(date);
             });
             materialDatePicker.show(getSupportFragmentManager(), "tag");
         });
 
 
         nextButton.setOnClickListener(v -> {
-
             name = nameTxt.getText().toString();
             phoneNumber = phoneNumberTxt.getText().toString();
 

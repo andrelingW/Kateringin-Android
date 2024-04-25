@@ -28,13 +28,15 @@ import project.skripsi.kateringin.R;
 
 public class UserController extends AppCompatActivity {
 
-    //Firebase
+    //XML
+    TextView name, phoneNumber, dob, gender, email, userId;
+    ImageView userProfileImage;
+    Toolbar toolbar;
+
+    //FIELD
     FirebaseFirestore database;
     FirebaseAuth mAuth;
 
-    //View
-    TextView name, phoneNumber, dob, gender, email, userId;
-    ImageView userProfileImage;
 
     @Override
     protected void onResume() {
@@ -46,35 +48,27 @@ public class UserController extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        Toolbar toolbar = findViewById(R.id.profile_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setTitle("Profile Information");
+        binding();
+        setField();
+    }
 
+    private void binding(){
+        toolbar = findViewById(R.id.profile_toolbar);
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-
         name = findViewById(R.id.profile_info_name);
         phoneNumber= findViewById(R.id.profile_info_phoneNumber);
         dob = findViewById(R.id.profile_info_dob);
         gender = findViewById(R.id.profile_info_gender);
         email = findViewById(R.id.profile_info_email);
         userId = findViewById(R.id.profile_info_user_id);
-
         userProfileImage = findViewById(R.id.profile_info_imagePicture);
-
-        setField();
-    }
-
-    private User getUserDataFromStorage(){
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        User user = gson.fromJson(sharedPreferences.getString("userObject", ""), User.class);
-
-        return user;
     }
 
     private void setField(){
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setTitle("Profile Information");
         User user = getUserDataFromStorage();
 
         name.setText(user.getName());
@@ -101,6 +95,14 @@ public class UserController extends AppCompatActivity {
                     .apply(RequestOptions.skipMemoryCacheOf(true))
                     .into(userProfileImage);
         }
+    }
+
+    private User getUserDataFromStorage(){
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        User user = gson.fromJson(sharedPreferences.getString("userObject", ""), User.class);
+
+        return user;
     }
 
     @Override

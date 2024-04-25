@@ -19,7 +19,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -33,24 +32,17 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 import project.skripsi.kateringin.Model.Cart;
-import project.skripsi.kateringin.Model.Menu;
-import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.RecyclerviewItem.CartItem;
-import project.skripsi.kateringin.RecyclerviewItem.CheckOutItem;
 import project.skripsi.kateringin.Util.IdrFormat;
 
 public class CheckOutRecyclerviewAdapter extends RecyclerView.Adapter<CheckOutRecyclerviewAdapter.ViewHolder>{
     private static final String KEY_MY_LIST = "CHECK_OUT_ITEM";
-
     private ArrayList<Cart> checkOutItems;
     private CheckOutRecyclerviewAdapter.OnClickListener onClickListener;
     private Context context;
     private FirebaseAuth mAuth;
     private FirebaseFirestore database;
     private SharedPreferences sharedPreferences;
-
-
 
     public CheckOutRecyclerviewAdapter(ArrayList<Cart> checkOutItems, Context context, SharedPreferences sharedPreferences) {
         this.checkOutItems = checkOutItems;
@@ -133,8 +125,6 @@ public class CheckOutRecyclerviewAdapter extends RecyclerView.Adapter<CheckOutRe
             if (actionId == EditorInfo.IME_ACTION_DONE || event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 checkOutItem.setNote(holder.menuNote.getText().toString());
                 notifyDataSetChanged();
-                Log.d("TAG", "onBindViewHolder: " + checkOutItem.getNote());
-
                 holder.menuNote.clearFocus();
                 return true;
             }
@@ -182,7 +172,6 @@ public class CheckOutRecyclerviewAdapter extends RecyclerView.Adapter<CheckOutRe
     }
 
     public void createSharedPreference(){
-        Log.d("TAG", "createSharedPreference: " + checkOutItems);
         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(checkOutItems);
@@ -190,50 +179,4 @@ public class CheckOutRecyclerviewAdapter extends RecyclerView.Adapter<CheckOutRe
         prefsEditor.commit();
     }
 
-    //CUSTOM FUNCTION
-//    public void getStoreData(String storeId){
-//
-//        store = new Store();
-//
-//        DocumentReference docRef = database.collection("store").document(storeId);
-//
-//        docRef.get().addOnCompleteListener(task -> {
-//            if (task.isSuccessful()) {
-//                DocumentSnapshot document = task.getResult();
-//                if (document.exists()) {
-//                    store.setStoreName(document.getString("storeName"));
-//                } else {
-//                    System.out.println("No such document");
-//                }
-//            } else {
-//                Exception e = task.getException();
-//                if (e != null) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
-//
-//    public void getMenuData(String menuId){
-//        menu = new Menu();
-//
-//        DocumentReference docRef = database.collection("menu").document(menuId);
-//
-//        docRef.get().addOnCompleteListener(task -> {
-//            if (task.isSuccessful()) {
-//                DocumentSnapshot document = task.getResult();
-//                if (document.exists()) {
-//                    menu.setMenuName(document.getString("menuName"));
-//                    menu.setMenuPrice(Integer.parseInt(document.getString("menuPrice")));
-//                } else {
-//                    System.out.println("No such document");
-//                }
-//            } else {
-//                Exception e = task.getException();
-//                if (e != null) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
 }

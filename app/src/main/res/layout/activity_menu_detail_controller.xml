@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".Controller.MenuDetailController">
+    tools:context=".Controller.Helper.MenuDetailController">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView2"
@@ -252,7 +252,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/divider14" />
 
             <TextView
-                android:id="@+id/textView50"
+                android:id="@+id/menu_detail_review_counter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"

@@ -1,4 +1,4 @@
-package project.skripsi.kateringin.Controller;
+package project.skripsi.kateringin.Controller.Helper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -9,14 +9,12 @@ import android.os.Bundle;
 import java.util.ArrayList;
 
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Recycler.ExploreRecycleviewAdapter;
 import project.skripsi.kateringin.Recycler.StoreRecycleviewAdapter;
-import project.skripsi.kateringin.RecyclerviewItem.FoodItem;
+import project.skripsi.kateringin.TESTING.FoodItem;
 
 public class StoreController extends AppCompatActivity {
     RecyclerView recyclerView;
     StoreRecycleviewAdapter storeRecycleviewAdapter;
-
     ArrayList<FoodItem> foodItems;
 
     @Override
@@ -28,7 +26,7 @@ public class StoreController extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
 
-        foodItems = new ArrayList<FoodItem>();
+        foodItems = new ArrayList<>();
         foodItems.add(new FoodItem("12","Nasi Goreng Cakalang",null,null,null,null,null));
         foodItems.add(new FoodItem("1","Nasi Goreng Cakalang",null,null,null,null,null));
 

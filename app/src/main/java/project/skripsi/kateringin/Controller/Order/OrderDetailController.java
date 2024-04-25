@@ -1,4 +1,4 @@
-package project.skripsi.kateringin.Controller;
+package project.skripsi.kateringin.Controller.Order;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -17,41 +16,44 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-import project.skripsi.kateringin.Model.Cart;
+import project.skripsi.kateringin.Controller.Review.ReviewController;
 import project.skripsi.kateringin.Model.Order;
 import project.skripsi.kateringin.Model.OrderItem;
-import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.OrderDetailRecycleviewAdapter;
-import project.skripsi.kateringin.Recycler.OrderRecycleviewAdapter;
 import project.skripsi.kateringin.Util.IdrFormat;
 
 public class OrderDetailController extends AppCompatActivity {
 
+    //XML
     RecyclerView recyclerView;
-    OrderDetailRecycleviewAdapter orderDetailRecycleviewAdapter;
-
     TextView orderId, receiverName, receiverPhone, receiverAddress, subTotalPriceTV, feeLayananTV, totalPriceTV, tracker;
-    FirebaseFirestore database;
     AppCompatButton accepted;
+    Toolbar toolbar;
+
+    //FIELD
+    OrderDetailRecycleviewAdapter orderDetailRecycleviewAdapter;
+    FirebaseFirestore database;
     FirebaseAuth mAuth;
+    Order order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail_view);
-        Order order = (Order) getIntent().getSerializableExtra("DETAILS_SCREEN");
+        binding();
+        setField();
+        recyclerAdapter();
+        button();
+    }
 
-        Toolbar toolbar = findViewById(R.id.order_detail_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+    private void binding(){
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-
+        order = (Order) getIntent().getSerializableExtra("DETAILS_SCREEN");
+        toolbar = findViewById(R.id.order_detail_toolbar);
+        recyclerView = findViewById(R.id.order_detail_recyclerView);
         orderId = findViewById(R.id.order_detail_orderId_text);
         receiverName = findViewById(R.id.order_detail_contact_name_tv);
         receiverPhone = findViewById(R.id.order_detail_contact_phone_tv);
@@ -61,9 +63,15 @@ public class OrderDetailController extends AppCompatActivity {
         totalPriceTV = findViewById(R.id.order_detail_total_payment_tv);
         tracker = findViewById(R.id.order_detail_tracker_link_ev);
         accepted = findViewById(R.id.order_detail_accepted_button);
+    }
+
+    private void setField(){
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,1));
 
         setTotalPrice(order.getOrderItem());
-
         orderId.setText("No Order #" + order.getOrderId());
         receiverName.setText(order.getReceiverName());
         receiverPhone.setText(order.getReceiverPhone());
@@ -73,25 +81,22 @@ public class OrderDetailController extends AppCompatActivity {
         if(testing){
             accepted.setEnabled(true);
             accepted.setBackgroundResource(R.drawable.custom_active_button);
-
         } else{
             accepted.setEnabled(false);
             accepted.setBackgroundResource(R.drawable.custom_unactive_button);
-
-
         }
+    }
 
+    private void button(){
         accepted.setOnClickListener(v ->{
             Intent intent = new Intent(this, ReviewController.class);
             intent.putExtra("ORDER_REVIEW", order);
             startActivity(intent);
             finish();
         });
+    }
 
-        recyclerView = findViewById(R.id.order_detail_recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-
+    private void recyclerAdapter(){
         orderDetailRecycleviewAdapter = new OrderDetailRecycleviewAdapter(order.getOrderItem(),this);
         recyclerView.setAdapter(orderDetailRecycleviewAdapter);
     }

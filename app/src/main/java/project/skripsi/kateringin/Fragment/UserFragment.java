@@ -32,68 +32,68 @@ import project.skripsi.kateringin.Util.BottomSheetDialogProfileLogout;
 
 public class UserFragment extends Fragment {
 
+    //XML
+    TextView nameTxt, emailTxt, phoneTxt;
+    ConstraintLayout editProfile, help, logout, termsAndCondition;
+    ImageView profileImage;
+
+    //FIELD
     FirebaseFirestore database;
     FirebaseAuth mAuth;
-
-    TextView nameTxt, emailTxt, phoneTxt;
-
-    ConstraintLayout editProfile, help, logout, termsAndCondition;
-
-    ImageView profileImage;
 
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-
-
-        String json = sharedPreferences.getString("userObject", "");
-        User user = gson.fromJson(json, User.class);
-        if(user.getProfileImageUrl() == null){
-            Glide.with(this)
-                    .load(R.drawable.default_image_profile)
-                    .into(profileImage);
-        }else{
-            RequestBuilder<Drawable> requestBuilder= Glide.with(profileImage.getContext())
-                    .asDrawable().sizeMultiplier(0.1f);
-
-            Glide.with(this)
-                    .load(user.getProfileImageUrl())
-                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-                    .thumbnail(requestBuilder)
-                    .placeholder(R.drawable.default_image_profile)
-                    .apply(RequestOptions.skipMemoryCacheOf(true))
-                    .into(profileImage);
-        }
+//        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
+//        Gson gson = new Gson();
+//        String json = sharedPreferences.getString("userObject", "");
+//        User user = gson.fromJson(json, User.class);
+//
+//        if(user.getProfileImageUrl() == null){
+//            Glide.with(this)
+//                    .load(R.drawable.default_image_profile)
+//                    .into(profileImage);
+//        }else{
+//            RequestBuilder<Drawable> requestBuilder= Glide.with(profileImage.getContext())
+//                    .asDrawable().sizeMultiplier(0.1f);
+//
+//            Glide.with(this)
+//                    .load(user.getProfileImageUrl())
+//                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+//                    .thumbnail(requestBuilder)
+//                    .placeholder(R.drawable.default_image_profile)
+//                    .apply(RequestOptions.skipMemoryCacheOf(true))
+//                    .into(profileImage);
+//        }
+        setField();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_user, container, false);
+       binding(rootView);
+       setField();
+       button();
+
+        return rootView;
+    }
+
+    private void binding(View rootView){
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-
-        String docId = mAuth.getCurrentUser().getUid();
-
         nameTxt = rootView.findViewById(R.id.profile_name);
         emailTxt = rootView.findViewById(R.id.profile_email);
         phoneTxt = rootView.findViewById(R.id.profile_phone_number);
         profileImage = rootView.findViewById(R.id.profile_info_imagePicture);
-
         editProfile = rootView.findViewById(R.id.editProfileLayout);
         help = rootView.findViewById(R.id.profilelHelp);
         logout = rootView.findViewById(R.id.profileLogout);
         termsAndCondition = rootView.findViewById(R.id.profileTermsAndCondition);
+    }
 
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-
-
-        String json = sharedPreferences.getString("userObject", "");
-        User user = gson.fromJson(json, User.class);
-
+    private void setField(){
+        User user = getUserSharedPreference();
         nameTxt.setText(user.getName());
         emailTxt.setText(user.getEmail());
         phoneTxt.setText(user.getPhoneNumber());
@@ -113,7 +113,17 @@ public class UserFragment extends Fragment {
                     .apply(RequestOptions.skipMemoryCacheOf(true))
                     .into(profileImage);
         }
+    }
 
+    private User getUserSharedPreference(){
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("userObject", "");
+        User user = gson.fromJson(json, User.class);
+        return user;
+    }
+
+    private void button(){
         editProfile.setOnClickListener(v ->{
             Intent intent = new Intent(getActivity(), UserController.class);
             startActivity(intent);
@@ -133,7 +143,5 @@ public class UserFragment extends Fragment {
             Intent intent = new Intent(getActivity(), TermsAndConditionController.class);
             startActivity(intent);
         });
-
-        return rootView;
     }
 }

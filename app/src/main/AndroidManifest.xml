@@ -19,13 +19,13 @@
         android:windowSoftInputMode="adjustResize"
         tools:targetApi="31" >
         <activity
-            android:name=".Controller.ReviewController"
+            android:name=".Controller.Review.ReviewController"
             android:exported="false" />
         <activity
-            android:name=".Controller.StoreController"
+            android:name=".Controller.Helper.StoreController"
             android:exported="false" />
         <activity
-            android:name=".Controller.OrderDetailController"
+            android:name=".Controller.Order.OrderDetailController"
             android:exported="false" />
         <activity
             android:name=".Controller.Helper.PaymentSuccessController"
@@ -43,7 +43,7 @@
             android:name=".Controller.Checkout.CheckOutController"
             android:exported="false" />
         <activity
-            android:name=".Controller.MenuDetailController"
+            android:name=".Controller.Helper.MenuDetailController"
             android:exported="false" /> <!-- <activity -->
         <!-- android:name=".Controller.SplashScreen" -->
         <!-- android:exported="false" /> -->
@@ -51,10 +51,10 @@
             android:name=".Controller.Helper.TermsAndConditionController"
             android:exported="false" />
         <activity
-            android:name=".Controller.FoodResultController"
+            android:name=".Controller.Helper.FoodResultController"
             android:exported="false" />
         <activity
-            android:name=".Controller.SearchPageController"
+            android:name=".Controller.Helper.SearchPageController"
             android:exported="false" />
         <activity
             android:name=".Controller.Authentication.ForgotPasswordController"
@@ -69,7 +69,7 @@
             android:name=".Controller.User.UserController"
             android:exported="false" />
         <activity
-            android:name=".Controller.MainScreenController"
+            android:name=".Controller.Helper.MainScreenController"
             android:exported="false" />
         <activity
             android:name=".Controller.Authentication.AuthRegisterController"

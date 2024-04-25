@@ -36,42 +36,40 @@ import project.skripsi.kateringin.Recycler.CheckOutRecyclerviewAdapter;
 import project.skripsi.kateringin.Util.IdrFormat;
 
 public class CheckOutController extends AppCompatActivity {
-    private static final String PREF_NAME = "CHECK_OUT_ITEM_PREF";
-    private static final String KEY_MY_LIST = "CHECK_OUT_ITEM";
 
+    //KEY
+    private static final String PREF_NAME = "CHECK_OUT_ITEM_PREF";
+
+    //XML
     ImageButton contactEdit, locEdit;
     TextView contactNameTV, contactPhoneTV, addressTV, subTotalTV, feeTV, totalPriceTV, miniTotalPriceTV;
     AppCompatButton checkout;
     RecyclerView recyclerView;
+    Toolbar toolbar;
 
+    //FIELD
     FirebaseFirestore database;
     FirebaseAuth mAuth;
-
     ArrayList<Cart> cartItems = new ArrayList<>();
-    ArrayList<Cart> sharedPreference = new ArrayList<>();
-
     CheckOutRecyclerviewAdapter checkOutRecyclerviewAdapter;
-
     int subTotalPrice, feeLayanan, totalPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_out_view);
-        Toolbar toolbar = findViewById(R.id.checkout_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mAuth = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
 
         bindView();
         setView();
         buttonAction();
-
     }
 
     public void bindView(){
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseFirestore.getInstance();
+        toolbar = findViewById(R.id.checkout_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         contactEdit = findViewById(R.id.checkout_contact_edit_button);
         locEdit = findViewById(R.id.checkout_location_edit_button);
         contactNameTV = findViewById(R.id.checkout_contact_name_tv);
@@ -85,8 +83,6 @@ public class CheckOutController extends AppCompatActivity {
         miniTotalPriceTV = findViewById(R.id.checkout_total_fee_tv);
     }
 
-
-
     public void setView(){
         User user = getUserDataFromStorage();
 
@@ -98,15 +94,6 @@ public class CheckOutController extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
 
         readCartData(this::cartAdapter);
-
-//        //TESTING
-//        checkOutItems = new ArrayList<CheckOutItem>();
-//        checkOutItems.add(new CheckOutItem(null,"nasi goreng cakalang",null,null,null,null,null,null));
-//        checkOutItems.add(new CheckOutItem(null,"nasi goreng ",null,null,null,null,null,null));
-//
-//        CheckOutRecyclerviewAdapter checkOutRecycleviewAdapter = new CheckOutRecyclerviewAdapter(checkOutItems,this);
-//        recyclerView.setAdapter(checkOutRecycleviewAdapter);
-
     }
 
     public void cartAdapter(ArrayList<Cart> cartItems){
@@ -149,21 +136,6 @@ public class CheckOutController extends AppCompatActivity {
             intent.putExtra("LOCATION_EDIT", addressTV.getText().toString());
             someActivityResultLauncher.launch(intent);
         });
-
-//        checkout.setOnClickListener(v ->{
-//            User user = getUserDataFromStorage();
-//
-//            Intent intent = new Intent(getApplicationContext(), ChoosePaymentController.class);
-//
-//            intent.putExtra("CUSTOMER_NAME", contactNameTV.getText().toString());
-//            intent.putExtra("CUSTOMER_PHONE", contactPhoneTV.getText().toString());
-//            intent.putExtra("CUSTOMER_EMAIL", user.getEmail().toString());
-//            intent.putExtra("CUSTOMER_ADDRESS", addressTV.getText().toString());
-//            intent.putExtra("TOTAL_PRICE", totalPrice);
-//            intent.putExtra("FEE_LAYANAN", feeLayanan);
-//            startActivity(intent);
-//        });
-
     }
 
     private void setTotalPrice(ArrayList<Cart> cartItems){
@@ -212,15 +184,6 @@ public class CheckOutController extends AppCompatActivity {
         return user;
     }
 
-
-//    public void subTotal(){
-////        int subTotalPrice = calculateItemsTotalPrice();
-////        subTotalTV.setText("Rp " + subTotalPrice);
-//    }
-//    public void TotalPrice() {
-////        int totalPrice = calculateItemsTotalPrice() + 15000;
-////        totalPriceTV.setText("Rp " + totalPrice);
-//    }
 
     private void readCartData(FirestoreCallback firestoreCallback){
         CollectionReference collectionRef = database.collection("cartItem");

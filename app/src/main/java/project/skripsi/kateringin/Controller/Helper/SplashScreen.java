@@ -1,6 +1,5 @@
 package project.skripsi.kateringin.Controller.Helper;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,10 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -20,7 +16,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
 import project.skripsi.kateringin.Controller.Authentication.LoginController;
-import project.skripsi.kateringin.Controller.MainScreenController;
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 
@@ -41,7 +36,7 @@ public class SplashScreen extends AppCompatActivity {
             if(currentUser == null){
                 Intent intent = new Intent(SplashScreen.this, LoginController.class);
                 startActivity(intent);
-                finish(); // Finish the current activity
+                finish();
             } else{
                 DocumentReference docRef = database.collection("user").document(currentUser.getUid());
                 docRef.get().addOnCompleteListener(task -> {

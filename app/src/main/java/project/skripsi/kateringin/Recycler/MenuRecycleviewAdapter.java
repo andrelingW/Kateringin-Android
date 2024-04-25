@@ -17,17 +17,16 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
-import project.skripsi.kateringin.Model.newMenu;
+import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.RecyclerviewItem.FoodItem;
 
 public class MenuRecycleviewAdapter extends RecyclerView.Adapter<MenuRecycleviewAdapter.ViewHolder> {
 
-    private ArrayList<newMenu> foodItems;
+    private ArrayList<Menu> foodItems;
     private OnClickListener onClickListener;
     private Context context;
 
-    public MenuRecycleviewAdapter(ArrayList<newMenu> foodItems, Context context) {
+    public MenuRecycleviewAdapter(ArrayList<Menu> foodItems, Context context) {
         this.foodItems = foodItems;
         this.context = context;
     }
@@ -42,7 +41,7 @@ public class MenuRecycleviewAdapter extends RecyclerView.Adapter<MenuRecycleview
     @Override
     public void onBindViewHolder(@NonNull MenuRecycleviewAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        final newMenu foodItem = foodItems.get(position);
+        final Menu foodItem = foodItems.get(position);
         Glide.with(context)
                 .load(foodItem.getMenuPhotoUrl())
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
@@ -53,17 +52,12 @@ public class MenuRecycleviewAdapter extends RecyclerView.Adapter<MenuRecycleview
         holder.foodPrice.setText("Rp " + foodItem.getMenuPrice() +",00");
         holder.foodRate.setText(String.valueOf(foodItem.getMenuRating()));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onClickListener != null) {
-                    onClickListener.onClick(position, foodItem);
-                }
+        holder.itemView.setOnClickListener(view -> {
+            if (onClickListener != null) {
+                onClickListener.onClick(position, foodItem);
             }
         });
 
-
-//        holder.foodPrice.setText(foodItems.get(position).getPrice().toString());
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {
@@ -71,7 +65,7 @@ public class MenuRecycleviewAdapter extends RecyclerView.Adapter<MenuRecycleview
     }
 
     public interface OnClickListener {
-        void onClick(int position, newMenu model);
+        void onClick(int position, Menu model);
     }
 
     @Override

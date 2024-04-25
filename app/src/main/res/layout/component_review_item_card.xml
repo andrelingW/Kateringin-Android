@@ -17,7 +17,7 @@
   >
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/order_detail_item_menu_image"
+            android:id="@+id/review_item_user_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="15dp"
@@ -35,15 +35,15 @@
             android:layout_marginStart="15dp"
             android:text="Nasi Goreng Cakalang"
             android:textAppearance="@style/foodNameCardTitle"
-            app:layout_constraintStart_toEndOf="@+id/order_detail_item_menu_image"
-            app:layout_constraintTop_toTopOf="@+id/order_detail_item_menu_image" />
+            app:layout_constraintStart_toEndOf="@+id/review_item_user_image"
+            app:layout_constraintTop_toTopOf="@+id/review_item_user_image" />
 
         <TextView
             android:id="@+id/review_comment_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="3dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:text="This is for testing purpose"
@@ -73,7 +73,7 @@
             android:layout_marginTop="5dp"
             android:text="4 / 5"
             android:textAppearance="@style/normalText"
-            app:layout_constraintStart_toEndOf="@+id/order_detail_item_menu_image"
+            app:layout_constraintStart_toEndOf="@+id/review_item_user_image"
             app:layout_constraintTop_toBottomOf="@+id/review_username_tv" />
 
         <TextView
@@ -85,7 +85,7 @@
             android:layout_marginTop="10dp"
             android:text="Comment"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_detail_item_menu_image" />
+            app:layout_constraintTop_toBottomOf="@+id/review_item_user_image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

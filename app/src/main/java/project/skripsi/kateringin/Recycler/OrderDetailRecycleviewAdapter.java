@@ -2,7 +2,6 @@ package project.skripsi.kateringin.Recycler;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -27,9 +25,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-import project.skripsi.kateringin.Controller.OrderDetailController;
-import project.skripsi.kateringin.Fragment.OrderFragment;
-import project.skripsi.kateringin.Model.Order;
 import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Util.IdrFormat;
@@ -137,31 +132,4 @@ public class OrderDetailRecycleviewAdapter extends RecyclerView.Adapter<OrderDet
             note = itemView.findViewById(R.id.order_detail_item_note);
         }
     }
-
-
-    /** CUSTOM FUNCTION **/
-
-//    public void getStoreData(String storeId){
-//
-//        store = new Store();
-//
-//        DocumentReference docRef = database.collection("store").document(storeId);
-//
-//        docRef.get().addOnCompleteListener(task -> {
-//            if (task.isSuccessful()) {
-//                DocumentSnapshot document = task.getResult();
-//                if (document.exists()) {
-//                    store.setStoreName(document.getString("storeName"));
-//                } else {
-//                    System.out.println("No such document");
-//                }
-//            } else {
-//                Exception e = task.getException();
-//                if (e != null) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
-
 }

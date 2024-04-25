@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.RecyclerviewItem.FoodItem;
+import project.skripsi.kateringin.TESTING.FoodItem;
 
 public class StoreRecycleviewAdapter extends RecyclerView.Adapter<StoreRecycleviewAdapter.ViewHolder> {
 
@@ -41,17 +41,12 @@ public class StoreRecycleviewAdapter extends RecyclerView.Adapter<StoreRecyclevi
         holder.foodImage.setImageURI(foodItems.get(position).getImageUrl());
         holder.foodName.setText(foodItems.get(position).getFoodName());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onClickListener != null) {
-                    onClickListener.onClick(position, foodItem);
-                }
+        holder.itemView.setOnClickListener(view -> {
+            if (onClickListener != null) {
+                onClickListener.onClick(position, foodItem);
             }
         });
 
-
-//        holder.foodPrice.setText(foodItems.get(position).getPrice().toString());
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {

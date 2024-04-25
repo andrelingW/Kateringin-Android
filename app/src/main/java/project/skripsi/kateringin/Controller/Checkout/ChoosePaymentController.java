@@ -1,7 +1,6 @@
 package project.skripsi.kateringin.Controller.Checkout;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -9,18 +8,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.google.common.reflect.TypeToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -33,7 +24,6 @@ import com.midtrans.sdk.corekit.core.MidtransSDK;
 import com.midtrans.sdk.corekit.core.PaymentMethod;
 import com.midtrans.sdk.corekit.core.TransactionRequest;
 import com.midtrans.sdk.corekit.core.UIKitCustomSetting;
-import com.midtrans.sdk.corekit.core.themes.CustomColorTheme;
 import com.midtrans.sdk.corekit.models.BillingAddress;
 import com.midtrans.sdk.corekit.models.CustomerDetails;
 import com.midtrans.sdk.corekit.models.ItemDetails;
@@ -53,7 +43,6 @@ import project.skripsi.kateringin.Controller.Helper.PaymentSuccessController;
 import project.skripsi.kateringin.Model.TransactionResponse;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Repository.TransactionStatusInterface;
-import project.skripsi.kateringin.Util.IdrFormat;
 import project.skripsi.kateringin.Util.SdkConfig;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,11 +51,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChoosePaymentController extends AppCompatActivity implements TransactionFinishedCallback {
+
+    //KEY
     private static final String PREF_NAME = "CHECK_OUT_ITEM_PREF";
     private static final String KEY_MY_LIST = "CHECK_OUT_ITEM";
 
+    //XML
     private ConstraintLayout bcaVA, mandiriVA, bniVA, briVA, permataVA, cimbVA;
+    Toolbar toolbar;
 
+    //FIELD
     FirebaseFirestore database;
     FirebaseAuth mAuth;
     String name, phone, email, address;
@@ -77,6 +71,12 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_payment_view);
 
+        bindViews();
+        initActionButtons();
+        initMidtransSdk();
+    }
+
+    private void bindViews() {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
         name = (String) getIntent().getSerializableExtra("CUSTOMER_NAME");
@@ -85,13 +85,7 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
         address = (String) getIntent().getSerializableExtra("CUSTOMER_ADDRESS");
         totalPrice = (int) getIntent().getSerializableExtra("TOTAL_PRICE");
         feeLayanan = (int) getIntent().getSerializableExtra("FEE_LAYANAN");
-        bindViews();
-        initActionButtons();
-        initMidtransSdk();
-    }
-
-    private void bindViews() {
-        Toolbar toolbar = findViewById(R.id.payment_toolbar);
+        toolbar = findViewById(R.id.payment_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         bcaVA = findViewById(R.id.bca_va_method);
@@ -163,8 +157,6 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
                 }
             });
         }
-
-
         transactionRequestNew.setItemDetails(itemDetailsList);
         return transactionRequestNew;
     }
@@ -200,7 +192,6 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
                 .setTransactionFinishedCallback(this)
                 .setMerchantBaseUrl(base_url)
                 .enableLog(true)
-//                .setColorTheme(new CustomColorTheme("#3C66F9", "#3C66F9", "#3C66F9"))
                 .setLanguage("en");
         sdkUIFlowBuilder.buildSDK();
         uiKitCustomSetting();
@@ -304,7 +295,6 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
                     item.getNote()
             );
             orderMap.get(storeId).add(temp);
-//            orderMap.get(storeId).add(item);
         }
         return orderMap;
     }
@@ -354,7 +344,6 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
                         }
                     }
                 });
-
     }
 
     private void updateToFirestore(String cartItemId) {

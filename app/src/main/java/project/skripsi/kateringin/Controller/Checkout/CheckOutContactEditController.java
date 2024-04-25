@@ -5,47 +5,43 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
-
-import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 
 public class CheckOutContactEditController extends AppCompatActivity {
 
+    //XML
     AppCompatButton save;
     EditText nameET, phoneET;
     Toolbar toolbar;
+
+    //FIELD
     String name,phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_out_contact_edit_view);
-        toolbar = findViewById(R.id.checkout_contact_edit_toolbar);
-
-        name = getIntent().getStringExtra("CONTACT_EDIT_NAME");
-        phone = getIntent().getStringExtra("CONTACT_EDIT_PHONE");
-
         bindView();
         setField();
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         buttonAction();
     }
 
     public void setField(){
         nameET.setText(name);
         phoneET.setText(phone);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void bindView(){
+        toolbar = findViewById(R.id.checkout_contact_edit_toolbar);
+        name = getIntent().getStringExtra("CONTACT_EDIT_NAME");
+        phone = getIntent().getStringExtra("CONTACT_EDIT_PHONE");
         nameET = findViewById(R.id.checkout_contact_edit_name_et);
         phoneET = findViewById(R.id.checkout_contact_edit_phone_et);
         save = findViewById(R.id.checkout_contact_edit_save_button);

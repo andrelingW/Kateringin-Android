@@ -1,4 +1,4 @@
-package project.skripsi.kateringin.Controller;
+package project.skripsi.kateringin.Controller.Helper;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,69 +8,65 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
-import project.skripsi.kateringin.Controller.Checkout.CheckOutController;
-import project.skripsi.kateringin.Fragment.CartFragment;
-import project.skripsi.kateringin.Model.Cart;
-import project.skripsi.kateringin.Model.User;
-import project.skripsi.kateringin.Model.newMenu;
+import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Recycler.CartRecycleviewAdapter;
 import project.skripsi.kateringin.Recycler.MenuRecycleviewAdapter;
-import project.skripsi.kateringin.RecyclerviewItem.FoodItem;
-import project.skripsi.kateringin.Recycler.ExploreRecycleviewAdapter;
 
 public class FoodResultController extends AppCompatActivity {
 
-    ArrayList<newMenu> menuItems = new ArrayList<>();
-    RecyclerView recyclerView;
-    MenuRecycleviewAdapter menuRecycleviewAdapter;
+    //KEY
+    public static final String NEXT_SCREEN = "details_screen";
 
+    //XML
+    RecyclerView recyclerView;
+    Toolbar toolbar;
+
+    //FIELD
     FirebaseAuth mAuth;
     FirebaseFirestore database;
-
+    ArrayList<Menu> menuItems = new ArrayList<>();
+    MenuRecycleviewAdapter menuRecycleviewAdapter;
     String search;
-    public static final String NEXT_SCREEN = "details_screen";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_result_view);
-
-        search = (String) getIntent().getSerializableExtra("SEARCH");
-
-        Toolbar toolbar = findViewById(R.id.search_result_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mAuth = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
-
-        recyclerView = findViewById(R.id.search_result_recyclerview);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-
+        binding();
+        setField();
         readMenuData(this::menuAdapter);
     }
 
-    public void menuAdapter(ArrayList<newMenu> menuItems){
+    private void binding(){
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseFirestore.getInstance();
+        recyclerView = findViewById(R.id.search_result_recyclerview);
+        search = (String) getIntent().getSerializableExtra("SEARCH");
+        toolbar = findViewById(R.id.search_result_toolbar);
+    }
+
+    public void setField(){
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+    }
+
+    public void menuAdapter(ArrayList<Menu> menuItems){
         menuRecycleviewAdapter = new MenuRecycleviewAdapter(menuItems,this);
         recyclerView.setAdapter(menuRecycleviewAdapter);
 
         menuRecycleviewAdapter.setOnClickListener((position, model) -> {
             Intent intent = new Intent(FoodResultController.this, MenuDetailController.class);
-
             intent.putExtra(NEXT_SCREEN, model);
             startActivity(intent);
         });
@@ -86,15 +82,8 @@ public class FoodResultController extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //TESTING PURPOSE
     private void readMenuData(FirestoreCallback firestoreCallback){
         CollectionReference collectionRef = database.collection("menu");
-
-
-//        Query query = collectionRef
-//                .whereNotEqualTo("userId", mAuth.getCurrentUser().getUid());
-
-        Log.d("TAG", "readMenuData: " + search);
 
         collectionRef
                 .whereGreaterThanOrEqualTo("menuSearch",search)
@@ -119,7 +108,7 @@ public class FoodResultController extends AppCompatActivity {
                     Boolean isSoup = document.getBoolean("isSoup");
                     Boolean isVegan = document.getBoolean("isVegan");
 
-                    menuItems.add(new newMenu(
+                    menuItems.add(new Menu(
                             menuId,
                             storeId,
                             menuName,
@@ -146,6 +135,6 @@ public class FoodResultController extends AppCompatActivity {
         });
     }
     private interface FirestoreCallback{
-        void onCallback(ArrayList<newMenu> list);
+        void onCallback(ArrayList<Menu> list);
     }
 }

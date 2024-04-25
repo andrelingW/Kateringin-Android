@@ -3,7 +3,6 @@ package project.skripsi.kateringin.Recycler;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,16 +22,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import project.skripsi.kateringin.Model.Review;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Util.IdrFormat;
 
 public class ReviewPageRecycleviewAdapter extends RecyclerView.Adapter<ReviewPageRecycleviewAdapter.ViewHolder> {
 
@@ -109,7 +108,7 @@ public class ReviewPageRecycleviewAdapter extends RecyclerView.Adapter<ReviewPag
 
 
         holder.ratingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
-            Log.d("TAG", "onRatingChanged: " + rating);
+            review.setRate((double) rating);
             notifyDataSetChanged();
         });
 
@@ -163,28 +162,17 @@ public class ReviewPageRecycleviewAdapter extends RecyclerView.Adapter<ReviewPag
 
 
     /** CUSTOM FUNCTION **/
+    public void pushToFirestore(){
+        for(Review review : reviews){
+            Map<String, Object> newReview = new HashMap<>();
+            newReview.put("menuId", review.getMenuId());
+            newReview.put("userId", review.getUserId());
+            newReview.put("rate", review.getRate());
+            newReview.put("detail", review.getComment());
 
-//    public void getStoreData(String storeId){
-//
-//        store = new Store();
-//
-//        DocumentReference docRef = database.collection("store").document(storeId);
-//
-//        docRef.get().addOnCompleteListener(task -> {
-//            if (task.isSuccessful()) {
-//                DocumentSnapshot document = task.getResult();
-//                if (document.exists()) {
-//                    store.setStoreName(document.getString("storeName"));
-//                } else {
-//                    System.out.println("No such document");
-//                }
-//            } else {
-//                Exception e = task.getException();
-//                if (e != null) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
+            database.collection("review").document().set(newReview);
+        }
+    }
+
 
 }

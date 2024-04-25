@@ -14,30 +14,31 @@ import project.skripsi.kateringin.R;
 
 public class CheckOutLocationEditController extends AppCompatActivity {
 
+    //XML
     AppCompatButton save;
     EditText addressET;
     Toolbar toolbar;
+
+    //STRING
     String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_out_location_edit_controller);
-
-        address = getIntent().getStringExtra("LOCATION_EDIT");
-
         bindView();
         setField();
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         buttonAction();
     }
 
     public void setField(){
         addressET.setText(address);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void bindView(){
+        address = getIntent().getStringExtra("LOCATION_EDIT");
         addressET = findViewById(R.id.checkout_location_address_et);
         toolbar = findViewById(R.id.checkout_location_edit_toolbar);
         save = findViewById(R.id.checkout_location_save_button);

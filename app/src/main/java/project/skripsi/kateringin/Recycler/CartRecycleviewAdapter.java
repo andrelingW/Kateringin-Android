@@ -2,9 +2,7 @@ package project.skripsi.kateringin.Recycler;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +18,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -34,17 +31,12 @@ import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import project.skripsi.kateringin.Fragment.CartFragment;
 import project.skripsi.kateringin.Model.Cart;
-import project.skripsi.kateringin.Model.Menu;
-import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.RecyclerviewItem.CartItem;
-import project.skripsi.kateringin.RecyclerviewItem.FoodItem;
 import project.skripsi.kateringin.Util.IdrFormat;
 
 public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleviewAdapter.ViewHolder> {
@@ -55,11 +47,8 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
     private CartFragment fragment;
     private Context context;
 
-    //TEST
-    private Menu menu;
     String menuName, storeName, menuPhotoUrl;
     long menuPrice;
-    private Store store;
     private FirebaseFirestore database;
     private FirebaseAuth mAuth;
 
@@ -147,8 +136,6 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
                 }
             }
         });
-
-
 
         holder.quantity.setText(String.valueOf(cartItem.getQuantity()));
         holder.time.setText(cartItem.getTimeRange());
@@ -280,56 +267,11 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
     }
 
     private void updateToFirestore(String cartItemId, int newQuantity) {
-        // Reference to the document you want to update in Firestore
         DocumentReference docRef = database.collection("cartItem").document(cartItemId);
-
-        // Update only the quantity field
         Map<String, Object> updates = new HashMap<>();
         updates.put("quantity", newQuantity);
 
         docRef.update(updates);
     }
 
-//    public void getStoreData(String storeId){
-//
-//        DocumentReference docRef = database.collection("store").document(storeId);
-//
-//        docRef.get().addOnCompleteListener(task -> {
-//            if (task.isSuccessful()) {
-//                DocumentSnapshot document = task.getResult();
-//                if (document.exists()) {
-//                    storeName = document.getString("storeName");
-//                } else {
-//                    System.out.println("No such document");
-//                }
-//            } else {
-//                Exception e = task.getException();
-//                if (e != null) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
-
-//    public void getMenuData(String menuId){
-//
-//        DocumentReference docRef = database.collection("menu").document(menuId);
-//
-//        docRef.get().addOnCompleteListener(task -> {
-//            if (task.isSuccessful()) {
-//                DocumentSnapshot document = task.getResult();
-//                if (document.exists()) {
-//                    menuName = document.getString("menuName");
-//                    menuPrice = document.getLong("menuPrice").intValue();
-//                } else {
-//                    System.out.println("No such document");
-//                }
-//            } else {
-//                Exception e = task.getException();
-//                if (e != null) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
 }

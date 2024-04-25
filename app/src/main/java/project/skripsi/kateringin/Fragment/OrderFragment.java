@@ -1,6 +1,5 @@
 package project.skripsi.kateringin.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,56 +19,49 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
-import project.skripsi.kateringin.Controller.Checkout.CheckOutController;
-import project.skripsi.kateringin.Controller.FoodResultController;
-import project.skripsi.kateringin.Controller.MenuDetailController;
-import project.skripsi.kateringin.Controller.OrderDetailController;
-import project.skripsi.kateringin.Model.Cart;
 import project.skripsi.kateringin.Model.Order;
 import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Recycler.CartRecycleviewAdapter;
-import project.skripsi.kateringin.Recycler.ExploreRecycleviewAdapter;
 import project.skripsi.kateringin.Recycler.OrderRecycleviewAdapter;
-import project.skripsi.kateringin.RecyclerviewItem.FoodItem;
 
 public class OrderFragment extends Fragment {
 
+    //XML
     RecyclerView recyclerView;
+
+    //FIELD
+    FirebaseFirestore database;
+    FirebaseAuth mAuth;
     OrderRecycleviewAdapter orderRecycleviewAdapter;
     ArrayList<Order> orders = new ArrayList<>();
 
-    FirebaseFirestore database;
-    FirebaseAuth mAuth;
-
     public static OrderFragment newInstance() {
-
         Bundle args = new Bundle();
-
         OrderFragment fragment = new OrderFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_order, container, false);
-        recyclerView = rootView.findViewById(R.id.order_recycler_view);
+        binding(rootView);
+        readOrderData(this::orderAdapter);
+        return rootView;
+    }
+
+    private void binding(View rootView){
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+        recyclerView = rootView.findViewById(R.id.order_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
-
-        readOrderData(this::orderAdapter);
-
-
-        return rootView;
     }
 
     public void orderAdapter(ArrayList<Order> cartItems){
         orderRecycleviewAdapter = new OrderRecycleviewAdapter(orders,this, getContext());
         recyclerView.setAdapter(orderRecycleviewAdapter);
-
     }
 
     private void readOrderData(FirestoreCallback firestoreCallback){
@@ -77,10 +69,8 @@ public class OrderFragment extends Fragment {
         Query query = collectionRef
                 .whereEqualTo("userId", mAuth.getCurrentUser().getUid());
 
-
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String orderId = document.getId();
                     String storeId = document.getString("storeId");
@@ -91,8 +81,8 @@ public class OrderFragment extends Fragment {
                     String receiverAddress = document.getString("receiverAddress");
 
                     ArrayList<Map<String, Object>> orderItemsList = (ArrayList<Map<String, Object>>) document.get("orderItems");
-
                     ArrayList<OrderItem> listOfOrderItem = new ArrayList<>();
+
                     for (Map<String, Object> item : orderItemsList) {
                         OrderItem order = new OrderItem();
 

@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +29,15 @@ import project.skripsi.kateringin.Recycler.CartRecycleviewAdapter;
 import project.skripsi.kateringin.Util.IdrFormat;
 
 public class CartFragment extends Fragment {
-    ArrayList<Cart> cartItems = new ArrayList<>();
-    RecyclerView recyclerView;
-    CartRecycleviewAdapter cartRecycleviewAdapter;
+
+    //XML
     AppCompatButton checkout;
     TextView totalPriceTV;
+    RecyclerView recyclerView;
+
+    //FIELD
+    ArrayList<Cart> cartItems = new ArrayList<>();
+    CartRecycleviewAdapter cartRecycleviewAdapter;
     FirebaseFirestore database;
     FirebaseAuth mAuth;
 
@@ -53,20 +56,19 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
+        binding(rootView);
+        readCartData(this::cartAdapter);
+        return rootView;
+    }
+
+    private void binding(View rootView){
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-
-        recyclerView = rootView.findViewById(R.id.cartRecyclerView);
         checkout = rootView.findViewById(R.id.cart_checkout_button);
         totalPriceTV = rootView.findViewById(R.id.cart_total_price);
-
+        recyclerView = rootView.findViewById(R.id.cartRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
-
-        readCartData(this::cartAdapter);
-
-
-        return rootView;
     }
 
     public void cartAdapter(ArrayList<Cart> cartItems){
@@ -107,10 +109,8 @@ public class CartFragment extends Fragment {
                 .whereEqualTo("userId", mAuth.getCurrentUser().getUid())
                 .whereEqualTo("processed", false);
 
-
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String cartId = document.getId();
                     String storeId = document.getString("storeId");
@@ -143,9 +143,8 @@ public class CartFragment extends Fragment {
             }
         });
     }
+
     private interface FirestoreCallback{
         void onCallback(ArrayList<Cart> list);
     }
-
-
 }
