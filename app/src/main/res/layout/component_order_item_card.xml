@@ -30,7 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/RoundedSquare"
-            app:srcCompat="@drawable/food_image_test" />
+            app:srcCompat="@drawable/menu_placeholder" />
 
         <TextView
             android:id="@+id/order_item_orderId_text"

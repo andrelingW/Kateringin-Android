@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/custom_default_bottom_sheet_style">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bottom_sheet_dialog_filter_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="20dp"
+
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_active_button"
+            android:text="Search"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_dialog_filter_group" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="75dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/custom_radius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textView51"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:text="Harga"
+            android:textAppearance="@style/componentBoldTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+        <RadioGroup
+            android:id="@+id/bottom_sheet_dialog_filter_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView51">
+
+
+            <RadioButton
+                android:id="@+id/bottom_sheet_dialog_filter_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/custom_radio_selector"
+                android:button="@android:color/transparent"
+                android:text="Di bawah Rp 25.000"
+                android:textAlignment="center"
+                android:textColor="@drawable/custom_radio_button_text_color"
+                android:textSize="12dp" />
+
+            <RadioButton
+                android:id="@+id/bottom_sheet_dialog_filter_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/custom_radio_selector"
+                android:button="@android:color/transparent"
+                android:text="Rp 25.000 sampai Rp 50.000"
+                android:textAlignment="center"
+                android:textColor="@drawable/custom_radio_button_text_color"
+                android:textSize="12dp" />
+
+            <RadioButton
+                android:id="@+id/bottom_sheet_dialog_filter_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/custom_radio_selector"
+                android:button="@android:color/transparent"
+                android:text="Rp 50.000 sampai Rp 100.000"
+                android:textAlignment="center"
+                android:textColor="@drawable/custom_radio_button_text_color"
+                android:textSize="12dp" />
+
+            <RadioButton
+                android:id="@+id/bottom_sheet_dialog_filter_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/custom_radio_selector"
+                android:button="@android:color/transparent"
+                android:text="Di atas Rp 100.000"
+                android:textAlignment="center"
+                android:textColor="@drawable/custom_radio_button_text_color"
+                android:textSize="12dp" />
+        </RadioGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

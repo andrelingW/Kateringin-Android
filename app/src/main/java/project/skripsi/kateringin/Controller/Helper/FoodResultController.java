@@ -3,12 +3,15 @@ package project.skripsi.kateringin.Controller.Helper;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.MenuRecycleviewAdapter;
+import project.skripsi.kateringin.Util.BottomSheetDialogFilter;
 
 public class FoodResultController extends AppCompatActivity {
 
@@ -29,6 +33,7 @@ public class FoodResultController extends AppCompatActivity {
     //XML
     RecyclerView recyclerView;
     Toolbar toolbar;
+    ConstraintLayout searchNotFound;
 
     //FIELD
     FirebaseAuth mAuth;
@@ -52,6 +57,7 @@ public class FoodResultController extends AppCompatActivity {
         recyclerView = findViewById(R.id.search_result_recyclerview);
         search = (String) getIntent().getSerializableExtra("SEARCH");
         toolbar = findViewById(R.id.search_result_toolbar);
+        searchNotFound = findViewById(R.id.search_result_not_found_warning);
     }
 
     public void setField(){
@@ -62,6 +68,14 @@ public class FoodResultController extends AppCompatActivity {
     }
 
     public void menuAdapter(ArrayList<Menu> menuItems){
+        if (menuItems.isEmpty()){
+            searchNotFound.setVisibility(View.VISIBLE);
+        } else{
+            searchNotFound.setVisibility(View.GONE);
+            for(int i = 0; i < 30; i++){
+                menuItems.add(new Menu());
+            }
+        }
         menuRecycleviewAdapter = new MenuRecycleviewAdapter(menuItems,this);
         recyclerView.setAdapter(menuRecycleviewAdapter);
 
@@ -72,11 +86,30 @@ public class FoodResultController extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.filter_menu, menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             finish();
+            return true;
+        }
+
+        if (id == R.id.menu_filter) {
+            Bundle bundle = new Bundle();
+            bundle.putString("search", search);
+
+            BottomSheetDialogFilter bottomSheetDialogFragment = new BottomSheetDialogFilter();
+            bottomSheetDialogFragment.setArguments(bundle);
+
+            bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+
             return true;
         }
         return super.onOptionsItemSelected(item);

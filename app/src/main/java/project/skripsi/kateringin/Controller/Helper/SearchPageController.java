@@ -7,12 +7,14 @@ import androidx.appcompat.widget.SearchView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 
 import project.skripsi.kateringin.R;
 
 public class SearchPageController extends AppCompatActivity {
 
     SearchView searchView;
+    ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +22,13 @@ public class SearchPageController extends AppCompatActivity {
         setContentView(R.layout.activity_search_page_view);
 
         searchView = findViewById(R.id.search_page_view);
+        backButton = findViewById(R.id.search_page_back_button);
         searchView.setIconified(false);
         searchView.setQueryHint("Mau cari menu apa?");
+
+        backButton.setOnClickListener(v ->{
+            finish();
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -38,15 +45,5 @@ public class SearchPageController extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

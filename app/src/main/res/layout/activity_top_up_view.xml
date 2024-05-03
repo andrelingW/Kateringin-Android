@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Controller.Wallet.TopUp.TopUpController">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/top_up_payment_page_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_bottom_border"
+        android:minHeight="?attr/actionBarSize"
+        app:title="Top Up"
+        android:theme="@style/CustomActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextAppearance="@style/navbarTitle" />
+
+    <TextView
+        android:id="@+id/textView60"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/componentBoldTitle"
+        android:text="Plih nominal Top Up"
+        android:textSize="15sp"
+        android:textColor="@color/light_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_up_payment_page_toolbar" />
+
+    <RadioGroup
+        android:id="@+id/top_up_payment_page_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView60">
+
+        <RadioButton
+            android:id="@+id/top_up_payment_page_50"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:background="@drawable/custom_radio_selector"
+            android:button="@android:color/transparent"
+            android:text="Rp 50.000,00"
+            android:textAlignment="center"
+            android:textColor="@drawable/custom_radio_button_text_color"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/top_up_payment_page_100"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+
+
+            android:background="@drawable/custom_radio_selector"
+            android:button="@android:color/transparent"
+            android:text="Rp 100.000,00"
+            android:textAlignment="center"
+            android:textColor="@drawable/custom_radio_button_text_color"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/top_up_payment_page_150"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+
+
+            android:background="@drawable/custom_radio_selector"
+            android:button="@android:color/transparent"
+            android:text="Rp 150.000,00"
+            android:textAlignment="center"
+            android:textColor="@drawable/custom_radio_button_text_color"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/top_up_payment_page_200"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+
+
+            android:background="@drawable/custom_radio_selector"
+            android:button="@android:color/transparent"
+            android:text="Rp 200.000,00"
+            android:textAlignment="center"
+            android:textColor="@drawable/custom_radio_button_text_color"
+            android:textSize="15sp" />
+        <RadioButton
+            android:id="@+id/top_up_payment_page_other_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+
+
+            android:background="@drawable/custom_radio_selector"
+            android:button="@android:color/transparent"
+            android:text="Nominal Lain"
+            android:textAlignment="center"
+            android:textColor="@drawable/custom_radio_button_text_color"
+            android:textSize="15sp" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/top_up_payment_page_other_amount_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:text="Isi Nominal"
+        android:textAppearance="@style/componentBoldTitle"
+        android:textColor="@color/light_black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_up_payment_page_radio_group" />
+
+    <EditText
+        android:id="@+id/top_up_payment_page_other_amount_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/custom_normal_edit_text"
+        android:ems="10"
+        android:hint="Masukkan nominal"
+        android:inputType="number"
+        android:padding="15dp"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_up_payment_page_other_amount_text" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_top_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textView53"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Total Payment"
+            android:textSize="14sp"
+            android:textAppearance="@style/normalGrayText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/top_up_payment_page_submit_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/custom_active_button"
+            android:text="Top Up"
+            android:textAppearance="@style/activeButton"
+            app:layout_constraintBottom_toBottomOf="@+id/top_up_payment_page_total_top_up_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView53"
+            app:layout_constraintTop_toTopOf="@+id/textView53" />
+
+        <TextView
+            android:id="@+id/top_up_payment_page_total_top_up_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:text="Rp 0,00"
+            android:textAppearance="@style/normalPriceText"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView53" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

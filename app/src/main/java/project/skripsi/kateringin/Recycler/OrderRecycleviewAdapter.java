@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,7 +34,6 @@ public class OrderRecycleviewAdapter extends RecyclerView.Adapter<OrderRecyclevi
     private FirebaseFirestore database;
     private FirebaseAuth mAuth;
 
-
     public OrderRecycleviewAdapter(ArrayList<Order> orderItems, OrderFragment orderFragment, Context context) {
         this.orderItems = orderItems;
         this.fragment = orderFragment;
@@ -54,7 +54,15 @@ public class OrderRecycleviewAdapter extends RecyclerView.Adapter<OrderRecyclevi
         final Order orderItem = orderItems.get(position);
 
         holder.orderId.setText("Order No #" + orderItem.getOrderId());
-        holder.orderStatus.setText("Ongoing");
+        holder.orderStatus.setText(orderItem.getOrderStatus());
+
+        if(orderItem.getOrderStatus().equalsIgnoreCase("waiting")){
+            holder.orderStatus.setBackgroundResource(R.drawable.custom_light_active_button);
+            holder.orderStatus.setTextColor(ContextCompat.getColor(context, R.color.blue));
+        } else if(orderItem.getOrderStatus().equalsIgnoreCase("ongoing")){
+            holder.orderStatus.setBackgroundResource(R.drawable.custom_ongoing_detail_button);
+            holder.orderStatus.setTextColor(ContextCompat.getColor(context, R.color.yellow));
+        }
 
         DocumentReference docRef = database.collection("store").document(orderItem.getStoreId());
 

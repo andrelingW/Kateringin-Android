@@ -9,11 +9,15 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import project.skripsi.kateringin.Controller.Helper.MainScreenController;
+import project.skripsi.kateringin.Controller.SuccessMessage.ReviewSuccessController;
 import project.skripsi.kateringin.Model.Order;
 import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.Model.Review;
@@ -32,6 +36,7 @@ public class ReviewController extends AppCompatActivity {
     ReviewPageRecycleviewAdapter recycleviewAdapter;
     FirebaseFirestore database;
     FirebaseAuth mAuth;
+    Order order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +54,12 @@ public class ReviewController extends AppCompatActivity {
         submit = findViewById(R.id.review_submit_button);
         pass = findViewById(R.id.review_ignore_button);
         recyclerView = findViewById(R.id.review_page_recyclerView);
+        order = (Order) getIntent().getSerializableExtra("ORDER_REVIEW");
     }
 
     private void setField() {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-
-        Order order = (Order) getIntent().getSerializableExtra("ORDER_REVIEW");
         list = new ArrayList<>(order.getOrderItem());
 
         for(OrderItem orderItem : list){
@@ -73,7 +77,9 @@ public class ReviewController extends AppCompatActivity {
         submit.setOnClickListener(v ->{
             if(recycleviewAdapter != null){
                 recycleviewAdapter.pushToFirestore();
-                Intent intent = new Intent(this, MainScreenController.class);
+                updateOrderStatus();
+                Intent intent = new Intent(this, ReviewSuccessController.class);
+                intent.putExtra("RATING_CALCULATE", order);
                 startActivity(intent);
             }
         });
@@ -81,6 +87,13 @@ public class ReviewController extends AppCompatActivity {
             Intent intent = new Intent(this, MainScreenController.class);
             startActivity(intent);
         });
+    }
+
+    public void updateOrderStatus(){
+        DocumentReference docRef = database.collection("order").document(order.getOrderId());
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("orderStatus", "complete");
+        docRef.update(updates);
     }
 
 

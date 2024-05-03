@@ -2,6 +2,7 @@ package project.skripsi.kateringin.Util;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +39,7 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
 
     EditText calendar, quantity;
     RadioGroup time;
+    RadioButton radioButton;
     ImageButton plus, mines;
     String quantityText;
     String timeRange, date;
@@ -44,6 +47,7 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
     AppCompatButton addToCart;
     FirebaseAuth mAuth;
     FirebaseFirestore database;
+    Boolean checkRadio;
 
     public interface BottomSheetListener {
         void addToCartSuccess();
@@ -85,6 +89,8 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        checkRadio = false;
+
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
 
@@ -98,14 +104,17 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
         Menu menu = (Menu) getArguments().getSerializable("myObject");
 
         time.setOnCheckedChangeListener((group, checkId) -> {
-            RadioButton radioButton = view.findViewById(checkId);
+            radioButton = view.findViewById(checkId);
             if (radioButton != null) {
                 if (checkId == R.id.bottomSheetMenuDetailMorningTime) {
                     timeRange = "08:00 - 12:00";
+                    checkRadio = true;
                 } else if (checkId == R.id.bottomSheetMenuDetailAfternoonTime) {
                     timeRange = "12:00 - 16:00";
+                    checkRadio = true;
                 } else if (checkId == R.id.bottomSheetMenuDetailNightTime) {
                     timeRange = "16:00 - 20:00";
+                    checkRadio = true;
                 }
             }
         });
@@ -147,7 +156,7 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
         });
 
         addToCart.setOnClickListener(v ->{
-            if (mListener != null) {
+            if (mListener != null && checkRadio && date != null) {
 
                 Map<String, Object> newCart = new HashMap<>();
                 newCart.put("menuId", menu.getMenuId() );
@@ -163,8 +172,12 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
                 // Add a new document with a generated ID
                 database.collection("cartItem").document().set(newCart);
                 mListener.addToCartSuccess();
+                dismiss();
+
             }
-            dismiss();
+            else{
+                Toast.makeText(getContext(), "Pilih terlebih dahulu waktu dan tanggal!", Toast.LENGTH_SHORT).show();
+            }
         });
 
     }

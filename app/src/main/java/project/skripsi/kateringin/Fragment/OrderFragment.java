@@ -1,7 +1,10 @@
 package project.skripsi.kateringin.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -19,6 +23,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
+import project.skripsi.kateringin.Controller.Order.OrderHistoryController;
 import project.skripsi.kateringin.Model.Order;
 import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.R;
@@ -28,6 +33,8 @@ public class OrderFragment extends Fragment {
 
     //XML
     RecyclerView recyclerView;
+    AppCompatButton history;
+    ConstraintLayout orderWarning;
 
     //FIELD
     FirebaseFirestore database;
@@ -47,19 +54,34 @@ public class OrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_order, container, false);
         binding(rootView);
+        setField();
         readOrderData(this::orderAdapter);
         return rootView;
+    }
+
+    private void setField() {
+        history.setOnClickListener(v ->{
+            Intent intent = new Intent(getActivity(), OrderHistoryController.class);
+            startActivity(intent);
+        });
     }
 
     private void binding(View rootView){
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+        history = rootView.findViewById(R.id.order_history_button);
         recyclerView = rootView.findViewById(R.id.order_recycler_view);
+        orderWarning = rootView.findViewById(R.id.order_warning);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
     }
 
     public void orderAdapter(ArrayList<Order> cartItems){
+        if(cartItems.isEmpty()){
+            orderWarning.setVisibility(View.VISIBLE);
+        }else{
+            orderWarning.setVisibility(View.GONE);
+        }
         orderRecycleviewAdapter = new OrderRecycleviewAdapter(orders,this, getContext());
         recyclerView.setAdapter(orderRecycleviewAdapter);
     }
@@ -67,7 +89,12 @@ public class OrderFragment extends Fragment {
     private void readOrderData(FirestoreCallback firestoreCallback){
         CollectionReference collectionRef = database.collection("order");
         Query query = collectionRef
-                .whereEqualTo("userId", mAuth.getCurrentUser().getUid());
+                .whereEqualTo("userId", mAuth.getCurrentUser().getUid())
+                .where(Filter.or(
+                        Filter.equalTo("orderStatus","waiting"),
+                        Filter.equalTo("orderStatus","ongoing"),
+                        Filter.equalTo("orderStatus","shipping")
+                ));
 
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -79,6 +106,7 @@ public class OrderFragment extends Fragment {
                     String receiverEmail = document.getString("receiverEmail");
                     String receiverPhone = document.getString("receiverPhone");
                     String receiverAddress = document.getString("receiverAddress");
+                    String orderStatus = document.getString("orderStatus");
 
                     ArrayList<Map<String, Object>> orderItemsList = (ArrayList<Map<String, Object>>) document.get("orderItems");
                     ArrayList<OrderItem> listOfOrderItem = new ArrayList<>();
@@ -105,6 +133,7 @@ public class OrderFragment extends Fragment {
                             receiverName,
                             receiverPhone,
                             receiverEmail,
+                            orderStatus,
                             listOfOrderItem
                     ));
                 }

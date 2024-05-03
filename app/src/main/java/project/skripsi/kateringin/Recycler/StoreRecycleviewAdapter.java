@@ -11,18 +11,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
 
+import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.TESTING.FoodItem;
+import project.skripsi.kateringin.Util.IdrFormat;
 
 public class StoreRecycleviewAdapter extends RecyclerView.Adapter<StoreRecycleviewAdapter.ViewHolder> {
 
-    private ArrayList<FoodItem> foodItems;
+    private ArrayList<Menu> foodItems;
     private OnClickListener onClickListener;
     private Context context;
 
-    public StoreRecycleviewAdapter(ArrayList<FoodItem> foodItems, Context context) {
+    public StoreRecycleviewAdapter(ArrayList<Menu> foodItems, Context context) {
         this.foodItems = foodItems;
         this.context = context;
     }
@@ -37,9 +43,17 @@ public class StoreRecycleviewAdapter extends RecyclerView.Adapter<StoreRecyclevi
     @Override
     public void onBindViewHolder(@NonNull StoreRecycleviewAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        final FoodItem foodItem = foodItems.get(position);
-        holder.foodImage.setImageURI(foodItems.get(position).getImageUrl());
-        holder.foodName.setText(foodItems.get(position).getFoodName());
+        final Menu foodItem = foodItems.get(position);
+
+        Glide.with(context)
+                .load(foodItem.getMenuPhotoUrl())
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                .placeholder(R.drawable.default_image_profile)
+                .apply(RequestOptions.skipMemoryCacheOf(true))
+                .into(holder.foodImage);
+
+        holder.foodName.setText(foodItem.getMenuName());
+        holder.foodPrice.setText(IdrFormat.format(foodItem.getMenuPrice()));
 
         holder.itemView.setOnClickListener(view -> {
             if (onClickListener != null) {
@@ -54,7 +68,7 @@ public class StoreRecycleviewAdapter extends RecyclerView.Adapter<StoreRecyclevi
     }
 
     public interface OnClickListener {
-        void onClick(int position, FoodItem model);
+        void onClick(int position, Menu model);
     }
 
     @Override
@@ -67,14 +81,13 @@ public class StoreRecycleviewAdapter extends RecyclerView.Adapter<StoreRecyclevi
         TextView foodName;
         TextView foodPrice;
         TextView foodRate;
-        ImageView storeImage;
-        TextView storeName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             foodImage = itemView.findViewById(R.id.explore_food_image);
             foodName = itemView.findViewById(R.id.explore_food_name);
             foodPrice = itemView.findViewById(R.id.explore_food_price);
+            foodRate = itemView.findViewById(R.id.explore_food_rating);
         }
     }
 }

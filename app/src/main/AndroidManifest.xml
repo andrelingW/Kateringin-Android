@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,7 +17,46 @@
         android:theme="@style/Theme.Kateringin"
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".Controller.SuccessMessage.WithdrawSuccessController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Wallet.Withdraw.WithdrawController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Wallet.Withdraw.AddUserBankAccountController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Wallet.Withdraw.ListOfBankAccountController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Wallet.WalletHistoryController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.SuccessMessage.TopUpSuccessController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Wallet.TopUp.TopUpPaymentController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Wallet.TopUp.TopUpController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Wallet.WalletController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Helper.FoodCategoryPageController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Order.OrderHistoryController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.SuccessMessage.ThankYouController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.SuccessMessage.ReviewSuccessController"
+            android:exported="false" />
         <activity
             android:name=".Controller.Review.ReviewController"
             android:exported="false" />
@@ -28,7 +67,7 @@
             android:name=".Controller.Order.OrderDetailController"
             android:exported="false" />
         <activity
-            android:name=".Controller.Helper.PaymentSuccessController"
+            android:name=".Controller.SuccessMessage.PaymentSuccessController"
             android:exported="false" />
         <activity
             android:name=".Controller.Checkout.ChoosePaymentController"
@@ -54,10 +93,16 @@
             android:name=".Controller.Helper.FoodResultController"
             android:exported="false" />
         <activity
+            android:name=".Controller.Helper.FoodResultFilterController"
+            android:exported="false" />
+        <activity
             android:name=".Controller.Helper.SearchPageController"
             android:exported="false" />
         <activity
             android:name=".Controller.Authentication.ForgotPasswordController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Order.OrderHistoryDetailController"
             android:exported="false" />
         <activity
             android:name="com.canhub.cropper.CropImageActivity"
@@ -85,7 +130,7 @@
             android:exported="false" />
         <activity
             android:name=".Controller.Helper.SplashScreen"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

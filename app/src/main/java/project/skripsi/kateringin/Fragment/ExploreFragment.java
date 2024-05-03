@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
+import project.skripsi.kateringin.Controller.Helper.FoodCategoryPageController;
 import project.skripsi.kateringin.Controller.Helper.SearchPageController;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.TESTING.FoodItem;
@@ -25,6 +27,7 @@ public class ExploreFragment extends Fragment {
     //XML
     RecyclerView recyclerView;
     ConstraintLayout searchBar;
+    ImageButton vegan, nasi, mie, kuah, diet, nonHalal;
 
     //FIELD
     ArrayList<FoodItem> foodItems = new ArrayList<>();
@@ -46,11 +49,53 @@ public class ExploreFragment extends Fragment {
         searchBar = rootView.findViewById(R.id.explore_search_bar);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        vegan = rootView.findViewById(R.id.subMenuVegan);
+        nasi = rootView.findViewById(R.id.subMenuNasi);
+        mie = rootView.findViewById(R.id.subMenuMie);
+        kuah = rootView.findViewById(R.id.subMenuKuah);
+        diet = rootView.findViewById(R.id.subMenuDiet);
+        nonHalal = rootView.findViewById(R.id.subMenuNonHalal);
     }
 
     private void button(){
         searchBar.setOnClickListener(v ->{
             Intent intent = new Intent(getActivity(), SearchPageController.class);
+            startActivity(intent);
+        });
+
+        vegan.setOnClickListener(v ->{
+            Intent intent = new Intent(getActivity(), FoodCategoryPageController.class);
+            intent.putExtra("SUB_ORDER_DECIDE", "VEGAN");
+            startActivity(intent);
+        });
+
+        nasi.setOnClickListener(v ->{
+            Intent intent = new Intent(getActivity(), FoodCategoryPageController.class);
+            intent.putExtra("SUB_ORDER_DECIDE", "NASI");
+            startActivity(intent);
+        });
+
+        mie.setOnClickListener(v ->{
+            Intent intent = new Intent(getActivity(), FoodCategoryPageController.class);
+            intent.putExtra("SUB_ORDER_DECIDE", "MIE");
+            startActivity(intent);
+        });
+
+        kuah.setOnClickListener(v ->{
+            Intent intent = new Intent(getActivity(), FoodCategoryPageController.class);
+            intent.putExtra("SUB_ORDER_DECIDE", "KUAH");
+            startActivity(intent);
+        });
+
+        diet.setOnClickListener(v ->{
+            Intent intent = new Intent(getActivity(), FoodCategoryPageController.class);
+            intent.putExtra("SUB_ORDER_DECIDE", "DIET");
+            startActivity(intent);
+        });
+
+        nonHalal.setOnClickListener(v ->{
+            Intent intent = new Intent(getActivity(), FoodCategoryPageController.class);
+            intent.putExtra("SUB_ORDER_DECIDE", "NONHALAL");
             startActivity(intent);
         });
     }

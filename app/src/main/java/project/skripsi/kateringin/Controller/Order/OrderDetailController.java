@@ -1,6 +1,7 @@
 package project.skripsi.kateringin.Controller.Order;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
@@ -8,11 +9,19 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -77,14 +86,28 @@ public class OrderDetailController extends AppCompatActivity {
         receiverPhone.setText(order.getReceiverPhone());
         receiverAddress.setText(order.getReceiverAddress());
 
-        Boolean testing = true;
-        if(testing){
-            accepted.setEnabled(true);
-            accepted.setBackgroundResource(R.drawable.custom_active_button);
-        } else{
-            accepted.setEnabled(false);
-            accepted.setBackgroundResource(R.drawable.custom_unactive_button);
-        }
+        DocumentReference menuDocRef = database.collection("order").document(order.getOrderId());
+        menuDocRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    if(document.getString("orderStatus").equalsIgnoreCase("shipping")){
+                        accepted.setEnabled(true);
+                        accepted.setBackgroundResource(R.drawable.custom_active_button);
+                    } else{
+                        accepted.setEnabled(false);
+                        accepted.setBackgroundResource(R.drawable.custom_unactive_button);
+                    }
+                } else {
+                    System.out.println("No such document");
+                }
+            } else {
+                Exception e = task.getException();
+                if (e != null) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void button(){

@@ -50,7 +50,7 @@
             <ImageView
                 android:id="@+id/menu_detail_menu_image"
                 android:layout_width="wrap_content"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -134,12 +134,12 @@
 <!--                tools:srcCompat="@tools:sample/avatars" />-->
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imageButton2"
+                android:id="@+id/menu_detail_store_image"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/user_icon"
+                android:src="@drawable/menu_placeholder"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider12"
@@ -153,9 +153,9 @@
                 android:text="Warung Mbak Riska"
                 android:textSize="15dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-                app:layout_constraintStart_toEndOf="@+id/imageButton2"
-                app:layout_constraintTop_toTopOf="@+id/imageButton2" />
+                app:layout_constraintBottom_toBottomOf="@+id/menu_detail_store_image"
+                app:layout_constraintStart_toEndOf="@+id/menu_detail_store_image"
+                app:layout_constraintTop_toTopOf="@+id/menu_detail_store_image" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/menu_detail_store_redirect_button"
@@ -167,9 +167,9 @@
                 android:textAllCaps="false"
                 android:textColor="#626262"
                 android:background="@drawable/custom_normal_edit_text"
-                app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
+                app:layout_constraintBottom_toBottomOf="@+id/menu_detail_store_image"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageButton2" />
+                app:layout_constraintTop_toTopOf="@+id/menu_detail_store_image" />
 
             <View
                 android:id="@+id/divider13"
@@ -179,7 +179,7 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
+                app:layout_constraintTop_toBottomOf="@+id/menu_detail_store_image" />
 
             <TextView
                 android:id="@+id/textView45"

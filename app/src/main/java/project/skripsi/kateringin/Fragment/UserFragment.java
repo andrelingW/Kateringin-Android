@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
 import project.skripsi.kateringin.Controller.Helper.TermsAndConditionController;
+import project.skripsi.kateringin.Controller.Wallet.WalletController;
 import project.skripsi.kateringin.Controller.User.UserController;
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
@@ -34,7 +35,7 @@ public class UserFragment extends Fragment {
 
     //XML
     TextView nameTxt, emailTxt, phoneTxt;
-    ConstraintLayout editProfile, help, logout, termsAndCondition;
+    ConstraintLayout editProfile, help, logout, termsAndCondition, wallet;
     ImageView profileImage;
 
     //FIELD
@@ -44,27 +45,6 @@ public class UserFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-//        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
-//        Gson gson = new Gson();
-//        String json = sharedPreferences.getString("userObject", "");
-//        User user = gson.fromJson(json, User.class);
-//
-//        if(user.getProfileImageUrl() == null){
-//            Glide.with(this)
-//                    .load(R.drawable.default_image_profile)
-//                    .into(profileImage);
-//        }else{
-//            RequestBuilder<Drawable> requestBuilder= Glide.with(profileImage.getContext())
-//                    .asDrawable().sizeMultiplier(0.1f);
-//
-//            Glide.with(this)
-//                    .load(user.getProfileImageUrl())
-//                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-//                    .thumbnail(requestBuilder)
-//                    .placeholder(R.drawable.default_image_profile)
-//                    .apply(RequestOptions.skipMemoryCacheOf(true))
-//                    .into(profileImage);
-//        }
         setField();
     }
 
@@ -89,6 +69,7 @@ public class UserFragment extends Fragment {
         editProfile = rootView.findViewById(R.id.editProfileLayout);
         help = rootView.findViewById(R.id.profilelHelp);
         logout = rootView.findViewById(R.id.profileLogout);
+        wallet = rootView.findViewById(R.id.profileWallet);
         termsAndCondition = rootView.findViewById(R.id.profileTermsAndCondition);
     }
 
@@ -107,10 +88,8 @@ public class UserFragment extends Fragment {
 
             Glide.with(this)
                     .load(user.getProfileImageUrl())
-                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                     .thumbnail(requestBuilder)
                     .placeholder(R.drawable.default_image_profile)
-                    .apply(RequestOptions.skipMemoryCacheOf(true))
                     .into(profileImage);
         }
     }
@@ -141,6 +120,11 @@ public class UserFragment extends Fragment {
 
         termsAndCondition.setOnClickListener(v ->{
             Intent intent = new Intent(getActivity(), TermsAndConditionController.class);
+            startActivity(intent);
+        });
+
+        wallet.setOnClickListener(v ->{
+            Intent intent = new Intent(getActivity(), WalletController.class);
             startActivity(intent);
         });
     }

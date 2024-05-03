@@ -126,15 +126,26 @@ public class AuthRegisterController extends AppCompatActivity {
                                         newUser.put("email", email);
                                         newUser.put("isOwner", false);
 
-                                        database.collection("user").document(mAuth.getCurrentUser().getUid().toString())
+                                        database.collection("user").document(mAuth.getCurrentUser().getUid())
                                                 .set(newUser)
                                                 .addOnCompleteListener(innerTaskAddUser -> {
-                                                    animateView(progressOverlay, View.GONE, 0, 200);
-                                                    Intent intent = new Intent(getApplicationContext(), EmailVerificationController.class);
-                                                    startActivity(intent);
-                                                    finish();
+                                                    Map<String, Object> newWallet = new HashMap<>();
+                                                    newWallet.put("userId", mAuth.getCurrentUser().getUid());
+                                                    newWallet.put("balance", 0);
+
+                                                    database.collection("wallet").document()
+                                                            .set(newWallet)
+                                                            .addOnCompleteListener(innerTaskAddWallet -> {
+                                                                animateView(progressOverlay, View.GONE, 0, 200);
+                                                                Intent intent = new Intent(getApplicationContext(), EmailVerificationController.class);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            })
+                                                            .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
                                                 })
                                                 .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
+
+
                                     }
                                 });
                             }

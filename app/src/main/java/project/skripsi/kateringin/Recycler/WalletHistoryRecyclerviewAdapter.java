@@ -1,0 +1,96 @@
+package project.skripsi.kateringin.Recycler;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+
+import project.skripsi.kateringin.Model.WalletHistory;
+import project.skripsi.kateringin.R;
+import project.skripsi.kateringin.Util.IdrFormat;
+
+public class WalletHistoryRecyclerviewAdapter extends RecyclerView.Adapter<WalletHistoryRecyclerviewAdapter.ViewHolder> {
+
+    private ArrayList<WalletHistory> walletHistories;
+    private OnClickListener onClickListener;
+    private Context context;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore database;
+
+    public WalletHistoryRecyclerviewAdapter(ArrayList<WalletHistory> walletHistories, Context context) {
+        this.walletHistories = walletHistories;
+        this.context = context;
+    }
+
+    @NonNull
+    @Override
+    public WalletHistoryRecyclerviewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.component_wallet_history_item_card, parent, false);
+        return new ViewHolder(view);
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void onBindViewHolder(@NonNull WalletHistoryRecyclerviewAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseFirestore.getInstance();
+
+        final WalletHistory walletHistory = walletHistories.get(position);
+        holder.date.setText(walletHistory.getDate());
+        switch (walletHistory.getTransactionType()){
+            case "top-up":
+                holder.amount.setText("+ " + IdrFormat.format(walletHistory.getAmount()));
+                break;
+            case "settlement":
+                holder.amount.setText("- " + IdrFormat.format(walletHistory.getAmount()));
+                break;
+            case "withdraw":
+                holder.amount.setText("- " + IdrFormat.format(walletHistory.getAmount()));
+                break;
+            case "refund":
+                holder.amount.setText("+ " + IdrFormat.format(walletHistory.getAmount()));
+                break;
+        }
+        holder.transactionType.setText("Transaction Type : " + walletHistory.getTransactionType());
+        holder.itemView.setOnClickListener(view -> {
+            if (onClickListener != null) {
+                onClickListener.onClick(position, walletHistory);
+            }
+        });
+
+    }
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public interface OnClickListener {
+        void onClick(int position, WalletHistory model);
+    }
+
+    @Override
+    public int getItemCount() {
+        return walletHistories.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        TextView date, amount, transactionType;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            date = itemView.findViewById(R.id.wallet_history_item_date_text);
+            amount = itemView.findViewById(R.id.wallet_history_item_value_text);
+            transactionType = itemView.findViewById(R.id.wallet_history_item_type_text);
+        }
+    }
+}

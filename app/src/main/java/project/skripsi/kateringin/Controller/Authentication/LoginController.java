@@ -43,6 +43,7 @@ public class LoginController extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_view);
+
         binding();
         button();
     }
@@ -74,7 +75,6 @@ public class LoginController extends AppCompatActivity {
         forgotPassword.setOnClickListener(v ->{
             Intent intent = new Intent(getApplicationContext(), ForgotPasswordController.class);
             startActivity(intent);
-            finish();
         });
 
         register.setOnClickListener(v ->{

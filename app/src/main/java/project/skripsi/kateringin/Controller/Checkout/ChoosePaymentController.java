@@ -39,7 +39,7 @@ import java.util.Objects;
 
 import project.skripsi.kateringin.Model.Cart;
 import project.skripsi.kateringin.Model.OrderItem;
-import project.skripsi.kateringin.Controller.Helper.PaymentSuccessController;
+import project.skripsi.kateringin.Controller.SuccessMessage.PaymentSuccessController;
 import project.skripsi.kateringin.Model.TransactionResponse;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Repository.TransactionStatusInterface;
@@ -311,6 +311,7 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
 
         data.put("storeId", storeId);
         data.put("userId", mAuth.getCurrentUser().getUid());
+        data.put("orderStatus", "waiting");
 
         data.put("orderItems", groupedItems);
 

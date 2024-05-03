@@ -3,6 +3,7 @@ package project.skripsi.kateringin.Recycler;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -199,6 +200,10 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
         cartItems.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, cartItems.size());
+        if(cartItems.isEmpty()){
+            Log.d("TAG", "removeAt: asda");
+//            fragment.refresh();
+        }
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {

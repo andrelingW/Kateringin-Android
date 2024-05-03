@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
+import project.skripsi.kateringin.Util.IdrFormat;
 
 public class MenuRecycleviewAdapter extends RecyclerView.Adapter<MenuRecycleviewAdapter.ViewHolder> {
 
@@ -44,12 +45,11 @@ public class MenuRecycleviewAdapter extends RecyclerView.Adapter<MenuRecycleview
         final Menu foodItem = foodItems.get(position);
         Glide.with(context)
                 .load(foodItem.getMenuPhotoUrl())
-                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-                .apply(RequestOptions.skipMemoryCacheOf(true))
+                .placeholder(R.drawable.menu_placeholder)
                 .into(holder.foodImage);
 
         holder.foodName.setText(foodItem.getMenuName());
-        holder.foodPrice.setText("Rp " + foodItem.getMenuPrice() +",00");
+        holder.foodPrice.setText(IdrFormat.format(foodItem.getMenuPrice()));
         holder.foodRate.setText(String.valueOf(foodItem.getMenuRating()));
 
         holder.itemView.setOnClickListener(view -> {

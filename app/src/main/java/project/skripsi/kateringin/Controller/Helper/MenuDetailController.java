@@ -1,5 +1,7 @@
 package project.skripsi.kateringin.Controller.Helper;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,25 +20,35 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import project.skripsi.kateringin.Model.Review;
 import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.ReviewRecycleviewAdapter;
 import project.skripsi.kateringin.Util.BottomSheetDialogMenuDetailOrder;
+import project.skripsi.kateringin.Util.IdrFormat;
 
 public class MenuDetailController extends AppCompatActivity {
     ArrayList<Review> reviews = new ArrayList<>();
     TextView menuName, menuPrice, menuRating, menuDescription, menuCalorie, storeName, reviewCounter;
-    ImageView menuImage;
+    ImageView menuImage, storeImage;
     Button order, storeDetail;
     Menu foodItem;
     RecyclerView recyclerView;
@@ -46,6 +60,8 @@ public class MenuDetailController extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_detail_controller);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.black, null));
+        getWindow().getDecorView().setSystemUiVisibility(0);
 
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -60,11 +76,12 @@ public class MenuDetailController extends AppCompatActivity {
         menuDescription = findViewById(R.id.menu_detail_menu_description);
         menuCalorie = findViewById(R.id.menu_detail_menu_calorie);
         menuImage = findViewById(R.id.menu_detail_menu_image);
+        storeImage = findViewById(R.id.menu_detail_store_image);
         storeName = findViewById(R.id.menu_detail_store_name);
         reviewCounter = findViewById(R.id.menu_detail_review_counter);
 
         menuName.setText(foodItem.getMenuName());
-        menuPrice.setText("Rp " +foodItem.getMenuPrice() + ",00");
+        menuPrice.setText(IdrFormat.format(foodItem.getMenuPrice()));
         menuRating.setText(String.valueOf(foodItem.getMenuRating()));
         menuDescription.setText(foodItem.getMenuDescription());
         menuCalorie.setText(foodItem.getMenuCalorie() + " Kkal");
@@ -73,9 +90,42 @@ public class MenuDetailController extends AppCompatActivity {
         Glide.with(this)
                 .load(foodItem.getMenuPhotoUrl())
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-                .placeholder(R.drawable.default_image_profile)
+                .placeholder(R.drawable.menu_placeholder)
                 .apply(RequestOptions.skipMemoryCacheOf(true))
                 .into(menuImage);
+
+        DocumentReference docRef = database.collection("store").document(foodItem.getStoreId());
+
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Glide.with(this)
+                            .load(document.getString("storePhotoUrl"))
+                            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                            .placeholder(R.drawable.default_image_profile)
+                            .apply(RequestOptions.skipMemoryCacheOf(true))
+                            .into(new CustomTarget<Drawable>() {
+                                @Override
+                                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                    storeImage.setImageDrawable(resource);
+                                }
+
+                                @Override
+                                public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                                }
+                            });
+                } else {
+                    System.out.println("No such document");
+                }
+            } else {
+                Exception e = task.getException();
+                if (e != null) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         recyclerView = findViewById(R.id.menu_detail_review_recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -85,6 +135,7 @@ public class MenuDetailController extends AppCompatActivity {
 
         storeDetail.setOnClickListener(v ->{
             Intent intent = new Intent(this, StoreController.class);
+            intent.putExtra("STORE_ID", foodItem.getStoreId());
             startActivity(intent);
         });
 
