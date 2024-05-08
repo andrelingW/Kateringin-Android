@@ -17,8 +17,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
@@ -28,8 +26,8 @@ import project.skripsi.kateringin.Controller.Wallet.WalletController;
 import project.skripsi.kateringin.Controller.User.UserController;
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Util.BottomSheetDialogProfileHelp;
-import project.skripsi.kateringin.Util.BottomSheetDialogProfileLogout;
+import project.skripsi.kateringin.Util.BottomSheetDialog.BottomSheetDialogProfileHelp;
+import project.skripsi.kateringin.Util.BottomSheetDialog.BottomSheetDialogProfileLogout;
 
 public class UserFragment extends Fragment {
 

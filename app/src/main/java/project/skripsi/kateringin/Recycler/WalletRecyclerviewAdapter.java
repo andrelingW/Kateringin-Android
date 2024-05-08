@@ -13,11 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import project.skripsi.kateringin.Model.WalletHistory;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Util.IdrFormat;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class WalletRecyclerviewAdapter extends RecyclerView.Adapter<WalletRecyclerviewAdapter.ViewHolder> {
 
@@ -45,7 +49,18 @@ public class WalletRecyclerviewAdapter extends RecyclerView.Adapter<WalletRecycl
         database = FirebaseFirestore.getInstance();
 
         final WalletHistory walletHistory = walletHistories.get(position);
-        holder.date.setText(walletHistory.getDate());
+        String inputDate = walletHistory.getDate();
+
+        SimpleDateFormat inputFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("d MMMM yyyy", Locale.ENGLISH);
+
+        try {
+            Date date = inputFormat.parse(inputDate);
+            holder.date.setText(outputFormat.format(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         switch (walletHistory.getTransactionType()){
             case "top-up":
                 holder.amount.setText("+ " + IdrFormat.format(walletHistory.getAmount()));

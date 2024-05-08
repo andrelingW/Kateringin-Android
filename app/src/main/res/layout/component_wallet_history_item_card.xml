@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:elevation="0dp"
+    app:cardElevation="0dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
     android:layout_marginLeft="10dp"
     app:cardCornerRadius="15dp"
-    android:background="@drawable/custom_card_outline"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:background="@drawable/custom_normal_border"
         >
 
         <TextView
@@ -26,7 +26,6 @@
             android:layout_marginTop="20dp"
             android:text="1 Januari 2024"
             android:textAppearance="@style/normalGrayText"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,7 +38,8 @@
             android:layout_marginEnd="15dp"
             android:text="- Rp 5.000.000,00"
             android:textAppearance="@style/normalBlackText"
-            android:textSize="25sp"
+            android:textSize="20sp"
+            android:textColor="@color/blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/wallet_history_item_date_text" />
@@ -53,6 +53,7 @@
             android:layout_marginBottom="20dp"
             android:text="Transaction Type : Top Up"
             android:textAppearance="@style/normalGrayText"
+            android:textColor="@color/light_black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/wallet_history_item_value_text" />

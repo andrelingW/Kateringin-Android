@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:elevation="0dp"
+    app:cardElevation="0dp"
     android:layout_marginTop="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginBottom="10dp"
     app:cardCornerRadius="15dp"
-    android:background="@drawable/custom_card_outline"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/custom_normal_border"
   >
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -57,6 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="Rp 0,00"
+            android:textColor="@color/blue"
             android:textAppearance="@style/normalPriceText"
             app:layout_constraintBottom_toBottomOf="@+id/checkout_item_menu_image"
             app:layout_constraintStart_toEndOf="@+id/checkout_item_menu_image" />

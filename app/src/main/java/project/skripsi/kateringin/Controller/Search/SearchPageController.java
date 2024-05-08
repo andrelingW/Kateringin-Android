@@ -1,13 +1,12 @@
-package project.skripsi.kateringin.Controller.Helper;
+package project.skripsi.kateringin.Controller.Search;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import project.skripsi.kateringin.R;
 
@@ -16,6 +15,8 @@ public class SearchPageController extends AppCompatActivity {
     SearchView searchView;
     ImageButton backButton;
 
+    TextView quickSearchNasi, quickSearchMie, quickSearchSoto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,10 +24,35 @@ public class SearchPageController extends AppCompatActivity {
 
         searchView = findViewById(R.id.search_page_view);
         backButton = findViewById(R.id.search_page_back_button);
-        searchView.setIconified(false);
-        searchView.setQueryHint("Mau cari menu apa?");
+        quickSearchNasi = findViewById(R.id.quick_search_nasi);
+        quickSearchMie = findViewById(R.id.quick_search_mie);
+        quickSearchSoto = findViewById(R.id.quick_search_soto);
+
+        searchView.setIconifiedByDefault(false);
+        searchView.setQueryHint("Mau cari menu apa hari ini?");
 
         backButton.setOnClickListener(v ->{
+            finish();
+        });
+
+        quickSearchNasi.setOnClickListener(v ->{
+            Intent intent = new Intent(getApplicationContext(), FoodResultController.class);
+            intent.putExtra("SEARCH", "nasi");
+            startActivity(intent);
+            finish();
+        });
+
+        quickSearchMie.setOnClickListener(v ->{
+            Intent intent = new Intent(getApplicationContext(), FoodResultController.class);
+            intent.putExtra("SEARCH", "mie");
+            startActivity(intent);
+            finish();
+        });
+
+        quickSearchSoto.setOnClickListener(v ->{
+            Intent intent = new Intent(getApplicationContext(), FoodResultController.class);
+            intent.putExtra("SEARCH", "soto");
+            startActivity(intent);
             finish();
         });
 

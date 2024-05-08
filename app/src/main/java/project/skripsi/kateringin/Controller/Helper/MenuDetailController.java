@@ -3,6 +3,7 @@ package project.skripsi.kateringin.Controller.Helper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,9 +12,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,8 +23,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -32,23 +31,23 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 
+import project.skripsi.kateringin.Controller.Review.ReviewViewAllController;
 import project.skripsi.kateringin.Model.Review;
 import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.ReviewRecycleviewAdapter;
-import project.skripsi.kateringin.Util.BottomSheetDialogMenuDetailOrder;
-import project.skripsi.kateringin.Util.IdrFormat;
+import project.skripsi.kateringin.Util.BottomSheetDialog.BottomSheetDialogMenuDetailOrder;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class MenuDetailController extends AppCompatActivity {
     ArrayList<Review> reviews = new ArrayList<>();
-    TextView menuName, menuPrice, menuRating, menuDescription, menuCalorie, storeName, reviewCounter;
+    TextView menuName, menuPrice, menuRating, menuDescription, menuCalorie, storeName, reviewCounter, reviewViewAll;
+    ConstraintLayout reviewWarning;
     ImageView menuImage, storeImage;
+    ImageButton cartShortcut;
     Button order, storeDetail;
     Menu foodItem;
     RecyclerView recyclerView;
@@ -79,13 +78,15 @@ public class MenuDetailController extends AppCompatActivity {
         storeImage = findViewById(R.id.menu_detail_store_image);
         storeName = findViewById(R.id.menu_detail_store_name);
         reviewCounter = findViewById(R.id.menu_detail_review_counter);
+        cartShortcut = findViewById(R.id.menu_detail_cart_shortcut_button);
+        reviewWarning = findViewById(R.id.review_warning);
+        reviewViewAll = findViewById(R.id.menu_detail_review_view_all);
 
         menuName.setText(foodItem.getMenuName());
         menuPrice.setText(IdrFormat.format(foodItem.getMenuPrice()));
         menuRating.setText(String.valueOf(foodItem.getMenuRating()));
         menuDescription.setText(foodItem.getMenuDescription());
         menuCalorie.setText(foodItem.getMenuCalorie() + " Kkal");
-        storeName.setText("Warung Mpok RiskaLa");
 
         Glide.with(this)
                 .load(foodItem.getMenuPhotoUrl())
@@ -100,6 +101,8 @@ public class MenuDetailController extends AppCompatActivity {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
+                    storeName.setText(document.getString("storeName"));
+
                     Glide.with(this)
                             .load(document.getString("storePhotoUrl"))
                             .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
@@ -139,13 +142,32 @@ public class MenuDetailController extends AppCompatActivity {
             startActivity(intent);
         });
 
+        cartShortcut.setOnClickListener(v ->{
+            Intent intent = new Intent(this, MainScreenController.class);
+            intent.putExtra("fragmentId", R.layout.fragment_cart);
+            intent.putExtra("menuItemId", R.id.menu_cart);
+            startActivity(intent);
+            finish();
+        });
+
         order.setOnClickListener(v ->{
             BottomSheetDialogMenuDetailOrder bottomSheetDialog = BottomSheetDialogMenuDetailOrder.newInstance(foodItem);
             bottomSheetDialog.setBottomSheetListener(this::addToCartSuccess);
             bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
         });
+
+        reviewViewAll.setOnClickListener(v ->{
+            Intent intent = new Intent(this, ReviewViewAllController.class);
+            intent.putExtra("MENU_ID", foodItem.getMenuId());
+            startActivity(intent);
+        });
     }
     public void reviewAdapter(ArrayList<Review> reviewItems){
+        if(reviewItems.isEmpty()){
+            reviewWarning.setVisibility(View.VISIBLE);
+        }else{
+            reviewWarning.setVisibility(View.GONE);
+        }
         reviewCounter.setText("(" + reviewItems.size() + ")");
         recycleviewAdapter = new ReviewRecycleviewAdapter(reviewItems,this);
         recyclerView.setAdapter(recycleviewAdapter);
@@ -167,7 +189,8 @@ public class MenuDetailController extends AppCompatActivity {
     private void readReviewData(FirestoreCallback firestoreCallback){
         CollectionReference collectionRef = database.collection("review");
         Query query = collectionRef
-                .whereEqualTo("menuId", foodItem.getMenuId());
+                .whereEqualTo("menuId", foodItem.getMenuId())
+                .limit(4);
 
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

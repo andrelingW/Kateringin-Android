@@ -5,22 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Controller.Helper.SearchPageController">
+    tools:context=".Controller.Search.SearchPageController">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_page_view"
         android:layout_width="323dp"
-        android:layout_height="44dp"
-
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/custom_searchbar"
-        app:queryBackground="@android:color/transparent"
+        android:theme="@style/AppSearchView"
+        android:background="@drawable/custom_normal_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/search_page_back_button"
-        app:layout_constraintTop_toTopOf="parent"
-        android:queryHint="asdasd"
-        android:iconifiedByDefault="true"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/search_page_back_button"
@@ -36,13 +33,73 @@
 
     <View
         android:id="@+id/divider7"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="15dp"
-        android:background="@color/gray"
+        android:background="@color/light_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_page_view" />
+
+    <TextView
+        android:id="@+id/textView81"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:text="Quick Search"
+        android:textStyle="bold"
+        android:textAppearance="@style/normalBlackText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider7" />
+
+    <TextView
+        android:id="@+id/quick_search_nasi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_normal_edit_text"
+        android:paddingStart="25dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="25dp"
+        android:paddingBottom="10dp"
+        android:text="Nasi"
+        android:textAppearance="@style/normalGrayText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView81" />
+
+    <TextView
+        android:id="@+id/quick_search_mie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/custom_normal_edit_text"
+        android:paddingStart="25dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="25dp"
+        android:paddingBottom="10dp"
+        android:text="Mie"
+        android:textAppearance="@style/normalGrayText"
+        app:layout_constraintBottom_toBottomOf="@+id/quick_search_nasi"
+        app:layout_constraintStart_toEndOf="@+id/quick_search_nasi"
+        app:layout_constraintTop_toTopOf="@+id/quick_search_nasi" />
+
+    <TextView
+        android:id="@+id/quick_search_soto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/custom_normal_edit_text"
+        android:paddingStart="25dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="25dp"
+        android:paddingBottom="10dp"
+        android:text="Soto"
+        android:textAppearance="@style/normalGrayText"
+        app:layout_constraintBottom_toBottomOf="@+id/quick_search_mie"
+        app:layout_constraintStart_toEndOf="@+id/quick_search_mie"
+        app:layout_constraintTop_toTopOf="@+id/quick_search_mie" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,7 +21,8 @@ public class WithdrawSuccessController extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(0);
 
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(this, MainScreenController.class);
+            Intent intent = new Intent(this, WalletController.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
 

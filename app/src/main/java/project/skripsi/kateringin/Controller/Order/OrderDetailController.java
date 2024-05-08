@@ -1,7 +1,6 @@
 package project.skripsi.kateringin.Controller.Order;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
@@ -9,35 +8,32 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Map;
 
+import project.skripsi.kateringin.Controller.Checkout.CheckOutController;
 import project.skripsi.kateringin.Controller.Review.ReviewController;
 import project.skripsi.kateringin.Model.Order;
 import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.OrderDetailRecycleviewAdapter;
-import project.skripsi.kateringin.Util.IdrFormat;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class OrderDetailController extends AppCompatActivity {
 
     //XML
     RecyclerView recyclerView;
-    TextView orderId, receiverName, receiverPhone, receiverAddress, subTotalPriceTV, feeLayananTV, totalPriceTV, tracker;
+    TextView orderId, receiverName, receiverPhone, receiverAddress, subTotalPriceTV, feeLayananTV, totalPriceTV;
     AppCompatButton accepted;
     Toolbar toolbar;
 
@@ -46,6 +42,7 @@ public class OrderDetailController extends AppCompatActivity {
     FirebaseFirestore database;
     FirebaseAuth mAuth;
     Order order;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +58,7 @@ public class OrderDetailController extends AppCompatActivity {
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         order = (Order) getIntent().getSerializableExtra("DETAILS_SCREEN");
+        Log.d("TAG", "binding: " + order);
         toolbar = findViewById(R.id.order_detail_toolbar);
         recyclerView = findViewById(R.id.order_detail_recyclerView);
         orderId = findViewById(R.id.order_detail_orderId_text);
@@ -70,7 +68,6 @@ public class OrderDetailController extends AppCompatActivity {
         subTotalPriceTV = findViewById(R.id.order_detail_subtotal_tv);
         feeLayananTV = findViewById(R.id.order_detail_fee_tv);
         totalPriceTV = findViewById(R.id.order_detail_total_payment_tv);
-        tracker = findViewById(R.id.order_detail_tracker_link_ev);
         accepted = findViewById(R.id.order_detail_accepted_button);
     }
 
@@ -80,7 +77,7 @@ public class OrderDetailController extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
 
-        setTotalPrice(order.getOrderItem());
+        setTotalPrice(order.getOrderItems());
         orderId.setText("No Order #" + order.getOrderId());
         receiverName.setText(order.getReceiverName());
         receiverPhone.setText(order.getReceiverPhone());
@@ -91,15 +88,24 @@ public class OrderDetailController extends AppCompatActivity {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    if(document.getString("orderStatus").equalsIgnoreCase("shipping")){
+                    ArrayList<Map<String, Object>> orderItemsList = (ArrayList<Map<String, Object>>) document.get("orderItems");
+                    int counter = 0;
+                    Log.d("TAG", "setField: " + orderItemsList);
+                    for (Map<String, Object> item : orderItemsList) {
+
+                        String orderItemStatus = (String) item.get("orderItemStatus");
+                        if(orderItemStatus.equalsIgnoreCase("shipping")){
+                            counter++;
+                        }
+                    }
+
+                    if(counter == orderItemsList.size()){
                         accepted.setEnabled(true);
                         accepted.setBackgroundResource(R.drawable.custom_active_button);
                     } else{
                         accepted.setEnabled(false);
                         accepted.setBackgroundResource(R.drawable.custom_unactive_button);
                     }
-                } else {
-                    System.out.println("No such document");
                 }
             } else {
                 Exception e = task.getException();
@@ -120,7 +126,7 @@ public class OrderDetailController extends AppCompatActivity {
     }
 
     private void recyclerAdapter(){
-        orderDetailRecycleviewAdapter = new OrderDetailRecycleviewAdapter(order.getOrderItem(),this);
+        orderDetailRecycleviewAdapter = new OrderDetailRecycleviewAdapter(order.getOrderItems(),this, order.getOrderId());
         recyclerView.setAdapter(orderDetailRecycleviewAdapter);
     }
 
@@ -147,9 +153,74 @@ public class OrderDetailController extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
+//            Intent intent = new Intent(this, MainScreenController.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            intent.putExtra("fragmentId", R.layout.fragment_order);
+//            intent.putExtra("menuItemId", R.id.menu_order);
+//            startActivity(intent);
+//            finish();
+
+            Intent intent = new Intent(getApplicationContext(), CheckOutController.class);
+            setResult(200, intent);
             finish();
+
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+//    @Override
+//    public void finish() {
+//        Intent intent = new Intent(this, MainScreenController.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        intent.putExtra("fragmentId", R.layout.fragment_order);
+//        intent.putExtra("menuItemId", R.id.menu_order);
+//        startActivity(intent);
+//        super.finish();
+//    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 3333 && resultCode == RESULT_OK) {
+            Log.d("TAG", "onActivityResult: "+ data);
+
+            String orderId = data.getStringExtra("ORDER_ID");
+            Log.d("TAG", "onActivityResult: "+ orderId);
+            DocumentReference docRef = database.collection("order").document(orderId);
+            docRef.get().addOnCompleteListener(task -> {
+                if(task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        ArrayList<Map<String, Object>> orderItemsList = (ArrayList<Map<String, Object>>) document.get("orderItems");
+                        ArrayList<OrderItem> listOfOrderItem = new ArrayList<>();
+                        Log.d("TAG", "binding: " + orderItemsList);
+
+                        for (Map<String, Object> item : orderItemsList) {
+                            OrderItem order = new OrderItem();
+
+                            order.setOrderItemId((String) item.get("orderItemId"));
+                            order.setDate((String) item.get("date"));
+                            order.setNote((String) item.get("note"));
+                            order.setMenuId((String) item.get("menuId"));
+                            order.setPrice(((Long) item.get("price")).intValue());
+                            order.setQuantity(((Long) item.get("quantity")).intValue());
+                            order.setTimeRange((String) item.get("timeRange"));
+                            order.setReschedule((Boolean) item.get("reschedule"));
+                            order.setOrderItemStatus((String) item.get("orderItemStatus"));
+                            order.setOrderItemLinkTracker((String) item.get("orderItemLinkTracker"));
+                            listOfOrderItem.add(order);
+                        }
+                        orderDetailRecycleviewAdapter = new OrderDetailRecycleviewAdapter(listOfOrderItem,this, order.getOrderId());
+                        orderDetailRecycleviewAdapter.notifyDataSetChanged();
+                        recyclerView.setAdapter(orderDetailRecycleviewAdapter);
+
+                    }
+                }
+            });
+
+        }
+    }
+
+
 }

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +32,7 @@ import java.util.ArrayList;
 
 import project.skripsi.kateringin.Model.Cart;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Util.IdrFormat;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class CheckOutRecyclerviewAdapter extends RecyclerView.Adapter<CheckOutRecyclerviewAdapter.ViewHolder>{
     private static final String KEY_MY_LIST = "CHECK_OUT_ITEM";

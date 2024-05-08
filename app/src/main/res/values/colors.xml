@@ -5,8 +5,9 @@
     <color name="gray">#DAD4D4</color>
     <color name="light_gray">#EAEAEA</color>
     <color name="red">#FF0000</color>
-    <color name="light_red">#FF8282</color>
+    <color name="light_red">#F2A6A6</color>
     <color name="blue">#3C66F9</color>
+    <color name="light_blue_2">#8DA6FF</color>
     <color name="pastel_blue">#6978FF</color>
     <color name="darker_gray">#9C9C9C</color>
     <color name="light_black">#6B6B6B</color>

@@ -3,18 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    card_view:cardElevation="0dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginBottom="20dp"
+    app:cardElevation="0dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="7dp"
+    android:layout_marginBottom="7dp"
     app:cardCornerRadius="15dp"
-    android:background="@drawable/custom_card_outline"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-  >
+        android:background="@drawable/custom_normal_border"
+
+        >
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/review_item_user_image"
@@ -43,7 +45,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="3dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:text="This is for testing purpose"
@@ -71,7 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:text="4 / 5"
+            android:text="0.0"
+            android:textColor="@color/yellow"
             android:textAppearance="@style/normalText"
             app:layout_constraintStart_toEndOf="@+id/review_item_user_image"
             app:layout_constraintTop_toBottomOf="@+id/review_username_tv" />
@@ -84,6 +86,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:text="Comment"
+            android:textColor="@color/light_black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/review_item_user_image" />
 

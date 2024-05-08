@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
@@ -35,9 +36,16 @@ public class MainScreenController extends AppCompatActivity {
         int fragmentId = getIntent().getIntExtra("fragmentId", -1);
         int menuItemId = getIntent().getIntExtra("menuItemId", -1);
         if (fragmentId != -1 && menuItemId != -1) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frame_layout, OrderFragment.newInstance())
-                    .commit();
+            if(fragmentId == R.layout.fragment_cart){
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_layout, CartFragment.newInstance())
+                        .commit();
+            } else if (fragmentId == R.layout.fragment_order){
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_layout, OrderFragment.newInstance())
+                        .commit();
+            }
+
 
             BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_bar);
             bottomNavigationView.setSelectedItemId(menuItemId);

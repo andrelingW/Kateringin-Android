@@ -37,13 +37,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import project.skripsi.kateringin.Controller.SuccessMessage.PaymentSuccessController;
 import project.skripsi.kateringin.Controller.SuccessMessage.TopUpSuccessController;
 import project.skripsi.kateringin.Model.TransactionResponse;
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Repository.TransactionStatusInterface;
-import project.skripsi.kateringin.Util.SdkConfig;
+import project.skripsi.kateringin.Util.UtilClass.SdkConfig;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

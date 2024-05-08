@@ -1,6 +1,5 @@
 package project.skripsi.kateringin.Controller.Wallet.Withdraw;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
@@ -10,8 +9,6 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -19,13 +16,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import project.skripsi.kateringin.Model.UserBankAccount;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Util.BottomSheetDialogTopUpConfirmation;
-import project.skripsi.kateringin.Util.BottomSheetDialogWithdrawConfirmation;
-import project.skripsi.kateringin.Util.IdrFormat;
+import project.skripsi.kateringin.Util.BottomSheetDialog.BottomSheetDialogWithdrawConfirmation;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class WithdrawController extends AppCompatActivity {
 

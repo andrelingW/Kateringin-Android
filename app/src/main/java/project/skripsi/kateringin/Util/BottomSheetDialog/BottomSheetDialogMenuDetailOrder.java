@@ -1,8 +1,7 @@
-package project.skripsi.kateringin.Util;
+package project.skripsi.kateringin.Util.BottomSheetDialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +33,7 @@ import java.util.Map;
 
 import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
+import project.skripsi.kateringin.Util.UtilClass.CustomDateValidator;
 
 public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment {
 
@@ -141,6 +141,7 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
         calendar.setOnClickListener(v ->{
             MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
                     .setTitleText("Select Date")
+                    .setTheme(R.style.ThemeOverlay_App_MaterialCalendar)
                     .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                     .setCalendarConstraints(new CalendarConstraints.Builder().setValidator(new CustomDateValidator()).build())
                     .build();

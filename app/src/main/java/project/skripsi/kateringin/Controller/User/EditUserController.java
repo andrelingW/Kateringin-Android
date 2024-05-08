@@ -1,6 +1,6 @@
 package project.skripsi.kateringin.Controller.User;
 
-import static project.skripsi.kateringin.Util.LoadingUtil.animateView;
+import static project.skripsi.kateringin.Util.UtilClass.LoadingUtil.animateView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.WindowCompat;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -33,6 +34,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.canhub.cropper.CropImageContract;
 import com.canhub.cropper.CropImageContractOptions;
 import com.canhub.cropper.CropImageOptions;
+import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -50,6 +52,7 @@ import java.util.Map;
 
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
+import project.skripsi.kateringin.Util.UtilClass.CustomBeforeDateValidator;
 
 public class EditUserController extends AppCompatActivity {
 
@@ -73,6 +76,7 @@ public class EditUserController extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_edit_user);
         binding();
         setField();
@@ -165,7 +169,9 @@ public class EditUserController extends AppCompatActivity {
 
         dobButton.setOnClickListener(v ->{
             MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
+                    .setTheme(R.style.ThemeOverlay_App_MaterialCalendar)
                     .setTitleText("Select Date")
+                    .setCalendarConstraints(new CalendarConstraints.Builder().setValidator(new CustomBeforeDateValidator()).build())
                     .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                     .build();
 

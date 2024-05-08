@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +30,7 @@ import project.skripsi.kateringin.Controller.Wallet.Withdraw.ListOfBankAccountCo
 import project.skripsi.kateringin.Model.WalletHistory;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.WalletRecyclerviewAdapter;
-import project.skripsi.kateringin.Util.IdrFormat;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class WalletController extends AppCompatActivity {
 
@@ -39,6 +41,7 @@ public class WalletController extends AppCompatActivity {
     RecyclerView recyclerView;
     FirebaseAuth mAuth;
     Toolbar toolbar;
+    ConstraintLayout walletWarning;
 
     //FIELD
     int balance;
@@ -113,14 +116,15 @@ public class WalletController extends AppCompatActivity {
         withdrawButton = findViewById(R.id.wallet_withdraw_button);
         viewAllWalletHistory = findViewById(R.id.wallet_view_all_button);
         toolbar = findViewById(R.id.wallet_toolbar);
+        walletWarning = findViewById(R.id.wallet_warning);
     }
 
     public void walletHistoryAdapter(ArrayList<WalletHistory> list){
-//        if(list.isEmpty()){
-//            orderWarning.setVisibility(View.VISIBLE);
-//        }else{
-//            orderWarning.setVisibility(View.GONE);
-//        }
+        if(list.isEmpty()){
+            walletWarning.setVisibility(View.VISIBLE);
+        }else{
+            walletWarning.setVisibility(View.GONE);
+        }
 
         walletRecyclerviewAdapter = new WalletRecyclerviewAdapter(list,this);
         recyclerView.setAdapter(walletRecyclerviewAdapter);
@@ -131,7 +135,7 @@ public class WalletController extends AppCompatActivity {
         Query query = collectionRef
                 .whereEqualTo("userId", mAuth.getCurrentUser().getUid())
                 .orderBy("timestamp", Direction.DESCENDING)
-                .limit(3);
+                .limit(4);
 
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

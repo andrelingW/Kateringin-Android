@@ -29,7 +29,7 @@
         android:textAppearance="@style/componentBoldTitle"
         android:text="Plih nominal Top Up"
         android:textSize="15sp"
-        android:textColor="@color/light_black"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_up_payment_page_toolbar" />
 
@@ -55,7 +55,7 @@
             android:button="@android:color/transparent"
             android:text="Rp 50.000,00"
             android:textAlignment="center"
-            android:textColor="@drawable/custom_radio_button_text_color"
+            android:textColor="@drawable/custom_radio_button_text_color_filter"
             android:textSize="15sp" />
 
         <RadioButton
@@ -70,7 +70,7 @@
             android:button="@android:color/transparent"
             android:text="Rp 100.000,00"
             android:textAlignment="center"
-            android:textColor="@drawable/custom_radio_button_text_color"
+            android:textColor="@drawable/custom_radio_button_text_color_filter"
             android:textSize="15sp" />
 
         <RadioButton
@@ -85,7 +85,7 @@
             android:button="@android:color/transparent"
             android:text="Rp 150.000,00"
             android:textAlignment="center"
-            android:textColor="@drawable/custom_radio_button_text_color"
+            android:textColor="@drawable/custom_radio_button_text_color_filter"
             android:textSize="15sp" />
 
         <RadioButton
@@ -100,7 +100,7 @@
             android:button="@android:color/transparent"
             android:text="Rp 200.000,00"
             android:textAlignment="center"
-            android:textColor="@drawable/custom_radio_button_text_color"
+            android:textColor="@drawable/custom_radio_button_text_color_filter"
             android:textSize="15sp" />
         <RadioButton
             android:id="@+id/top_up_payment_page_other_amount"
@@ -114,7 +114,7 @@
             android:button="@android:color/transparent"
             android:text="Nominal Lain"
             android:textAlignment="center"
-            android:textColor="@drawable/custom_radio_button_text_color"
+            android:textColor="@drawable/custom_radio_button_text_color_filter"
             android:textSize="15sp" />
     </RadioGroup>
 
@@ -126,7 +126,7 @@
         android:layout_marginTop="20dp"
         android:text="Isi Nominal"
         android:textAppearance="@style/componentBoldTitle"
-        android:textColor="@color/light_black"
+        android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_up_payment_page_radio_group" />
@@ -171,11 +171,13 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/top_up_payment_page_submit_button"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
+            android:layout_marginStart="130dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/custom_active_button"
+            android:stateListAnimator="@null"
             android:text="Top Up"
             android:textAppearance="@style/activeButton"
             app:layout_constraintBottom_toBottomOf="@+id/top_up_payment_page_total_top_up_text"
@@ -193,6 +195,7 @@
             android:text="Rp 0,00"
             android:textAppearance="@style/normalPriceText"
             android:textSize="20sp"
+            android:textColor="@color/blue"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"

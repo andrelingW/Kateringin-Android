@@ -1,13 +1,11 @@
 package project.skripsi.kateringin.Controller.Order;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,12 +15,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-import project.skripsi.kateringin.Controller.Review.ReviewController;
 import project.skripsi.kateringin.Model.Order;
 import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.OrderDetailRecycleviewAdapter;
-import project.skripsi.kateringin.Util.IdrFormat;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class OrderHistoryDetailController extends AppCompatActivity {
 
@@ -67,7 +64,7 @@ public class OrderHistoryDetailController extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
 
-        setTotalPrice(order.getOrderItem());
+        setTotalPrice(order.getOrderItems());
         orderId.setText("No Order #" + order.getOrderId());
         receiverName.setText(order.getReceiverName());
         receiverPhone.setText(order.getReceiverPhone());
@@ -75,7 +72,7 @@ public class OrderHistoryDetailController extends AppCompatActivity {
     }
 
     private void recyclerAdapter(){
-        orderDetailRecycleviewAdapter = new OrderDetailRecycleviewAdapter(order.getOrderItem(),this);
+        orderDetailRecycleviewAdapter = new OrderDetailRecycleviewAdapter(order.getOrderItems(),this, order.getOrderId());
         recyclerView.setAdapter(orderDetailRecycleviewAdapter);
     }
 

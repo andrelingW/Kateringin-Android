@@ -2,17 +2,16 @@ package project.skripsi.kateringin.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ import project.skripsi.kateringin.Controller.Checkout.CheckOutController;
 import project.skripsi.kateringin.Model.Cart;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.CartRecycleviewAdapter;
-import project.skripsi.kateringin.Util.IdrFormat;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class CartFragment extends Fragment {
 
@@ -68,8 +67,33 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
         binding(rootView);
+        setField();
         readCartData(this::cartAdapter);
         return rootView;
+    }
+
+    private void setField() {
+        totalPriceTV.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String text = s.toString();
+                if (text.equals("Rp 0")) {
+                    emptyCart();
+                } else {
+                    notEmptyCart();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void binding(View rootView){
@@ -86,11 +110,6 @@ public class CartFragment extends Fragment {
         emptyCart();
     }
 
-//    public void refresh(){
-//        Log.d("TAG", "refresh: asdasd");
-//        FragmentTransaction ft = getParentFragment().
-//        ft.detach(this).attach(this).commit();
-//    }
 
 
     public void emptyCart(){

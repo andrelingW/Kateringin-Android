@@ -3,18 +3,50 @@
     <style name="Base.Theme.Kateringin" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
 
+
         <item name="colorPrimary">@color/blue</item>
-        <item name="android:statusBarColor">@color/white</item>
+        <!--        <item name="background">@color/white</item>-->
+<!--        <item name="android:statusBarColor">@color/white</item>-->
+        <!--        <item name="colorOnBackground">@color/yellow</item>-->
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:navigationBarColor">
+            @android:color/transparent
+        </item>
+
+        <item name="background">@color/white</item>
+
+        <!-- Optional: set to transparent if your app is drawing behind the status bar. -->
+        <item name="android:statusBarColor">
+            @android:color/transparent
+        </item>
 
 
+
+    </style>
+
+    <style name="ThemeOverlay.App.MaterialCalendar" parent="ThemeOverlay.Material3.MaterialCalendar">
+        <!-- just override the colors used in the default style -->
+        <item name="colorPrimary">@color/blue</item>
+
+<item name="android:background">@color/white</item>
+    </style>
+
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
+        <item name="android:textSize">14sp</item>
     </style>
     <!--    Theme.Material3.DayNight.NoActionBar-->
     <style name="CustomNeedActionBar" parent="Theme.Material3.Light">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/blue</item>
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/light_blue_2</item>
         <item name="android:windowLightStatusBar">true</item>
+        <!--                <item name="colorSurface">@color/red</item>-->
+        <item name="actionBarStyle">@color/white</item>
+
+
+        <item name="android:colorBackground">@color/light_blue_2</item>
+        <item name="android:textColor">@color/light_black</item>
 
     </style>
 

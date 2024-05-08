@@ -9,15 +9,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.common.reflect.TypeToken;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.gson.Gson;
 import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback;
 import com.midtrans.sdk.corekit.core.MidtransSDK;
@@ -31,7 +35,9 @@ import com.midtrans.sdk.corekit.models.snap.TransactionResult;
 import com.midtrans.sdk.uikit.SdkUIFlowBuilder;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +49,8 @@ import project.skripsi.kateringin.Controller.SuccessMessage.PaymentSuccessContro
 import project.skripsi.kateringin.Model.TransactionResponse;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Repository.TransactionStatusInterface;
-import project.skripsi.kateringin.Util.SdkConfig;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
+import project.skripsi.kateringin.Util.UtilClass.SdkConfig;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,7 +64,8 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
     private static final String KEY_MY_LIST = "CHECK_OUT_ITEM";
 
     //XML
-    private ConstraintLayout bcaVA, mandiriVA, bniVA, briVA, permataVA, cimbVA;
+    private ConstraintLayout bcaVA, mandiriVA, bniVA, briVA, permataVA, cimbVA, wallet;
+    TextView walletBalance;
     Toolbar toolbar;
 
     //FIELD
@@ -94,6 +102,31 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
         briVA = findViewById(R.id.bri_va_method);
         permataVA = findViewById(R.id.permata_va_method);
         cimbVA = findViewById(R.id.cimb_va_method);
+        wallet = findViewById(R.id.wallet_method);
+        walletBalance = findViewById(R.id.payment_wallet);
+
+        //GET WALLET BALANCE
+        CollectionReference collectionReference = database.collection("wallet");
+        Query query = collectionReference.whereEqualTo("userId", mAuth.getCurrentUser().getUid());
+
+        query.get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot document : task.getResult()) {
+                            if(document.exists()){
+                                int balance = document.getLong("balance").intValue();
+                                walletBalance.setText("Saldo: " + IdrFormat.format(balance));
+                            }else {
+                                System.out.println("No such document");
+                            }
+                        }
+                    } else {
+                        Exception e = task.getException();
+                        if (e != null) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void initActionButtons() {
@@ -127,7 +160,56 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
             MidtransSDK.getInstance().setTransactionRequest(initTransactionRequest());
             MidtransSDK.getInstance().startPaymentUiFlow(ChoosePaymentController.this, PaymentMethod.BANK_TRANSFER_OTHER);
         });
+
+        wallet.setOnClickListener(v ->{
+            //GET WALLET BALANCE
+            CollectionReference collectionReference = database.collection("wallet");
+            Query query = collectionReference.whereEqualTo("userId", mAuth.getCurrentUser().getUid());
+
+            query.get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                if(document.exists()){
+                                    String docId = document.getId();
+                                    int balance = document.getLong("balance").intValue();
+                                    Log.d("TAG", "initActionButtons: " + balance);
+                                    if(balance > totalPrice ){
+                                        //UPDATE BALANCE
+                                        int updateBalance= balance - totalPrice;
+                                        DocumentReference docRef = database.collection("wallet").document(docId);
+                                        Map<String, Object> updates = new HashMap<>();
+                                        updates.put("balance", updateBalance);
+                                        docRef.update(updates).addOnCompleteListener(task1 -> {
+                                            pushOrder();
+                                            pushWalletHistory();
+                                            updateCartItemStatus();
+                                            clearSharedPreferences(getApplicationContext());
+
+                                            Intent intent = new Intent(getApplicationContext(), PaymentSuccessController.class);
+                                            startActivity(intent);
+                                        });
+
+
+                                    } else{
+                                        Toast.makeText(this, "insufficient balance on payment", Toast.LENGTH_LONG).show();
+
+                                    }
+                                }else {
+                                    System.out.println("No such document");
+                                }
+                            }
+                        } else {
+                            Exception e = task.getException();
+                            if (e != null) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+        });
     }
+
+
 
     private TransactionRequest initTransactionRequest() {
         TransactionRequest transactionRequestNew = new
@@ -212,9 +294,9 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
                 public void onResponse(Call<TransactionResponse> call, Response<TransactionResponse> response) {
                     if(Objects.equals(response.body().getTransaction_status(), "settlement")){
                         pushOrder();
+                        pushWalletHistory();
                         updateCartItemStatus();
                         clearSharedPreferences(getApplicationContext());
-                        Toast.makeText(getApplicationContext(), "Transaction Finished. ID: " + result.getResponse().getTransactionId(), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(), PaymentSuccessController.class);
                         startActivity(intent);
                     }
@@ -292,8 +374,12 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
                     item.getQuantity(),
                     item.getTimeRange(),
                     item.getDate(),
-                    item.getNote()
+                    item.getNote(),
+                    "waiting",
+                    null,
+                    false
             );
+
             orderMap.get(storeId).add(temp);
         }
         return orderMap;
@@ -352,6 +438,21 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
         Map<String, Object> updates = new HashMap<>();
         updates.put("processed", true);
         docRef.update(updates);
+    }
+
+    private void pushWalletHistory() {
+        //CREATE TRANSACTION HISTORY
+        CollectionReference collectionRef = database.collection("walletHistory");
+        Map<String, Object> data = new HashMap<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+
+        data.put("userId", mAuth.getCurrentUser().getUid());
+        data.put("transactionType", "settlement");
+        data.put("timestamp", Timestamp.now());
+        data.put("amount", totalPrice);
+        data.put("date", dateFormat.format(new Date()));
+
+        collectionRef.document().set(data);
     }
 
     public static void clearSharedPreferences(Context context) {

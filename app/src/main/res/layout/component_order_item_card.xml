@@ -4,22 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:elevation="0dp"
+    app:cardElevation="0dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
     android:layout_marginLeft="10dp"
     app:cardCornerRadius="15dp"
-    android:background="@drawable/custom_card_outline"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        >
+        android:background="@drawable/custom_normal_border">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/checkout_item_menu_image"
+            android:id="@+id/order_item_menu_image"
             android:layout_width="95dp"
             android:layout_height="95dp"
             android:layout_marginStart="15dp"
@@ -36,62 +35,63 @@
             android:id="@+id/order_item_orderId_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="15dp"
             android:text="No Order #1713090155283"
             android:textAppearance="@style/componentBoldTitle"
-            app:layout_constraintStart_toEndOf="@+id/checkout_item_menu_image"
-            app:layout_constraintTop_toTopOf="@+id/checkout_item_menu_image" />
+            app:layout_constraintStart_toEndOf="@+id/order_item_menu_image"
+            app:layout_constraintTop_toTopOf="@+id/order_item_menu_image" />
 
         <TextView
             android:id="@+id/order_item_store_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="2dp"
             android:text="Warung Mbak Riska"
             android:textAppearance="@style/normalGrayText"
-            app:layout_constraintStart_toEndOf="@+id/checkout_item_menu_image"
+            app:layout_constraintStart_toStartOf="@+id/order_item_orderId_text"
             app:layout_constraintTop_toBottomOf="@+id/order_item_orderId_text" />
-
-        <TextView
-            android:id="@+id/order_item_order_status_text"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/custom_ongoing_detail_button"
-            android:gravity="center"
-
-            android:paddingStart="20dp"
-            android:textSize="13sp"
-            android:paddingEnd="20dp"
-            android:text="Ongoing"
-            android:textColor="@color/yellow"
-            app:layout_constraintBottom_toBottomOf="@+id/checkout_item_menu_image"
-            app:layout_constraintEnd_toStartOf="@+id/order_item_detail_button"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@+id/checkout_item_menu_image" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/order_item_detail_button"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="35dp"
-            android:textSize="13sp"
+            android:layout_height="30dp"
+            android:stateListAnimator="@null"
 
             android:layout_marginEnd="15dp"
-            android:background="@drawable/custom_light_active_button"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_active_button"
             android:text="Detail"
             android:textAllCaps="false"
-            android:textColor="@color/pastel_blue"
+            android:textColor="@color/white"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@+id/order_item_order_status_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/order_item_order_status_text"
             app:layout_constraintTop_toTopOf="@+id/order_item_order_status_text"
             app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/order_item_order_status_text"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="20dp"
+
+            android:layout_weight="1"
+            android:background="@drawable/custom_ongoing_detail_button"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Ongoing"
+            android:textColor="@color/yellow"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/order_item_menu_image"
+            app:layout_constraintEnd_toStartOf="@+id/order_item_detail_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@+id/order_item_menu_image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

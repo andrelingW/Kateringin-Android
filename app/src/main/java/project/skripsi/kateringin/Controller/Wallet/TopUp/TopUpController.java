@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,11 +15,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Util.BottomSheetDialogMenuDetailOrder;
-import project.skripsi.kateringin.Util.BottomSheetDialogTopUpConfirmation;
-import project.skripsi.kateringin.Util.IdrFormat;
+import project.skripsi.kateringin.Util.BottomSheetDialog.BottomSheetDialogTopUpConfirmation;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class TopUpController extends AppCompatActivity {
 

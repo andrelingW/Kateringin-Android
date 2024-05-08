@@ -1,4 +1,4 @@
-package project.skripsi.kateringin.Util;
+package project.skripsi.kateringin.Util.BottomSheetDialog;
 
 import android.content.Intent;
 import android.net.Uri;

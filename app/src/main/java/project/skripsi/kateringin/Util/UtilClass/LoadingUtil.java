@@ -1,4 +1,4 @@
-package project.skripsi.kateringin.Util;
+package project.skripsi.kateringin.Util.UtilClass;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

@@ -6,14 +6,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -23,21 +25,14 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import project.skripsi.kateringin.Model.Menu;
-import project.skripsi.kateringin.Model.Review;
-import project.skripsi.kateringin.Model.Store;
-import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Recycler.MenuRecycleviewAdapter;
 import project.skripsi.kateringin.Recycler.StoreRecycleviewAdapter;
-import project.skripsi.kateringin.TESTING.FoodItem;
-import project.skripsi.kateringin.Util.LoadingUtil;
+import project.skripsi.kateringin.Util.UtilClass.RecyclerItemSpacer;
 
 public class StoreController extends AppCompatActivity {
 
@@ -79,8 +74,8 @@ public class StoreController extends AppCompatActivity {
     private void setField() {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        int space = getResources().getDimensionPixelSize(R.dimen.recyclerview_item_2_column_space_other);
+        recyclerView.addItemDecoration(new RecyclerItemSpacer(this, space));
 
         DocumentReference docRef = database.collection("store").document(storeId);
 
@@ -106,6 +101,15 @@ public class StoreController extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+        });
+
+        storePhone.setOnLongClickListener(v ->{
+            CharSequence text = storePhone.getText();
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("Copied Text", text);
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(getApplicationContext(), "Text copied to clipboard", Toast.LENGTH_SHORT).show();
+            return true;
         });
     }
 

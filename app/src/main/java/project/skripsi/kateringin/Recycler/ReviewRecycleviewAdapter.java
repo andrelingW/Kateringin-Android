@@ -25,10 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.Model.Review;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Util.IdrFormat;
 
 public class ReviewRecycleviewAdapter extends RecyclerView.Adapter<ReviewRecycleviewAdapter.ViewHolder> {
 
@@ -87,7 +85,7 @@ public class ReviewRecycleviewAdapter extends RecyclerView.Adapter<ReviewRecycle
             }
         });
 
-        holder.rate.setText(review.getRate() +" / 5");
+        holder.rate.setText(String.valueOf(review.getRate()));
         holder.comment.setText(review.getComment());
 
         holder.itemView.setOnClickListener(view -> {

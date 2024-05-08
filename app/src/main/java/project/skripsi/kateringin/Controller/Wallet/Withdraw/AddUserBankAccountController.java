@@ -1,7 +1,7 @@
 package project.skripsi.kateringin.Controller.Wallet.Withdraw;
 
 import static android.content.ContentValues.TAG;
-import static project.skripsi.kateringin.Util.LoadingUtil.animateView;
+import static project.skripsi.kateringin.Util.UtilClass.LoadingUtil.animateView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,31 +16,27 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import project.skripsi.kateringin.Controller.Authentication.EmailVerificationController;
-import project.skripsi.kateringin.Controller.Checkout.CheckOutController;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Util.LoadingUtil;
+import project.skripsi.kateringin.Util.UtilClass.LoadingUtil;
 
 public class AddUserBankAccountController extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     //XML
     EditText bankNumber, username;
-    Spinner bankName;
     Toolbar toolbar;
     AppCompatButton save, cancel;
     View progressOverlay;
+    MaterialSpinner spinner;
 
 
     //FIELD
@@ -64,21 +60,20 @@ public class AddUserBankAccountController extends AppCompatActivity implements A
         toolbar = findViewById(R.id.add_bank_account_toolbar);
         progressOverlay = findViewById(R.id.progress_overlay);
         bankNumber = findViewById(R.id.add_bank_account_number_et);
-        bankName = findViewById(R.id.add_bank_account_bank_name_spinner);
         username = findViewById(R.id.add_bank_account_username_et);
         save = findViewById(R.id.add_bank_account_bank_save_btn);
         cancel = findViewById(R.id.add_bank_account_bank_cancel_btn);
+        spinner = findViewById(R.id.spinner);
 
-        bankName.setOnItemSelectedListener(this);
-        ArrayAdapter ad = new ArrayAdapter(this, android.R.layout.simple_spinner_item, data);
-        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        bankName.setAdapter(ad);
     }
 
     private void setField() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressOverlay.bringToFront();
+        spinner.setItems("BCA", "Mandiri", "Permata", "Cimb Niaga");
+        bankNameFld = "BCA";
+        spinner.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> bankNameFld = item);
     }
 
     private void button() {
@@ -90,6 +85,7 @@ public class AddUserBankAccountController extends AppCompatActivity implements A
             LoadingUtil.animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
             bankNumberFld = bankNumber.getText().toString();
             usernameFld = username.getText().toString();
+
 
 
             if(!bankNameFld.isEmpty() && !bankNumberFld.isEmpty() && !usernameFld.isEmpty()){
@@ -117,6 +113,8 @@ public class AddUserBankAccountController extends AppCompatActivity implements A
                 showSnackbar(v);
             }
         });
+
+
     }
 
     @Override

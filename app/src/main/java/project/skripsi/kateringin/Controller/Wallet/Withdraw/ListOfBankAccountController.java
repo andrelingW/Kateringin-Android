@@ -1,13 +1,12 @@
 package project.skripsi.kateringin.Controller.Wallet.Withdraw;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -24,14 +24,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
-import project.skripsi.kateringin.Controller.Helper.FoodResultController;
-import project.skripsi.kateringin.Controller.Helper.MenuDetailController;
-import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.Model.UserBankAccount;
-import project.skripsi.kateringin.Model.WalletHistory;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.BankAccountsAdapter;
-import project.skripsi.kateringin.Recycler.WalletRecyclerviewAdapter;
 
 public class ListOfBankAccountController extends AppCompatActivity {
 
@@ -39,6 +34,7 @@ public class ListOfBankAccountController extends AppCompatActivity {
     AppCompatButton addBankAccountBtn;
     RecyclerView recyclerView;
     Toolbar toolbar;
+    ConstraintLayout listRekeningWarning;
 
     //FIELD
     FirebaseAuth mAuth;
@@ -65,7 +61,7 @@ public class ListOfBankAccountController extends AppCompatActivity {
         addBankAccountBtn = findViewById(R.id.list_of_bank_account_add_button);
         recyclerView = findViewById(R.id.list_of_bank_account_recyclerview);
         toolbar = findViewById(R.id.list_of_bank_account_toolbar);
-
+        listRekeningWarning = findViewById(R.id.list_rekening_warning);
     }
 
     private void setField() {
@@ -83,11 +79,11 @@ public class ListOfBankAccountController extends AppCompatActivity {
     }
 
     public void BankAccountsAdapter(ArrayList<UserBankAccount> list){
-//        if(list.isEmpty()){
-//            orderWarning.setVisibility(View.VISIBLE);
-//        }else{
-//            orderWarning.setVisibility(View.GONE);
-//        }
+        if(list.isEmpty()){
+            listRekeningWarning.setVisibility(View.VISIBLE);
+        }else{
+            listRekeningWarning.setVisibility(View.GONE);
+        }
         Log.d("TAG", "BankAccountsAdapter: " + list.size());
         bankAccountsAdapter = new BankAccountsAdapter(list,this);
         recyclerView.setAdapter(bankAccountsAdapter);

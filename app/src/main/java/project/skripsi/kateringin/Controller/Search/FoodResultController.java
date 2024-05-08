@@ -1,4 +1,4 @@
-package project.skripsi.kateringin.Controller.Helper;
+package project.skripsi.kateringin.Controller.Search;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -20,10 +20,13 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
+import project.skripsi.kateringin.Controller.Helper.MainScreenController;
+import project.skripsi.kateringin.Controller.Helper.MenuDetailController;
 import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.MenuRecycleviewAdapter;
-import project.skripsi.kateringin.Util.BottomSheetDialogFilter;
+import project.skripsi.kateringin.Util.BottomSheetDialog.BottomSheetDialogFilter;
+import project.skripsi.kateringin.Util.UtilClass.RecyclerItemSpacer;
 
 public class FoodResultController extends AppCompatActivity {
 
@@ -34,6 +37,7 @@ public class FoodResultController extends AppCompatActivity {
     RecyclerView recyclerView;
     Toolbar toolbar;
     ConstraintLayout searchNotFound;
+    ImageButton cartShortcut;
 
     //FIELD
     FirebaseAuth mAuth;
@@ -48,7 +52,18 @@ public class FoodResultController extends AppCompatActivity {
         setContentView(R.layout.activity_food_result_view);
         binding();
         setField();
+        button();
         readMenuData(this::menuAdapter);
+    }
+
+    private void button() {
+        cartShortcut.setOnClickListener(v ->{
+            Intent intent = new Intent(this, MainScreenController.class);
+            intent.putExtra("fragmentId", R.layout.fragment_cart);
+            intent.putExtra("menuItemId", R.id.menu_cart);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void binding(){
@@ -58,6 +73,7 @@ public class FoodResultController extends AppCompatActivity {
         search = (String) getIntent().getSerializableExtra("SEARCH");
         toolbar = findViewById(R.id.search_result_toolbar);
         searchNotFound = findViewById(R.id.search_result_not_found_warning);
+        cartShortcut = findViewById(R.id.search_result_cart_shortcut_button);
     }
 
     public void setField(){
@@ -78,6 +94,8 @@ public class FoodResultController extends AppCompatActivity {
         }
         menuRecycleviewAdapter = new MenuRecycleviewAdapter(menuItems,this);
         recyclerView.setAdapter(menuRecycleviewAdapter);
+        int space = getResources().getDimensionPixelSize(R.dimen.recyclerview_item_2_column_space_other);
+        recyclerView.addItemDecoration(new RecyclerItemSpacer(this, space));
 
         menuRecycleviewAdapter.setOnClickListener((position, model) -> {
             Intent intent = new Intent(FoodResultController.this, MenuDetailController.class);

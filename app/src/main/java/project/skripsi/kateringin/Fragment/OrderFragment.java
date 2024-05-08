@@ -3,18 +3,28 @@ package project.skripsi.kateringin.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -27,6 +37,7 @@ import project.skripsi.kateringin.Controller.Order.OrderHistoryController;
 import project.skripsi.kateringin.Model.Order;
 import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.R;
+import project.skripsi.kateringin.Recycler.OrderDetailRecycleviewAdapter;
 import project.skripsi.kateringin.Recycler.OrderRecycleviewAdapter;
 
 public class OrderFragment extends Fragment {
@@ -42,6 +53,7 @@ public class OrderFragment extends Fragment {
     OrderRecycleviewAdapter orderRecycleviewAdapter;
     ArrayList<Order> orders = new ArrayList<>();
 
+
     public static OrderFragment newInstance() {
         Bundle args = new Bundle();
         OrderFragment fragment = new OrderFragment();
@@ -53,10 +65,25 @@ public class OrderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_order, container, false);
+        SwipeRefreshLayout swipeRefreshLayout = rootView.findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+
+            if (currentFragment instanceof OrderFragment) {
+                ((OrderFragment) currentFragment).refreshData(); // Assuming you have a method named refreshData() in OrderFragment
+            }
+            swipeRefreshLayout.setRefreshing(false);
+        });
+
         binding(rootView);
         setField();
         readOrderData(this::orderAdapter);
         return rootView;
+    }
+
+    public void refreshData() {
+        orderRecycleviewAdapter.clear();
+        readOrderData(this::orderAdapter);
     }
 
     private void setField() {
@@ -114,13 +141,16 @@ public class OrderFragment extends Fragment {
                     for (Map<String, Object> item : orderItemsList) {
                         OrderItem order = new OrderItem();
 
-                        order.setCartItemId((String) item.get("cartItemId"));
+                        order.setOrderItemId((String) item.get("orderItemId"));
                         order.setDate((String) item.get("date"));
                         order.setNote((String) item.get("note"));
                         order.setMenuId((String) item.get("menuId"));
                         order.setPrice(((Long) item.get("price")).intValue());
                         order.setQuantity(((Long) item.get("quantity")).intValue());
                         order.setTimeRange((String) item.get("timeRange"));
+                        order.setReschedule((Boolean) item.get("reschedule"));
+                        order.setOrderItemStatus((String) item.get("orderItemStatus"));
+                        order.setOrderItemLinkTracker((String) item.get("orderItemLinkTracker"));
 
                         listOfOrderItem.add(order);
                     }
@@ -150,4 +180,13 @@ public class OrderFragment extends Fragment {
     private interface FirestoreCallback{
         void onCallback(ArrayList<Order> list);
     }
+
+    public ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == 200) {
+                    refreshData();
+                }
+            });
+
 }

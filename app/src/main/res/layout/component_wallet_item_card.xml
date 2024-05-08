@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    app:cardElevation="0dp"
     android:elevation="0dp"
+    android:layout_marginTop="8dp"
     android:layout_marginRight="10dp"
-    android:layout_marginBottom="20dp"
+    android:layout_marginBottom="8dp"
     android:layout_marginLeft="10dp"
     app:cardCornerRadius="15dp"
-    android:background="@drawable/custom_card_outline"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:background="@drawable/custom_normal_border"
         >
 
         <TextView
@@ -24,8 +25,8 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
             android:text="1 Januari 2024"
-            android:textAppearance="@style/normalGrayText"
-            android:textStyle="bold"
+            android:textAppearance="@style/normalBlackText"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,8 +38,9 @@
             android:layout_marginTop="3dp"
             android:layout_marginEnd="15dp"
             android:text="- Rp 5.000.000,00"
+            android:textColor="@color/blue"
             android:textAppearance="@style/normalBlackText"
-            android:textSize="25sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/wallet_item_date_text" />
@@ -51,6 +53,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="20dp"
             android:text="Transaction Type : Top Up"
+            android:textColor="@color/light_black"
             android:textAppearance="@style/normalGrayText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

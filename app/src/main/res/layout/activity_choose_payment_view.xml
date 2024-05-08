@@ -33,11 +33,12 @@
         android:id="@+id/textView65"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
         android:text="Virtual Account"
-        android:textSize="18sp"
         android:textAppearance="@style/componentBoldTitle"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider21" />
 
@@ -46,9 +47,9 @@
         android:id="@+id/bca_va_method"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/custom_normal_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +75,6 @@
             android:gravity="center_vertical"
             android:text="Pembayaran via BCA VA"
             android:textSize="14dp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/payment_imageView_1"
             app:layout_constraintTop_toTopOf="parent" />
@@ -85,9 +85,9 @@
         android:id="@+id/mandiri_va_method"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/custom_normal_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -114,7 +114,6 @@
             android:gravity="center_vertical"
             android:text="Pembayaran via Mandiri VA"
             android:textSize="14dp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/payment_imageView_2"
             app:layout_constraintTop_toTopOf="parent" />
@@ -125,9 +124,9 @@
         android:id="@+id/bni_va_method"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/custom_normal_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -154,7 +153,6 @@
             android:gravity="center_vertical"
             android:text="Pembayaran via BNI VA"
             android:textSize="14dp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/payment_imageView_3"
             app:layout_constraintTop_toTopOf="parent" />
@@ -165,9 +163,9 @@
         android:id="@+id/bri_va_method"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/custom_normal_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -194,7 +192,6 @@
             android:gravity="center_vertical"
             android:text="Pembayaran via BRI VA"
             android:textSize="14dp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/payment_imageView_4"
             app:layout_constraintTop_toTopOf="parent" />
@@ -206,9 +203,9 @@
         android:id="@+id/permata_va_method"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/custom_normal_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -235,7 +232,6 @@
             android:gravity="center_vertical"
             android:text="Pembayaran via Permata VA"
             android:textSize="14dp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/payment_imageView_5"
             app:layout_constraintTop_toTopOf="parent" />
@@ -246,9 +242,9 @@
         android:id="@+id/cimb_va_method"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/custom_normal_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -275,11 +271,71 @@
             android:gravity="center_vertical"
             android:text="Pembayaran via Cimb Niaga VA"
             android:textSize="14dp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/payment_imageView_6"
             app:layout_constraintTop_toTopOf="parent" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView84"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        android:text="Wallet"
+        android:textAppearance="@style/componentBoldTitle"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cimb_va_method" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/wallet_method"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/custom_normal_edit_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView84">
+
+        <ImageView
+            android:id="@+id/payment_imageView_7"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/custom_wallet_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/payment_wallet"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:text="Saldo : Rp 50.000"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/payment_imageView_7"
+            app:layout_constraintStart_toEndOf="@+id/payment_imageView_7"
+            app:layout_constraintTop_toBottomOf="@+id/textView86" />
+
+        <TextView
+            android:id="@+id/textView86"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:text="Personal Wallet"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/payment_imageView_7"
+            app:layout_constraintTop_toTopOf="@+id/payment_imageView_7" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

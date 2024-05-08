@@ -1,4 +1,4 @@
-package project.skripsi.kateringin.Util;
+package project.skripsi.kateringin.Util.BottomSheetDialog;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import project.skripsi.kateringin.Controller.Wallet.TopUp.TopUpPaymentController;
 import project.skripsi.kateringin.R;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class BottomSheetDialogTopUpConfirmation extends BottomSheetDialogFragment {
 

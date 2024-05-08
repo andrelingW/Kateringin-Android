@@ -3,7 +3,6 @@ package project.skripsi.kateringin.Recycler;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +37,7 @@ import java.util.Objects;
 import project.skripsi.kateringin.Fragment.CartFragment;
 import project.skripsi.kateringin.Model.Cart;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Util.IdrFormat;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleviewAdapter.ViewHolder> {
     private OnDeleteItemClickListener onDeleteItemClickListener;
@@ -150,7 +149,10 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
 
         holder.quantity.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE || event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                cartItem.setQuantity(Integer.parseInt(holder.quantity.getText().toString()));
+                holder.quantity.setText(String.valueOf(cartItem.getQuantity()));
                 notifyDataSetChanged();
+                holder.quantity.clearFocus();
                 return true;
             }
             return false;
@@ -200,10 +202,7 @@ public class CartRecycleviewAdapter extends RecyclerView.Adapter<CartRecycleview
         cartItems.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, cartItems.size());
-        if(cartItems.isEmpty()){
-            Log.d("TAG", "removeAt: asda");
-//            fragment.refresh();
-        }
+
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {

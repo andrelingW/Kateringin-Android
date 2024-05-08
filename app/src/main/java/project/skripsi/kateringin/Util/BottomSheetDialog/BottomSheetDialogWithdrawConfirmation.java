@@ -1,4 +1,4 @@
-package project.skripsi.kateringin.Util;
+package project.skripsi.kateringin.Util.BottomSheetDialog;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,18 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -29,8 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import project.skripsi.kateringin.Controller.SuccessMessage.WithdrawSuccessController;
-import project.skripsi.kateringin.Controller.Wallet.TopUp.TopUpPaymentController;
 import project.skripsi.kateringin.R;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class BottomSheetDialogWithdrawConfirmation extends BottomSheetDialogFragment {
 
@@ -73,7 +69,7 @@ public class BottomSheetDialogWithdrawConfirmation extends BottomSheetDialogFrag
                         String docId = document.getId();
                         DocumentReference documentReference = database.collection("wallet").document(docId);
                         Map<String, Object> updates = new HashMap<>();
-                        updates.put("balance", balance - (value - 1000));
+                        updates.put("balance", balance - value);
                         documentReference.update(updates).addOnCompleteListener(innerTask -> {
                             //CREATE TRANSACTION HISTORY
                             CollectionReference collectionRef = database.collection("walletHistory");
@@ -83,7 +79,7 @@ public class BottomSheetDialogWithdrawConfirmation extends BottomSheetDialogFrag
                             data.put("userId", mAuth.getCurrentUser().getUid());
                             data.put("transactionType", "withdraw");
                             data.put("timestamp", Timestamp.now());
-                            data.put("amount", value - 1000);
+                            data.put("amount", value);
                             data.put("date", dateFormat.format(new Date()));
 
                             collectionRef.document().set(data);

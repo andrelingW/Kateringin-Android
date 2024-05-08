@@ -19,8 +19,7 @@ import java.util.ArrayList;
 
 import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.TESTING.FoodItem;
-import project.skripsi.kateringin.Util.IdrFormat;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class StoreRecycleviewAdapter extends RecyclerView.Adapter<StoreRecycleviewAdapter.ViewHolder> {
 

@@ -60,7 +60,7 @@ public class ReviewController extends AppCompatActivity {
     private void setField() {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-        list = new ArrayList<>(order.getOrderItem());
+        list = new ArrayList<>(order.getOrderItems());
 
         for(OrderItem orderItem : list){
             Review review = new Review(null, orderItem.getMenuId(),order.getUserId(), 0.0, null);
@@ -85,6 +85,7 @@ public class ReviewController extends AppCompatActivity {
         });
         pass.setOnClickListener(v ->{
             Intent intent = new Intent(this, MainScreenController.class);
+            updateOrderStatus();
             startActivity(intent);
         });
     }

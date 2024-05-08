@@ -36,7 +36,7 @@ public class ReviewSuccessController extends AppCompatActivity {
 
         database = FirebaseFirestore.getInstance();
         Order order = (Order) getIntent().getSerializableExtra("RATING_CALCULATE");
-        ArrayList<OrderItem> list = new ArrayList<>(order.getOrderItem());
+        ArrayList<OrderItem> list = new ArrayList<>(order.getOrderItems());
 
         for(OrderItem orderItem : list){
             CollectionReference collectionReference = database.collection("review");

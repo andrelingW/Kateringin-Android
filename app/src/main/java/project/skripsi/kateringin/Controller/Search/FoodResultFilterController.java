@@ -1,10 +1,10 @@
-package project.skripsi.kateringin.Controller.Helper;
+package project.skripsi.kateringin.Controller.Search;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,24 +13,20 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-import project.skripsi.kateringin.Controller.User.EditUserController;
+import project.skripsi.kateringin.Controller.Helper.MainScreenController;
+import project.skripsi.kateringin.Controller.Helper.MenuDetailController;
 import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.MenuRecycleviewAdapter;
-import project.skripsi.kateringin.Util.BottomSheetDialogFilter;
-import project.skripsi.kateringin.Util.BottomSheetDialogTopUpConfirmation;
+import project.skripsi.kateringin.Util.UtilClass.RecyclerItemSpacer;
 
 public class FoodResultFilterController extends AppCompatActivity {
 
@@ -41,6 +37,7 @@ public class FoodResultFilterController extends AppCompatActivity {
     RecyclerView recyclerView;
     Toolbar toolbar;
     ConstraintLayout searchNotFound;
+    ImageButton cartShortcut;
 
     //FIELD
     FirebaseAuth mAuth;
@@ -56,7 +53,18 @@ public class FoodResultFilterController extends AppCompatActivity {
         setContentView(R.layout.activity_food_result_filter_view);
         binding();
         setField();
+        button();
         readMenuData(this::menuAdapter);
+    }
+
+    private void button() {
+        cartShortcut.setOnClickListener(v ->{
+            Intent intent = new Intent(this, MainScreenController.class);
+            intent.putExtra("fragmentId", R.layout.fragment_cart);
+            intent.putExtra("menuItemId", R.id.menu_cart);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void binding(){
@@ -67,6 +75,7 @@ public class FoodResultFilterController extends AppCompatActivity {
         search = (String) getIntent().getSerializableExtra("SEARCH");
         toolbar = findViewById(R.id.search_result_filter_toolbar);
         searchNotFound = findViewById(R.id.search_result_filter_not_found_warning);
+        cartShortcut = findViewById(R.id.search_result_filter_cart_shortcut_button);
     }
 
     public void setField(){
@@ -74,6 +83,8 @@ public class FoodResultFilterController extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        int space = getResources().getDimensionPixelSize(R.dimen.recyclerview_item_2_column_space_other); // Define the spacing in XML
+        recyclerView.addItemDecoration(new RecyclerItemSpacer(this, space));
     }
 
     public void menuAdapter(ArrayList<Menu> menuItems){

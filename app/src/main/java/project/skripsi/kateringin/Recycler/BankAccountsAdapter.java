@@ -16,9 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 import project.skripsi.kateringin.Model.UserBankAccount;
-import project.skripsi.kateringin.Model.WalletHistory;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Util.IdrFormat;
 
 public class BankAccountsAdapter extends RecyclerView.Adapter<BankAccountsAdapter.ViewHolder> {
 

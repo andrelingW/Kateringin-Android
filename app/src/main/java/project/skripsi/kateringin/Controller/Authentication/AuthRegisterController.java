@@ -2,9 +2,10 @@ package project.skripsi.kateringin.Controller.Authentication;
 
 import static android.content.ContentValues.TAG;
 
-import static project.skripsi.kateringin.Util.LoadingUtil.animateView;
+import static project.skripsi.kateringin.Util.UtilClass.LoadingUtil.animateView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -32,7 +33,7 @@ public class AuthRegisterController extends AppCompatActivity {
     EditText emailTxt, passwordTxt, confirmPasswordTxt;
     CheckBox termAndCondition;
     Button registerButton, backButton;
-    TextView tncRedirect, emailAlert, passwordAlert, confirmPasswordAlert;
+    TextView tncRedirect, emailAlert, passwordAlert, confirmPasswordAlert, tncAlert;
     View progressOverlay;
 
     //FIELD
@@ -46,6 +47,7 @@ public class AuthRegisterController extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth_register_view);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         binding();
         button();
     }
@@ -56,6 +58,7 @@ public class AuthRegisterController extends AppCompatActivity {
         user = (User) getIntent().getSerializableExtra("USER_OBJECT");
         emailTxt = findViewById(R.id.emailText);
         passwordTxt = findViewById(R.id.auth_register_password_et);
+        tncAlert = findViewById(R.id.auth_register_tnc_warning);
         confirmPasswordTxt = findViewById(R.id.auth_register_confirm_password_et);
         termAndCondition = findViewById(R.id.tncCheckbox);
         tncRedirect = findViewById(R.id.auth_register_tnc_tv);
@@ -179,6 +182,12 @@ public class AuthRegisterController extends AppCompatActivity {
         }else{
             confirmPasswordAlert.setVisibility(View.GONE);
             confirmPasswordTxt.setBackgroundResource(R.drawable.custom_normal_edit_text);
+        }
+        if(!termAndCondition.isChecked()){
+            tncAlert.setVisibility(View.VISIBLE);
+            status = false;
+        }else{
+            tncAlert.setVisibility(View.GONE);
         }
 
         return status;

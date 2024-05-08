@@ -3,16 +3,24 @@ package project.skripsi.kateringin.Recycler;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -57,12 +65,45 @@ public class OrderRecycleviewAdapter extends RecyclerView.Adapter<OrderRecyclevi
         holder.orderStatus.setText(orderItem.getOrderStatus());
 
         if(orderItem.getOrderStatus().equalsIgnoreCase("waiting")){
-            holder.orderStatus.setBackgroundResource(R.drawable.custom_light_active_button);
+            holder.orderStatus.setBackgroundResource(R.drawable.custom_waiting_detail_button);
             holder.orderStatus.setTextColor(ContextCompat.getColor(context, R.color.blue));
         } else if(orderItem.getOrderStatus().equalsIgnoreCase("ongoing")){
             holder.orderStatus.setBackgroundResource(R.drawable.custom_ongoing_detail_button);
             holder.orderStatus.setTextColor(ContextCompat.getColor(context, R.color.yellow));
         }
+
+        DocumentReference menuDocRef = database.collection("menu").document(orderItem.getOrderItems().get(0).getMenuId());
+        menuDocRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    String menuPhotoUrl = document.getString("menuPhotoUrl");
+
+                    Glide.with(context)
+                            .load(menuPhotoUrl)
+                            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                            .apply(RequestOptions.skipMemoryCacheOf(true))
+                            .into(new CustomTarget<Drawable>() {
+                                @Override
+                                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                    holder.orderImage.setImageDrawable(resource);
+                                }
+
+                                @Override
+                                public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                                }
+                            });
+                } else {
+                    System.out.println("No such document");
+                }
+            } else {
+                Exception e = task.getException();
+                if (e != null) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         DocumentReference docRef = database.collection("store").document(orderItem.getStoreId());
 
@@ -86,7 +127,7 @@ public class OrderRecycleviewAdapter extends RecyclerView.Adapter<OrderRecyclevi
         holder.detailButton.setOnClickListener(v ->{
                 Intent intent = new Intent(context, OrderDetailController.class);
                 intent.putExtra("DETAILS_SCREEN", orderItem);
-                context.startActivity(intent);
+                fragment.someActivityResultLauncher.launch(intent);
         });
 
         holder.itemView.setOnClickListener(view -> {
@@ -105,6 +146,11 @@ public class OrderRecycleviewAdapter extends RecyclerView.Adapter<OrderRecyclevi
         void onClick(int position, Order model);
     }
 
+    public void clear() {
+        orderItems.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return orderItems.size();
@@ -114,6 +160,7 @@ public class OrderRecycleviewAdapter extends RecyclerView.Adapter<OrderRecyclevi
 
         TextView orderId, storeName, orderStatus;
         AppCompatButton detailButton;
+        ImageView orderImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -121,6 +168,7 @@ public class OrderRecycleviewAdapter extends RecyclerView.Adapter<OrderRecyclevi
             storeName = itemView.findViewById(R.id.order_item_store_name_text);
             orderStatus = itemView.findViewById(R.id.order_item_order_status_text);
             detailButton = itemView.findViewById(R.id.order_item_detail_button);
+            orderImage = itemView.findViewById(R.id.order_item_menu_image);
 
         }
     }

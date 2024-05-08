@@ -63,6 +63,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
     implementation("com.google.android.material:material:1.11.0-alpha01")
+    implementation("com.jaredrummler:material-spinner:1.3.1")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
 
 

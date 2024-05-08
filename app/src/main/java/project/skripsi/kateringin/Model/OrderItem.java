@@ -3,25 +3,76 @@ package project.skripsi.kateringin.Model;
 import java.io.Serializable;
 
 public class OrderItem implements Serializable {
-    String cartItemId;
+    String orderItemId;
     String menuId;
     int price;
     int quantity;
     String timeRange;
     String date;
     String note;
+    String orderItemStatus;
+    String orderItemLinkTracker;
+    Boolean isReschedule;
 
     public OrderItem() {
     }
 
-    public OrderItem(String cartItemId, String menuId, int price, int quantity, String timeRange, String date, String note) {
-        this.cartItemId = cartItemId;
+    public OrderItem(String orderItemId, String menuId, int price, int quantity, String timeRange, String date, String note) {
+        this.orderItemId = orderItemId;
         this.menuId = menuId;
         this.price = price;
         this.quantity = quantity;
         this.timeRange = timeRange;
         this.date = date;
         this.note = note;
+    }
+
+    public OrderItem(String orderItemId, String menuId, int price, int quantity, String timeRange, String date, String note, String orderItemStatus) {
+        this.orderItemId = orderItemId;
+        this.menuId = menuId;
+        this.price = price;
+        this.quantity = quantity;
+        this.timeRange = timeRange;
+        this.date = date;
+        this.note = note;
+        this.orderItemStatus = orderItemStatus;
+    }
+
+    public OrderItem(String orderItemId, String menuId, int price, int quantity, String timeRange, String date, String note, String orderItemStatus, String orderItemLinkTracker, Boolean isReschedule) {
+        this.orderItemId = orderItemId;
+        this.menuId = menuId;
+        this.price = price;
+        this.quantity = quantity;
+        this.timeRange = timeRange;
+        this.date = date;
+        this.note = note;
+        this.orderItemStatus = orderItemStatus;
+        this.orderItemLinkTracker = orderItemLinkTracker;
+        this.isReschedule = isReschedule;
+    }
+
+    public String getOrderItemLinkTracker() {
+        return orderItemLinkTracker;
+    }
+
+    public void setOrderItemLinkTracker(String orderItemLinkTracker) {
+        this.orderItemLinkTracker = orderItemLinkTracker;
+    }
+
+    public Boolean getReschedule() {
+        return isReschedule;
+    }
+
+    public void setReschedule(Boolean reschedule) {
+        isReschedule = reschedule;
+    }
+
+    public String getOrderItemStatus() {
+        return orderItemStatus;
+    }
+
+    public void setOrderItemStatus(String orderItemStatus) {
+        this.orderItemStatus = orderItemStatus;
     }
 
     public String getNote() {
@@ -32,12 +83,12 @@ public class OrderItem implements Serializable {
         this.note = note;
     }
 
-    public String getCartItemId() {
-        return cartItemId;
+    public String getOrderItemId() {
+        return orderItemId;
     }
 
-    public void setCartItemId(String cartItemId) {
-        this.cartItemId = cartItemId;
+    public void setOrderItemId(String orderItemId) {
+        this.orderItemId = orderItemId;
     }
 
     public String getMenuId() {

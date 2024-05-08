@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import java.util.Locale;
 
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
+import project.skripsi.kateringin.Util.UtilClass.CustomBeforeDateValidator;
 
 public class RegisterController extends AppCompatActivity {
 
@@ -104,7 +106,9 @@ public class RegisterController extends AppCompatActivity {
 
         dateButton.setOnClickListener(v -> {
             MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
+                    .setTheme(R.style.ThemeOverlay_App_MaterialCalendar)
                     .setTitleText("Select Date")
+                    .setCalendarConstraints(new CalendarConstraints.Builder().setValidator(new CustomBeforeDateValidator()).build())
                     .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                     .build();
 

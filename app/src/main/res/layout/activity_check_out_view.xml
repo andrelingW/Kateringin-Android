@@ -82,10 +82,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
-                    android:textAppearance="@style/normalText"
+                    android:layout_marginTop="3dp"
                     android:layout_marginBottom="15dp"
                     android:text="TextView"
+                    android:textAppearance="@style/normalText"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/checkout_contact_name_tv" />
@@ -111,13 +111,13 @@
 
                 <TextView
                     android:id="@+id/checkOuttv3"
-                    android:textAppearance="@style/componentBoldTitle"
-
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="Kontak Penerima"
+                    android:text="Lokasi Penerima"
+                    android:textAppearance="@style/componentBoldTitle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

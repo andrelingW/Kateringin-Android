@@ -1,15 +1,20 @@
 package project.skripsi.kateringin.Controller.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.view.WindowCompat;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,13 +28,13 @@ import com.google.gson.Gson;
 import project.skripsi.kateringin.Controller.Helper.MainScreenController;
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Util.LoadingUtil;
+import project.skripsi.kateringin.Util.UtilClass.LoadingUtil;
 
 public class LoginController extends AppCompatActivity {
 
     //XML
     EditText emailTxt, passwordTxt;
-    Button login;
+    AppCompatButton login;
     TextView register, emailAlert, passwordAlert, forgotPassword;
     View progressOverlay;
 
@@ -42,6 +47,7 @@ public class LoginController extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_login_view);
 
         binding();
@@ -60,6 +66,7 @@ public class LoginController extends AppCompatActivity {
         login = findViewById(R.id.loginButton);
         progressOverlay = findViewById(R.id.progress_overlay);
         progressOverlay.bringToFront();
+
     }
 
     private void button(){
@@ -71,6 +78,7 @@ public class LoginController extends AppCompatActivity {
                 passwordTxt.setHint("Enter your password");
             }
         });
+
 
         forgotPassword.setOnClickListener(v ->{
             Intent intent = new Intent(getApplicationContext(), ForgotPasswordController.class);
@@ -171,6 +179,23 @@ public class LoginController extends AppCompatActivity {
         snackbarLayout.setPadding(0, 0, 0, 0);
         snackbarLayout.addView(customSnackView, 0);
         snackbar.show();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if ( v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
 
 }

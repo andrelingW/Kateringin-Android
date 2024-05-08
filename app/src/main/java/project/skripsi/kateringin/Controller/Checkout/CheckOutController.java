@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -33,7 +32,7 @@ import project.skripsi.kateringin.Model.Cart;
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.CheckOutRecyclerviewAdapter;
-import project.skripsi.kateringin.Util.IdrFormat;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class CheckOutController extends AppCompatActivity {
 

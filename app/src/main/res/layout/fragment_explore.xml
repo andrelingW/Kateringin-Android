@@ -64,6 +64,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:text="Welcome back!"
+                android:textColor="@color/blue"
                 android:textSize="24dp"
                 android:textStyle="bold" />
 
@@ -428,7 +429,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/gray" />
+                android:background="@color/light_gray" />
 
             <TextView
                 android:layout_marginTop="20dp"
@@ -438,21 +439,30 @@
                 android:layout_marginEnd="20dp"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:text="Rekomendasi kami"/>
+                android:text="Our Top Picks!"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/textView80"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:text="Rekomendasi menu terbaik dari kami"
+                android:textSize="14dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/explore_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView37"
                 app:spanCount="2" />
+
 
 
 

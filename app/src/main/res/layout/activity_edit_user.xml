@@ -6,12 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".Controller.User.EditUserController">
+
     <include layout="@layout/include_progress_overlay" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/edit_profile_toolbar"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
         android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/CustomActionBar"
@@ -69,14 +71,14 @@
         android:background="@drawable/custom_normal_edit_text"
         android:ems="10"
 
+        android:hint="Enter your name"
         android:inputType="text"
         android:paddingLeft="15dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
-        android:paddingBottom="10dp"
 
+        android:paddingBottom="10dp"
         android:text="Name"
-        android:hint="Enter your name"
         android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -227,30 +229,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/edit_profile_save_button"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/custom_active_button"
+        android:stateListAnimator="@null"
         android:text="Save"
         android:textAppearance="@style/activeButton"
-        android:background="@drawable/custom_active_button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_profile_cancel_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/edit_profile_cancel_button" />
+        app:layout_constraintStart_toEndOf="@+id/edit_profile_cancel_button"
+        app:layout_constraintTop_toTopOf="@+id/edit_profile_cancel_button" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/edit_profile_cancel_button"
-        android:layout_width="150dp"
+
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/custom_second_button"
+        android:stateListAnimator="@null"
         android:text="Cancel"
         android:textAllCaps="false"
-        android:textColor="@color/light_black"
-        android:background="@android:color/transparent"
+        android:textColor="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/edit_profile_save_button"
         app:layout_constraintHorizontal_bias="0.5"

@@ -14,9 +14,9 @@
 
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="35dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordLayout2" />
 
 
     <TextView
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="25dp"
         android:text="Password"
         android:textAppearance="@style/componentBoldTitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,8 +54,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="65dp"
         android:text="Daftarkan dirimu!"
+        android:textColor="@color/blue"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +69,7 @@
         android:layout_below="@+id/textView10"
         android:layout_alignParentStart="true"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="Email"
         android:textAppearance="@style/componentBoldTitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +83,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="35dp"
         android:background="@drawable/custom_normal_edit_text"
 
@@ -139,72 +140,68 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPasswordLayout2" />
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout7"
-        android:layout_width="match_parent"
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/backButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="25dp"
+        android:background="@drawable/custom_second_button"
+        android:stateListAnimator="@null"
+        android:text="Back"
+        android:textAllCaps="false"
+        android:textColor="@color/light_black"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/registerButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="#713636" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/registerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/custom_active_button"
+        android:stateListAnimator="@null"
+        android:text="Register"
+        android:textAppearance="@style/activeButton"
+
+        app:layout_constraintBottom_toBottomOf="@+id/backButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/backButton"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:text="Back"
-            android:textAllCaps="false"
-            android:textColor="@color/light_black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/registerButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="#713636" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/registerButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/custom_active_button"
-            android:text="Register"
-            android:textAppearance="@style/activeButton"
-            app:layout_constraintBottom_toBottomOf="@+id/backButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_weight="1"
-
-            app:layout_constraintStart_toEndOf="@+id/backButton"
-            app:layout_constraintTop_toTopOf="@+id/backButton" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="@+id/backButton" />
 
     <TextView
         android:id="@+id/textView40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="25dp"
         android:text="Confirm Password"
         android:textAppearance="@style/componentBoldTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordLayout"
         tools:ignore="NotSibling" />
 
     <TextView
         android:id="@+id/textView57"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="35dp"
         android:text="Saya telah membaca dan menyetujui"
+        android:textAppearance="@style/normalGrayText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tncCheckbox"
         app:layout_constraintTop_toTopOf="@+id/tncCheckbox" />
@@ -213,8 +210,7 @@
         android:id="@+id/auth_register_tnc_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:text="syarat dan ketentuan"
+        android:text="Syarat dan Ketentuan"
         android:textColor="@color/blue"
         app:layout_constraintStart_toEndOf="@+id/tncCheckbox"
         app:layout_constraintTop_toBottomOf="@+id/textView57" />
@@ -224,7 +220,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -238,17 +233,17 @@
             android:background="@drawable/custom_normal_edit_text"
             android:inputType="textPassword"
             android:paddingLeft="15dp"
-            android:textSize="14dp"
             android:paddingTop="10dp"
             android:paddingRight="10dp"
-            android:paddingBottom="10dp" />
+            android:paddingBottom="10dp"
+            android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etPasswordLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -262,12 +257,24 @@
             android:background="@drawable/custom_normal_edit_text"
             android:inputType="textPassword"
             android:paddingLeft="15dp"
-            android:textSize="14dp"
             android:paddingTop="10dp"
             android:paddingRight="10dp"
-            android:paddingBottom="10dp" />
+            android:paddingBottom="10dp"
+            android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <include layout="@layout/include_progress_overlay"/>
+    <include layout="@layout/include_progress_overlay" />
+
+    <TextView
+        android:id="@+id/auth_register_tnc_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:text="*Please accept Terms and Condition"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/auth_register_tnc_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

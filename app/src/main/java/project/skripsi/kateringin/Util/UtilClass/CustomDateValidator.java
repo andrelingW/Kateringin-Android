@@ -1,4 +1,4 @@
-package project.skripsi.kateringin.Util;
+package project.skripsi.kateringin.Util.UtilClass;
 
 import android.os.Parcel;
 import android.os.Parcelable;

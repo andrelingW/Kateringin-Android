@@ -1,4 +1,4 @@
-package project.skripsi.kateringin.Util;
+package project.skripsi.kateringin.Util.UtilClass;
 
 public class SdkConfig {
     public static final String MERCHANT_CLIENT_KEY = "SB-Mid-client-bF365T59-r2nNBs2";

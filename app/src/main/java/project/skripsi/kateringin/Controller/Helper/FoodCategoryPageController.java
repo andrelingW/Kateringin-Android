@@ -11,22 +11,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.MenuRecycleviewAdapter;
+import project.skripsi.kateringin.Util.BottomSheetDialog.BottomSheetDialogFilter;
+import project.skripsi.kateringin.Util.UtilClass.RecyclerItemSpacer;
 
 public class FoodCategoryPageController extends AppCompatActivity {
 
@@ -37,6 +36,7 @@ public class FoodCategoryPageController extends AppCompatActivity {
     RecyclerView recyclerView;
     Toolbar toolbar;
     ConstraintLayout searchNotFound;
+    ImageButton cartShortcut;
 
     //FIELD
     FirebaseAuth mAuth;
@@ -51,7 +51,18 @@ public class FoodCategoryPageController extends AppCompatActivity {
         setContentView(R.layout.activity_food_category_page_view);
         binding();
         setField();
+        button();
         readMenuData(this::menuAdapter);
+    }
+
+    private void button() {
+        cartShortcut.setOnClickListener(v ->{
+            Intent intent = new Intent(this, MainScreenController.class);
+            intent.putExtra("fragmentId", R.layout.fragment_cart);
+            intent.putExtra("menuItemId", R.id.menu_cart);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void binding(){
@@ -61,6 +72,7 @@ public class FoodCategoryPageController extends AppCompatActivity {
         foodCategory = (String) getIntent().getSerializableExtra("SUB_ORDER_DECIDE");
         toolbar = findViewById(R.id.food_category_page_toolbar);
         searchNotFound = findViewById(R.id.food_category_page_warning);
+        cartShortcut = findViewById(R.id.food_category_page_cart_shortcut_button);
         switch (foodCategory){
             case "VEGAN":
                 toolbar.setTitle("Vegan");
@@ -88,6 +100,8 @@ public class FoodCategoryPageController extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        int space = getResources().getDimensionPixelSize(R.dimen.recyclerview_item_2_column_space_other);
+        recyclerView.addItemDecoration(new RecyclerItemSpacer(this, space));
     }
 
     public void menuAdapter(ArrayList<Menu> menuItems){
@@ -109,6 +123,13 @@ public class FoodCategoryPageController extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.filter_menu, menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -116,8 +137,21 @@ public class FoodCategoryPageController extends AppCompatActivity {
             finish();
             return true;
         }
+
+        if (id == R.id.menu_filter) {
+            Bundle bundle = new Bundle();
+            bundle.putString("search", foodCategory.toLowerCase());
+
+            BottomSheetDialogFilter bottomSheetDialogFragment = new BottomSheetDialogFilter();
+            bottomSheetDialogFragment.setArguments(bundle);
+
+            bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
+
 
     private void readMenuData(FirestoreCallback firestoreCallback){
         CollectionReference collectionRef = database.collection("menu");

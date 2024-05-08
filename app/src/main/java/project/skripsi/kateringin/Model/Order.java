@@ -12,12 +12,12 @@ public class Order implements Serializable {
     String receiverPhone;
     String receiverEmail;
     String orderStatus;
-    ArrayList<OrderItem> orderItem;
+    ArrayList<OrderItem> orderItems;
 
     public Order() {
     }
 
-    public Order(String orderId, String storeId, String userId, String receiverAddress, String receiverName, String receiverPhone, String receiverEmail, String orderStatus, ArrayList<OrderItem> orderItem) {
+    public Order(String orderId, String storeId, String userId, String receiverAddress, String receiverName, String receiverPhone, String receiverEmail, String orderStatus, ArrayList<OrderItem> orderItems) {
         this.orderId = orderId;
         this.storeId = storeId;
         this.userId = userId;
@@ -26,7 +26,7 @@ public class Order implements Serializable {
         this.receiverPhone = receiverPhone;
         this.receiverEmail = receiverEmail;
         this.orderStatus = orderStatus;
-        this.orderItem = orderItem;
+        this.orderItems = orderItems;
     }
 
     public String getOrderStatus() {
@@ -93,25 +93,11 @@ public class Order implements Serializable {
         this.receiverEmail = receiverEmail;
     }
 
-    public ArrayList<OrderItem> getOrderItem() {
-        return orderItem;
+    public ArrayList<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setOrderItem(ArrayList<OrderItem> orderItem) {
-        this.orderItem = orderItem;
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderId='" + orderId + '\'' +
-                ", storeId='" + storeId + '\'' +
-                ", userId='" + userId + '\'' +
-                ", receiverAddress='" + receiverAddress + '\'' +
-                ", receiverName='" + receiverName + '\'' +
-                ", receiverPhone='" + receiverPhone + '\'' +
-                ", receiverEmail='" + receiverEmail + '\'' +
-                ", orderItem=" + orderItem +
-                '}';
+    public void setOrderItems(ArrayList<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

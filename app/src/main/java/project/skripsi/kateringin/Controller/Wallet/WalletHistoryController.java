@@ -3,17 +3,17 @@ package project.skripsi.kateringin.Controller.Wallet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import project.skripsi.kateringin.Model.WalletHistory;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.WalletHistoryRecyclerviewAdapter;
-import project.skripsi.kateringin.Recycler.WalletRecyclerviewAdapter;
-import project.skripsi.kateringin.Util.IdrFormat;
 
 public class WalletHistoryController extends AppCompatActivity {
 
@@ -33,6 +31,7 @@ public class WalletHistoryController extends AppCompatActivity {
     RecyclerView recyclerView;
     FirebaseAuth mAuth;
     Toolbar toolbar;
+    ConstraintLayout walletHistoryWarning;
 
     //FIELD
     ArrayList<WalletHistory> walletHistories = new ArrayList<>();
@@ -54,6 +53,7 @@ public class WalletHistoryController extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
         toolbar = findViewById(R.id.wallet_history_toolbar);
+        walletHistoryWarning = findViewById(R.id.wallet_history_warning);
     }
 
     private void setField() {
@@ -62,12 +62,11 @@ public class WalletHistoryController extends AppCompatActivity {
     }
 
     public void walletHistoryAdapter(ArrayList<WalletHistory> list){
-//        if(list.isEmpty()){
-//            orderWarning.setVisibility(View.VISIBLE);
-//        }else{
-//            orderWarning.setVisibility(View.GONE);
-//        }
-        Log.d("TAG", "readWalletHistoryData: " + list.get(0).getTransactionType());
+        if(list.isEmpty()){
+            walletHistoryWarning.setVisibility(View.VISIBLE);
+        }else{
+            walletHistoryWarning.setVisibility(View.GONE);
+        }
 
         walletHistoryRecyclerviewAdapter = new WalletHistoryRecyclerviewAdapter(list,this);
         recyclerView.setAdapter(walletHistoryRecyclerviewAdapter);

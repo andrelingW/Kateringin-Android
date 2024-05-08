@@ -12,14 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
 import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Util.IdrFormat;
+import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class MenuRecycleviewAdapter extends RecyclerView.Adapter<MenuRecycleviewAdapter.ViewHolder> {
 

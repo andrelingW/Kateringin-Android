@@ -44,7 +44,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/custom_normal_edit_text">
 
                 <TextView
@@ -64,7 +66,10 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+
                 android:background="@drawable/custom_normal_edit_text">
 
                 <TextView
@@ -106,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:layout_marginBottom="15dp"
                     android:text="0899912341241"
                     android:textAppearance="@style/normalGrayText"
@@ -120,7 +125,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/custom_normal_edit_text">
 
                 <TextView
@@ -129,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="Kontak Penerima"
+                    android:text="Lokasi Penerima"
                     android:textAppearance="@style/componentBoldTitle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -172,13 +179,17 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/order_detail_recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+               />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginBottom="120dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/custom_normal_edit_text">
 
                 <TextView
@@ -277,55 +288,6 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginBottom="90dp"
-                android:background="@drawable/custom_normal_edit_text">
-
-                <TextView
-                    android:id="@+id/order_tracker_link_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Lacak Pengiriman"
-                    android:textAppearance="@style/componentBoldTitle"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/checkOutdiv3"
-                    android:layout_width="390dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="?android:attr/listDivider"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/order_tracker_link_text" />
-
-
-                <TextView
-                    android:id="@+id/order_detail_tracker_link_ev"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="-"
-                    android:textIsSelectable="true"
-                    android:textAppearance="@style/normalText"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/order_tracker_link_text" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

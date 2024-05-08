@@ -3,11 +3,13 @@ package project.skripsi.kateringin.Controller.Order;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -31,6 +33,7 @@ public class OrderHistoryController extends AppCompatActivity {
     //XML
     Toolbar toolbar;
     RecyclerView recyclerView;
+    ConstraintLayout orderHistoryWarning;
 
     //FIELD
     FirebaseFirestore database;
@@ -59,9 +62,15 @@ public class OrderHistoryController extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         toolbar = findViewById(R.id.order_history_toolbar);
         recyclerView = findViewById(R.id.order_history_recyclerview);
+        orderHistoryWarning = findViewById(R.id.order_history_warning);
     }
 
     public void orderHistoryAdapter(ArrayList<Order> cartItems){
+        if(cartItems.isEmpty()){
+            orderHistoryWarning.setVisibility(View.VISIBLE);
+        }else{
+            orderHistoryWarning.setVisibility(View.GONE);
+        }
         orderHistoryRecycleviewAdapter = new OrderHistoryRecycleviewAdapter(orders,this);
         recyclerView.setAdapter(orderHistoryRecycleviewAdapter);
     }
@@ -93,13 +102,15 @@ public class OrderHistoryController extends AppCompatActivity {
                     for (Map<String, Object> item : orderItemsList) {
                         OrderItem order = new OrderItem();
 
-                        order.setCartItemId((String) item.get("cartItemId"));
+                        order.setOrderItemId((String) item.get("orderItemId"));
                         order.setDate((String) item.get("date"));
                         order.setNote((String) item.get("note"));
                         order.setMenuId((String) item.get("menuId"));
                         order.setPrice(((Long) item.get("price")).intValue());
                         order.setQuantity(((Long) item.get("quantity")).intValue());
                         order.setTimeRange((String) item.get("timeRange"));
+                        order.setReschedule((Boolean) item.get("isReschedule"));
+                        order.setOrderItemStatus((String) item.get("orderItemStatus"));
 
                         listOfOrderItem.add(order);
                     }
