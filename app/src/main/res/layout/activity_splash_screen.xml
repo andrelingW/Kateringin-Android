@@ -8,7 +8,6 @@
     android:background="@color/blue">
 
     <ImageView
-        android:id="@+id/imageView5"
         android:layout_width="360dp"
         android:layout_height="360dp"
         android:layout_marginBottom="50dp"

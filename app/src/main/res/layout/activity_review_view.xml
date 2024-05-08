@@ -8,7 +8,6 @@
     tools:context=".Controller.Order.OrderDetailController">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/review_toolbar"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:background="@drawable/custom_bottom_border"

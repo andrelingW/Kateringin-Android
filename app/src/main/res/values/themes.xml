@@ -1,77 +1,39 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Kateringin" parent="Theme.Material3.Light.NoActionBar">
-        <!-- Customize your light theme here. -->
-
-         <item name="colorPrimary">@color/blue</item>
-<!--        <item name="background">@color/white</item>-->
-        <item name="android:statusBarColor">@color/white</item>
-<!--        <item name="colorOnBackground">@color/yellow</item>-->
+    <style name="Base.Theme.Kateringin" parent="Theme.Material3.Light.NoActionBar">>
+        <item name="colorPrimary">@color/blue</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:colorBackground">@color/white</item>
-
-
-
-
-
-
-
-
-
-
+        <item name="android:navigationBarColor">
+            @android:color/transparent
+        </item>
+        <item name="background">@color/white</item>
+        <item name="android:statusBarColor">
+            @android:color/transparent
+        </item>
     </style>
 
+    <style name="ThemeOverlay.App.MaterialCalendar" parent="ThemeOverlay.Material3.MaterialCalendar">
+        <!-- just override the colors used in the default style -->
+        <item name="colorPrimary">@color/blue</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!--    Theme.Material3.DayNight.NoActionBar-->
     <style name="CustomNeedActionBar" parent="Theme.Material3.Light">
         <!-- Customize your light theme here. -->
-<!--        <item name="colorPrimary">@color/blue</item>-->
+        <item name="colorPrimary">@color/blue</item>
         <item name="android:statusBarColor">@color/light_blue_2</item>
         <item name="android:windowLightStatusBar">true</item>
-<!--                <item name="colorSurface">@color/red</item>-->
         <item name="actionBarStyle">@color/white</item>
-
-
         <item name="android:colorBackground">@color/light_blue_2</item>
         <item name="android:textColor">@color/light_black</item>
 
-
     </style>
-
-    <color name="red1">#FB1100</color>
-    <color name="red2">#FD3A2C</color>
-    <color name="red3">#FD6459</color>
-    <color name="red4">#FF9189</color>
-    <color name="red5">#FFBABA</color>
-
-    <color name="yellow1">#FFC800</color>
-    <color name="yellow2">#FFDC5C</color>
-    <color name="yellow3">#FFE896</color>
-    <color name="yellow4">#FFEEAF</color>
-
-    <color name="green1">#4FCA00</color>
-    <color name="green2">#8EFF46</color>
-    <color name="green3">#ADFF79</color>
-    <color name="green4">#C8FFA6</color>
-
-    <color name="blue1">#0048FF</color>
-    <color name="blue2">#487CFF</color>
-
-    <color name="purple1">#9500FF</color>
-    <color name="purple2">#AD3AFF</color>
-    <color name="purple3">#C169FF</color>
-    <color name="purple4">#D8A1FF</color>
-    <color name="purple5">#E6C2FF</color>
-    <color name="purple6">#F3E1FF</color>
-
-    <color name="white2">#FFFFFF</color>
-<!--    Theme.Material3.DayNight.NoActionBar-->
-<!--    <style name="CustomNeedActionBar" parent="Theme.Material3.Light.NoActionBar">-->
-<!--        &lt;!&ndash; Customize your light theme here. &ndash;&gt;-->
-<!--        <item name="colorPrimary">@color/blue</item>-->
-<!--        <item name="android:statusBarColor">@color/white</item>-->
-<!--&lt;!&ndash;        <item name="android:windowLightStatusBar">true</item>&ndash;&gt;-->
-<!--        <item name="android:navigationBarColor">@color/white</item>-->
-
-<!--    </style>-->
 
     <style name="CustomActionBar" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:textSize">18dp</item>
@@ -80,10 +42,4 @@
 
 
     <style name="Theme.Kateringin" parent="Base.Theme.Kateringin" />
-    <style name="Theme.Kateringin.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-    <style name="Theme.Kateringin.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="Theme.Kateringin.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
