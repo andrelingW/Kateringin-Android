@@ -91,11 +91,11 @@ public class AddUserBankAccountController extends AppCompatActivity implements A
             if(!bankNameFld.isEmpty() && !bankNumberFld.isEmpty() && !usernameFld.isEmpty()){
                 Map<String, Object> newBankAccount = new HashMap<>();
                 newBankAccount.put("bankName", bankNameFld);
-                newBankAccount.put("bankNumber", bankNumberFld);
+                newBankAccount.put("accountNumber", bankNumberFld);
                 newBankAccount.put("accountHolderName", usernameFld);
                 newBankAccount.put("userId", mAuth.getCurrentUser().getUid());
 
-                database.collection("userBankAccount").document()
+                database.collection("bankAccount").document()
                         .set(newBankAccount)
                         .addOnCompleteListener(task -> {
                             Intent intent = new Intent(getApplicationContext(), ListOfBankAccountController.class);

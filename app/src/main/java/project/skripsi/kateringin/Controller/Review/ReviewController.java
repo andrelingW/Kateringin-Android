@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.Map;
 
 import project.skripsi.kateringin.Controller.Helper.MainScreenController;
 import project.skripsi.kateringin.Controller.SuccessMessage.ReviewSuccessController;
+import project.skripsi.kateringin.Controller.SuccessMessage.ThankYouController;
 import project.skripsi.kateringin.Model.Order;
 import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.Model.Review;
@@ -84,7 +87,7 @@ public class ReviewController extends AppCompatActivity {
             }
         });
         pass.setOnClickListener(v ->{
-            Intent intent = new Intent(this, MainScreenController.class);
+            Intent intent = new Intent(this, ThankYouController.class);
             updateOrderStatus();
             startActivity(intent);
         });
@@ -92,11 +95,61 @@ public class ReviewController extends AppCompatActivity {
 
     public void updateOrderStatus(){
         DocumentReference docRef = database.collection("order").document(order.getOrderId());
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("orderStatus", "complete");
-        docRef.update(updates);
+        docRef.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                DocumentSnapshot document = task.getResult();
+                if(document.exists()){
+                    String orderId = document.getId();
+                    String storeId = document.getString("storeId");
+                    String userId = document.getString("userId");
+                    String receiverName = document.getString("receiverName");
+                    String receiverEmail = document.getString("receiverEmail");
+                    String receiverPhone = document.getString("receiverPhone");
+                    String receiverAddress = document.getString("receiverAddress");
+
+                    ArrayList<Map<String, Object>> orderItemsList = (ArrayList<Map<String, Object>>) document.get("orderItems");
+                    ArrayList<OrderItem> listOfOrderItem = new ArrayList<>();
+
+                    for (Map<String, Object> item : orderItemsList) {
+                        OrderItem order = new OrderItem();
+                        order.setDate((String) item.get("date"));
+                        order.setTimeRange((String) item.get("timeRange"));
+                        order.setReschedule((Boolean) item.get("reschedule"));
+                        order.setOrderItemStatus("complete");
+                        order.setOrderItemId((String) item.get("orderItemId"));
+                        order.setNote((String) item.get("note"));
+                        order.setMenuId((String) item.get("menuId"));
+                        order.setPrice(((Long) item.get("price")).intValue());
+                        order.setQuantity(((Long) item.get("quantity")).intValue());
+                        order.setOrderItemLinkTracker((String) item.get("orderItemLinkTracker"));
+
+                        listOfOrderItem.add(order);
+
+                        Order newOrder = new Order(
+                                orderId,
+                                storeId,
+                                userId,
+                                receiverAddress,
+                                receiverName,
+                                receiverPhone,
+                                "complete",
+                                listOfOrderItem
+                        );
+
+                        docRef.set(newOrder);
+                        finish();
+                    }
+                }else{
+                    Log.i("TAG", "No such document");
+                }
+            } else {
+                Log.i("TAG", "get failed with ", task.getException());
+            }
+//        DocumentReference docRef = database.collection("order").document(order.getOrderId());
+//        Map<String, Object> updates = new HashMap<>();
+//        updates.put("orderStatus", "complete");
+//        docRef.update(updates);
+        });
     }
-
-
 
 }

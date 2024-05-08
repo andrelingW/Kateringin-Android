@@ -120,9 +120,13 @@ public class WalletController extends AppCompatActivity {
     }
 
     public void walletHistoryAdapter(ArrayList<WalletHistory> list){
+        Log.d("TAG", "walletHistoryAdapter: asd" + list.size());
+
         if(list.isEmpty()){
+            Log.d("TAG", "walletHistoryAdapter: asd1");
             walletWarning.setVisibility(View.VISIBLE);
         }else{
+            Log.d("TAG", "walletHistoryAdapter: asd2");
             walletWarning.setVisibility(View.GONE);
         }
 
@@ -131,7 +135,37 @@ public class WalletController extends AppCompatActivity {
     }
 
     private void readWalletHistoryData(FirestoreCallback firestoreCallback){
-        CollectionReference collectionRef = database.collection("walletHistory");
+//        CollectionReference collectionRef = database.collection("walletHistory");
+//        Query query = collectionRef
+//                .whereEqualTo("userId", mAuth.getCurrentUser().getUid())
+//                .orderBy("timestamp", Direction.DESCENDING)
+//                    .limit(4);
+//
+//        query.get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                for (QueryDocumentSnapshot document : task.getResult()) {
+//                    String userId = document.getString("userId");
+//                    String date = document.getString("date");
+//                    String transactionType = document.getString("transactionType");
+//                    int amount = document.getLong("amount").intValue();
+//                    Log.d("TAG", "readWalletHistoryData: " + userId + date + transactionType + amount);
+//                    walletHistories.add(new WalletHistory(
+//                            userId,
+//                            transactionType,
+//                            amount,
+//                            date
+//                    ));
+//                }
+//                firestoreCallback.onCallback(walletHistories);
+//            } else {
+//                Exception e = task.getException();
+//                if (e != null) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+
+        CollectionReference collectionRef = database.collection("transaction");
         Query query = collectionRef
                 .whereEqualTo("userId", mAuth.getCurrentUser().getUid())
                 .orderBy("timestamp", Direction.DESCENDING)
@@ -144,7 +178,6 @@ public class WalletController extends AppCompatActivity {
                     String date = document.getString("date");
                     String transactionType = document.getString("transactionType");
                     int amount = document.getLong("amount").intValue();
-                    Log.d("TAG", "readWalletHistoryData: " + userId + date + transactionType + amount);
                     walletHistories.add(new WalletHistory(
                             userId,
                             transactionType,

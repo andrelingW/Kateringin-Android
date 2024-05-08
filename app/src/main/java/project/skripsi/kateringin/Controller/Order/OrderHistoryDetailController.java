@@ -65,7 +65,7 @@ public class OrderHistoryDetailController extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
 
         setTotalPrice(order.getOrderItems());
-        orderId.setText("No Order #" + order.getOrderId());
+        orderId.setText("Order ID #" + order.getOrderId());
         receiverName.setText(order.getReceiverName());
         receiverPhone.setText(order.getReceiverPhone());
         receiverAddress.setText(order.getReceiverAddress());

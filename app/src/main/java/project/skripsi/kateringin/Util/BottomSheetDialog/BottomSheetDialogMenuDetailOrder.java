@@ -177,7 +177,7 @@ public class BottomSheetDialogMenuDetailOrder extends BottomSheetDialogFragment 
 
             }
             else{
-                Toast.makeText(getContext(), "Pilih terlebih dahulu waktu dan tanggal!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please choose date and time!", Toast.LENGTH_SHORT).show();
             }
         });
 

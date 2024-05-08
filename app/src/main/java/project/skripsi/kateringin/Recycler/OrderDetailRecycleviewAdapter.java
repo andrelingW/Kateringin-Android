@@ -2,6 +2,8 @@ package project.skripsi.kateringin.Recycler;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -123,7 +126,6 @@ public class OrderDetailRecycleviewAdapter extends RecyclerView.Adapter<OrderDet
             holder.orderStatus.setTextColor(ContextCompat.getColor(context, R.color.green));
         }
 
-        Log.d("TAG", "onBindViewHolder: " + orderItem.getOrderItemStatus());
 
         if(orderItem.getOrderItemStatus().equalsIgnoreCase("waiting")){
             holder.rescheduleIndicator.setVisibility(View.GONE);
@@ -164,7 +166,13 @@ public class OrderDetailRecycleviewAdapter extends RecyclerView.Adapter<OrderDet
         } else if(orderItem.getOrderItemStatus().equalsIgnoreCase("shipping") ||
                 orderItem.getOrderItemStatus().equalsIgnoreCase("canceled") ||
                 orderItem.getOrderItemStatus().equalsIgnoreCase("complete")){
-            holder.rescheduleIndicator.setVisibility(View.GONE);
+            Log.d("TAG", "onBindViewHolderASD: " + orderItem.getReschedule());
+
+            if(orderItem.getReschedule()){
+                holder.rescheduleIndicator.setVisibility(View.VISIBLE);
+            } else{
+                holder.rescheduleIndicator.setVisibility(View.GONE);
+            }
             holder.rescheduleButton.setEnabled(false);
             holder.rescheduleButton.setBackgroundResource(R.drawable.custom_unactive_button);
         }
@@ -173,7 +181,16 @@ public class OrderDetailRecycleviewAdapter extends RecyclerView.Adapter<OrderDet
             holder.orderLink.setText("-");
         } else{
             holder.orderLink.setText(orderItem.getOrderItemLinkTracker());
+
         }
+        holder.orderLink.setOnLongClickListener(v ->{
+            String text = holder.orderLink.getText().toString();
+            ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText("text", text);
+            clipboardManager.setPrimaryClip(clipData);
+            Toast.makeText(context, "Text copied to clipboard", Toast.LENGTH_SHORT).show();
+            return true;
+        });
 
 
         if(orderItem.getNote() == null || orderItem.getNote().isEmpty() || orderItem.getNote().equalsIgnoreCase("")){

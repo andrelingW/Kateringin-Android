@@ -130,7 +130,6 @@ public class OrderFragment extends Fragment {
                     String storeId = document.getString("storeId");
                     String userId = document.getString("userId");
                     String receiverName = document.getString("receiverName");
-                    String receiverEmail = document.getString("receiverEmail");
                     String receiverPhone = document.getString("receiverPhone");
                     String receiverAddress = document.getString("receiverAddress");
                     String orderStatus = document.getString("orderStatus");
@@ -162,7 +161,6 @@ public class OrderFragment extends Fragment {
                             receiverAddress,
                             receiverName,
                             receiverPhone,
-                            receiverEmail,
                             orderStatus,
                             listOfOrderItem
                     ));

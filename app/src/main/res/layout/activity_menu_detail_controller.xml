@@ -10,7 +10,6 @@
 
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,7 +39,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/menu_detail_menu_image" />
 
             <View
-                android:id="@+id/divider11"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider"
@@ -59,7 +57,6 @@
                 app:srcCompat="@drawable/food_image_test" />
 
             <ImageButton
-                android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -174,7 +171,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/custom_normal_edit_text"
                 android:padding="10dp"
-                android:text="Kunjungi Toko"
+                android:text="View Store"
                 android:textAllCaps="false"
                 android:textColor="#626262"
                 android:textSize="12sp"
@@ -198,7 +195,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="20dp"
-                android:text="Deskripsi"
+                android:text="Description"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -222,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
-                android:text="Kalori"
+                android:text="Calorie"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -322,7 +319,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView46"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

@@ -29,7 +29,7 @@ public class TermsAndConditionController extends AppCompatActivity {
     private void setField(){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setTitle("Syarat dan Ketentuan");
+        toolbar.setTitle("Terms and Condition");
     }
 
     @Override

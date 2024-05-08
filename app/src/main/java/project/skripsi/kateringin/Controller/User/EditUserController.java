@@ -44,6 +44,7 @@ import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -145,9 +146,9 @@ public class EditUserController extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             RadioButton radioButton = findViewById(checkedId);
 
-            if(radioButton.getText() == "Perempuan"){
+            if(radioButton.getText() == "Female"){
                 radioButton.setChecked(true);
-            }else if(radioButton.getText() == "Laki - Laki"){
+            }else if(radioButton.getText() == "Male"){
                 radioButton.setChecked(true);
             }
         });

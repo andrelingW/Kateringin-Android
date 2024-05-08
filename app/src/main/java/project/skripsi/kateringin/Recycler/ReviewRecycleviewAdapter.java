@@ -86,7 +86,13 @@ public class ReviewRecycleviewAdapter extends RecyclerView.Adapter<ReviewRecycle
         });
 
         holder.rate.setText(String.valueOf(review.getRate()));
-        holder.comment.setText(review.getComment());
+        if(review.getComment() == null){
+            holder.comment.setText("No comment");
+
+        }else{
+            holder.comment.setText(review.getComment());
+
+        }
 
         holder.itemView.setOnClickListener(view -> {
             if (onClickListener != null) {

@@ -168,9 +168,7 @@ public class OrderRescheduleController extends AppCompatActivity {
             materialDatePicker.show(getSupportFragmentManager(), "tag");
         });
 
-        cancelButton.setOnClickListener(v ->{
-            finish();
-        });
+        cancelButton.setOnClickListener(v -> finish());
 
         submitButton.setOnClickListener(v ->{
             String orderItemId = order.getOrderItemId();
@@ -183,7 +181,6 @@ public class OrderRescheduleController extends AppCompatActivity {
                         String storeId = document.getString("storeId");
                         String userId = document.getString("userId");
                         String receiverName = document.getString("receiverName");
-                        String receiverEmail = document.getString("receiverEmail");
                         String receiverPhone = document.getString("receiverPhone");
                         String receiverAddress = document.getString("receiverAddress");
                         String orderStatus = document.getString("orderStatus");
@@ -220,7 +217,6 @@ public class OrderRescheduleController extends AppCompatActivity {
                                     receiverAddress,
                                     receiverName,
                                     receiverPhone,
-                                    receiverEmail,
                                     orderStatus,
                                     listOfOrderItem
                             );

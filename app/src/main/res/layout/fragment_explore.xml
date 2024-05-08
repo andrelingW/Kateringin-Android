@@ -33,7 +33,6 @@
             app:layout_constraintVertical_bias="0.478" />
 
         <TextView
-            android:id="@+id/textView27"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -45,20 +44,17 @@
 
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="72dp">
 
         <LinearLayout
-            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:layout_marginTop="10dp"
-                android:id="@+id/textView28"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -69,13 +65,12 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView29"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
-                android:text="Mau pesan katering apa hari ini?"
+                android:text="What menu do you want to order today?"
                 android:textSize="14dp" />
 
 
@@ -361,7 +356,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/subMenuNasi" />
 
                 <TextView
-                    android:id="@+id/textView30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -372,37 +366,33 @@
                     app:layout_constraintTop_toBottomOf="@+id/subMenuVegan" />
 
                 <TextView
-                    android:id="@+id/textView31"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Mie"
+                    android:text="Noodle"
                     app:layout_constraintEnd_toEndOf="@+id/subMenuMie"
                     app:layout_constraintStart_toStartOf="@+id/subMenuMie"
                     app:layout_constraintTop_toBottomOf="@+id/subMenuMie" />
 
                 <TextView
-                    android:id="@+id/textView32"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Kuah"
+                    android:text="Soup"
                     app:layout_constraintEnd_toEndOf="@+id/subMenuKuah"
                     app:layout_constraintStart_toStartOf="@+id/subMenuKuah"
                     app:layout_constraintTop_toBottomOf="@+id/subMenuKuah" />
 
                 <TextView
-                    android:id="@+id/textView33"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Nasi"
+                    android:text="Rice"
                     app:layout_constraintEnd_toEndOf="@+id/subMenuNasi"
                     app:layout_constraintStart_toStartOf="@+id/subMenuNasi"
                     app:layout_constraintTop_toBottomOf="@+id/subMenuNasi" />
 
                 <TextView
-                    android:id="@+id/textView34"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -412,7 +402,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/subMenuDiet" />
 
                 <TextView
-                    android:id="@+id/textView35"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -425,7 +414,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
-                android:id="@+id/divider8"
                 android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -441,16 +429,49 @@
                 android:textStyle="bold"
                 android:text="Our Top Picks!"
                 android:textColor="@color/black"/>
+
             <TextView
-                android:id="@+id/textView80"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
-                android:text="Rekomendasi menu terbaik dari kami"
+                android:text="Our top recommended menu items!     "
                 android:textSize="14dp" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/explore_loading"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider16">
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="50dp"
+                    android:foregroundGravity="center_horizontal"
+                    android:src="@drawable/custom_loading"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Loading...."
+                    android:textAppearance="@style/normalGrayText"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView6"
+                    app:layout_constraintStart_toStartOf="@+id/imageView6"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/explore_recyclerview"
                 android:layout_width="match_parent"

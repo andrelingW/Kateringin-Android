@@ -192,7 +192,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
-            android:text="Laki - Laki"
+            android:text="Male"
             android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
@@ -202,7 +202,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:text="Perempuan"
+            android:text="Female"
             android:textSize="14dp"
             app:layout_constraintStart_toEndOf="@+id/editProfileRadioMale"
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
@@ -221,7 +221,6 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_profile_info_imagePicture" />
 
     <View
-        android:id="@+id/divider4"
         android:layout_width="409dp"
         android:layout_height="1dp"
         android:background="@color/gray"

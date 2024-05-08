@@ -1,14 +1,20 @@
 package project.skripsi.kateringin.Controller.Wallet.Withdraw;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -34,6 +40,7 @@ public class WithdrawController extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore database;
     UserBankAccount userBankAccount;
+    int compare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +84,7 @@ public class WithdrawController extends AppCompatActivity {
                         if(innerTask.isSuccessful()){
                             DocumentSnapshot documentSnapshot = innerTask.getResult();
                             if(documentSnapshot.exists()){
+                                compare = documentSnapshot.getLong("balance").intValue();
                                 balanceTV.setText(IdrFormat.format(documentSnapshot.getLong("balance").intValue()));
                             }
                         }
@@ -113,25 +121,58 @@ public class WithdrawController extends AppCompatActivity {
                                 if(innerTask.isSuccessful()){
                                     DocumentSnapshot documentSnapshot = innerTask.getResult();
                                     if(documentSnapshot.exists()){
-                                        Bundle bundle = new Bundle();
-                                        bundle.putInt("withdrawAmount", value + 1000);
-                                        bundle.putInt("currentBalance", documentSnapshot.getLong("balance").intValue());
 
-                                        BottomSheetDialogWithdrawConfirmation bottomSheetDialogFragment = new BottomSheetDialogWithdrawConfirmation();
-                                        bottomSheetDialogFragment.setArguments(bundle);
-                                        bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+                                       Bundle bundle = new Bundle();
+                                       bundle.putInt("withdrawAmount", value + 1000);
+                                       bundle.putInt("currentBalance", documentSnapshot.getLong("balance").intValue());
+
+                                       BottomSheetDialogWithdrawConfirmation bottomSheetDialogFragment = new BottomSheetDialogWithdrawConfirmation();
+                                       bottomSheetDialogFragment.setArguments(bundle);
+                                       bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+
                                     }
                                 }
                             });
                         }
                     }
                 });
-            } else{
-                Log.d("TAG", "button: TESTING NO WITHDRAW");
+            } else if(value == 0){
+                showSnackbarEmpty(v);
+            } else if(value <= compare){
+                showSnackbar(v);
             }
         });
     }
 
+    private void showSnackbar(View v){
+        final Snackbar snackbar = Snackbar.make(v, "", Snackbar.LENGTH_LONG);
+        View customSnackView = getLayoutInflater().inflate(R.layout.withdraw_snackbar, null);
+        snackbar.getView().setBackgroundColor(Color.TRANSPARENT);
+        @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbar.getView();
+        snackbarLayout.setPadding(0, 0, 0, 0);
+        snackbarLayout.addView(customSnackView, 0);
+        snackbar.show();
+    }
+
+    private void showSnackbarEmpty(View v){
+        final Snackbar snackbar = Snackbar.make(v, "", Snackbar.LENGTH_LONG);
+        View customSnackView = getLayoutInflater().inflate(R.layout.withdraw_empty_snackbar, null);
+        snackbar.getView().setBackgroundColor(Color.TRANSPARENT);
+        @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbar.getView();
+        snackbarLayout.setPadding(0, 0, 0, 0);
+        snackbarLayout.addView(customSnackView, 0);
+        snackbar.show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 }

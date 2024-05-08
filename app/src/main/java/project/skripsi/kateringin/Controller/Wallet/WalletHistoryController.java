@@ -73,7 +73,37 @@ public class WalletHistoryController extends AppCompatActivity {
     }
 
     private void readWalletHistoryData(FirestoreCallback firestoreCallback){
-        CollectionReference collectionRef = database.collection("walletHistory");
+//        CollectionReference collectionRef = database.collection("walletHistory");
+//        Query query = collectionRef
+//                .whereEqualTo("userId", mAuth.getCurrentUser().getUid())
+//                .orderBy("timestamp", Query.Direction.DESCENDING);
+//
+//
+//        query.get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                for (QueryDocumentSnapshot document : task.getResult()) {
+//                    String userId = document.getString("userId");
+//                    String date = document.getString("date");
+//                    String transactionType = document.getString("transactionType");
+//                    int amount = document.getLong("amount").intValue();
+//                    Log.d("TAG", "readWalletHistoryData: " + userId + date + transactionType + amount);
+//                    walletHistories.add(new WalletHistory(
+//                            userId,
+//                            transactionType,
+//                            amount,
+//                            date
+//                    ));
+//                }
+//                firestoreCallback.onCallback(walletHistories);
+//            } else {
+//                Exception e = task.getException();
+//                if (e != null) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+
+        CollectionReference collectionRef = database.collection("transaction");
         Query query = collectionRef
                 .whereEqualTo("userId", mAuth.getCurrentUser().getUid())
                 .orderBy("timestamp", Query.Direction.DESCENDING);
@@ -86,7 +116,6 @@ public class WalletHistoryController extends AppCompatActivity {
                     String date = document.getString("date");
                     String transactionType = document.getString("transactionType");
                     int amount = document.getLong("amount").intValue();
-                    Log.d("TAG", "readWalletHistoryData: " + userId + date + transactionType + amount);
                     walletHistories.add(new WalletHistory(
                             userId,
                             transactionType,

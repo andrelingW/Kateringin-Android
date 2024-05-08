@@ -91,7 +91,6 @@ public class OrderHistoryController extends AppCompatActivity {
                     String storeId = document.getString("storeId");
                     String userId = document.getString("userId");
                     String receiverName = document.getString("receiverName");
-                    String receiverEmail = document.getString("receiverEmail");
                     String receiverPhone = document.getString("receiverPhone");
                     String receiverAddress = document.getString("receiverAddress");
                     String orderStatus = document.getString("orderStatus");
@@ -109,8 +108,9 @@ public class OrderHistoryController extends AppCompatActivity {
                         order.setPrice(((Long) item.get("price")).intValue());
                         order.setQuantity(((Long) item.get("quantity")).intValue());
                         order.setTimeRange((String) item.get("timeRange"));
-                        order.setReschedule((Boolean) item.get("isReschedule"));
+                        order.setReschedule((Boolean) item.get("reschedule"));
                         order.setOrderItemStatus((String) item.get("orderItemStatus"));
+                        order.setOrderItemLinkTracker((String) item.get("orderItemLinkTracker"));
 
                         listOfOrderItem.add(order);
                     }
@@ -122,7 +122,6 @@ public class OrderHistoryController extends AppCompatActivity {
                             receiverAddress,
                             receiverName,
                             receiverPhone,
-                            receiverEmail,
                             orderStatus,
                             listOfOrderItem
                     ));

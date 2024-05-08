@@ -78,13 +78,13 @@ public class FoodCategoryPageController extends AppCompatActivity {
                 toolbar.setTitle("Vegan");
                 break;
             case "NASI":
-                toolbar.setTitle("Nasi");
+                toolbar.setTitle("Rice");
                 break;
             case "MIE":
-                toolbar.setTitle("Mie");
+                toolbar.setTitle("Noodle");
                 break;
             case "KUAH":
-                toolbar.setTitle("Kuah");
+                toolbar.setTitle("Soup");
                 break;
             case "DIET":
                 toolbar.setTitle("Diet");

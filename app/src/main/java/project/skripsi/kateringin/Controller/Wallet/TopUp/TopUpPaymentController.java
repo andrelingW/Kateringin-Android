@@ -237,7 +237,19 @@ public class TopUpPaymentController extends AppCompatActivity implements Transac
                 });
 
         //CREATE TRANSACTION HISTORY
-        CollectionReference collectionRef = database.collection("walletHistory");
+//        CollectionReference collectionRef = database.collection("walletHistory");
+//        Map<String, Object> data = new HashMap<>();
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+//
+//        data.put("userId", mAuth.getCurrentUser().getUid());
+//        data.put("transactionType", "top-up");
+//        data.put("timestamp", Timestamp.now());
+//        data.put("amount", totalTopUp - 1000);
+//        data.put("date", dateFormat.format(new Date()));
+//
+//        collectionRef.document().set(data);
+
+        CollectionReference collectionRef = database.collection("transaction");
         Map<String, Object> data = new HashMap<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
 

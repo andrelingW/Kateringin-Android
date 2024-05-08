@@ -27,6 +27,8 @@ import project.skripsi.kateringin.Model.Order;
 import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.OrderDetailRecycleviewAdapter;
+import project.skripsi.kateringin.Util.BottomSheetDialog.BottomSheetDialogAcceptedConfirmation;
+import project.skripsi.kateringin.Util.BottomSheetDialog.BottomSheetDialogTopUpConfirmation;
 import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class OrderDetailController extends AppCompatActivity {
@@ -58,7 +60,6 @@ public class OrderDetailController extends AppCompatActivity {
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         order = (Order) getIntent().getSerializableExtra("DETAILS_SCREEN");
-        Log.d("TAG", "binding: " + order);
         toolbar = findViewById(R.id.order_detail_toolbar);
         recyclerView = findViewById(R.id.order_detail_recyclerView);
         orderId = findViewById(R.id.order_detail_orderId_text);
@@ -78,7 +79,7 @@ public class OrderDetailController extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
 
         setTotalPrice(order.getOrderItems());
-        orderId.setText("No Order #" + order.getOrderId());
+        orderId.setText("Order ID #" + order.getOrderId());
         receiverName.setText(order.getReceiverName());
         receiverPhone.setText(order.getReceiverPhone());
         receiverAddress.setText(order.getReceiverAddress());
@@ -90,7 +91,6 @@ public class OrderDetailController extends AppCompatActivity {
                 if (document.exists()) {
                     ArrayList<Map<String, Object>> orderItemsList = (ArrayList<Map<String, Object>>) document.get("orderItems");
                     int counter = 0;
-                    Log.d("TAG", "setField: " + orderItemsList);
                     for (Map<String, Object> item : orderItemsList) {
 
                         String orderItemStatus = (String) item.get("orderItemStatus");
@@ -118,10 +118,17 @@ public class OrderDetailController extends AppCompatActivity {
 
     private void button(){
         accepted.setOnClickListener(v ->{
-            Intent intent = new Intent(this, ReviewController.class);
-            intent.putExtra("ORDER_REVIEW", order);
-            startActivity(intent);
-            finish();
+//            Intent intent = new Intent(this, ReviewController.class);
+//            intent.putExtra("ORDER_REVIEW", order);
+//            startActivity(intent);
+//            finish();
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("ORDER_REVIEW", order);
+
+            BottomSheetDialogAcceptedConfirmation bottomSheetDialogFragment = new BottomSheetDialogAcceptedConfirmation();
+            bottomSheetDialogFragment.setArguments(bundle);
+            bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
         });
     }
 
@@ -153,13 +160,6 @@ public class OrderDetailController extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-//            Intent intent = new Intent(this, MainScreenController.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//            intent.putExtra("fragmentId", R.layout.fragment_order);
-//            intent.putExtra("menuItemId", R.id.menu_order);
-//            startActivity(intent);
-//            finish();
-
             Intent intent = new Intent(getApplicationContext(), CheckOutController.class);
             setResult(200, intent);
             finish();
@@ -169,24 +169,12 @@ public class OrderDetailController extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public void finish() {
-//        Intent intent = new Intent(this, MainScreenController.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        intent.putExtra("fragmentId", R.layout.fragment_order);
-//        intent.putExtra("menuItemId", R.id.menu_order);
-//        startActivity(intent);
-//        super.finish();
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 3333 && resultCode == RESULT_OK) {
-            Log.d("TAG", "onActivityResult: "+ data);
-
             String orderId = data.getStringExtra("ORDER_ID");
-            Log.d("TAG", "onActivityResult: "+ orderId);
             DocumentReference docRef = database.collection("order").document(orderId);
             docRef.get().addOnCompleteListener(task -> {
                 if(task.isSuccessful()) {
@@ -194,7 +182,6 @@ public class OrderDetailController extends AppCompatActivity {
                     if(document.exists()){
                         ArrayList<Map<String, Object>> orderItemsList = (ArrayList<Map<String, Object>>) document.get("orderItems");
                         ArrayList<OrderItem> listOfOrderItem = new ArrayList<>();
-                        Log.d("TAG", "binding: " + orderItemsList);
 
                         for (Map<String, Object> item : orderItemsList) {
                             OrderItem order = new OrderItem();

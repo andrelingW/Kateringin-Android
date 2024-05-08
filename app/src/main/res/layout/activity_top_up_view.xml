@@ -27,7 +27,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
         android:textAppearance="@style/componentBoldTitle"
-        android:text="Plih nominal Top Up"
+        android:text="Choose Top Up Nominal"
         android:textSize="15sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +112,7 @@
 
             android:background="@drawable/custom_radio_selector"
             android:button="@android:color/transparent"
-            android:text="Nominal Lain"
+            android:text="Other Nominal"
             android:textAlignment="center"
             android:textColor="@drawable/custom_radio_button_text_color_filter"
             android:textSize="15sp" />
@@ -124,7 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
-        android:text="Isi Nominal"
+        android:text="Custom Nominal"
         android:textAppearance="@style/componentBoldTitle"
         android:textColor="@color/black"
         android:textSize="15sp"

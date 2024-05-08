@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -150,8 +151,8 @@ public class FoodResultController extends AppCompatActivity {
                     int menuCalorie = document.getLong("menuCalorie").intValue();
                     int menuPrice = document.getLong("menuPrice").intValue();
 
-                    Double menuRating = document.getLong("menuRating").doubleValue();
-
+                    Double menuRating = document.getDouble("menuRating");
+                    Log.d("TAG", "readMenuData: testing" + menuRating);
                     Boolean isDiet = document.getBoolean("isDiet");
                     Boolean isNoodle = document.getBoolean("isNoodle");
                     Boolean isPork = document.getBoolean("isPork");

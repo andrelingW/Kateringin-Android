@@ -56,7 +56,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
-                    android:text="No Order #09182309810293"
+                    android:text="Order ID #09182309810293"
                     android:textAppearance="@style/boldText"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="Kontak Penerima"
+                    android:text="Recipient Contact"
                     android:textAppearance="@style/componentBoldTitle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="Lokasi Penerima"
+                    android:text="Recipient Location"
                     android:textAppearance="@style/componentBoldTitle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -153,12 +153,14 @@
 
                 <TextView
                     android:id="@+id/order_detail_loc_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="15dp"
                     android:text="TextView"
                     android:textAppearance="@style/normalGrayText"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView8"
                     app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
@@ -198,7 +200,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="Informasi Pembayaran"
+                    android:text="Payment Information"
                     android:textAppearance="@style/componentBoldTitle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -210,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="16dp"
-                    android:text="Subtotal pesanan"
+                    android:text="Order Subtotal"
                     android:textAppearance="@style/normalGrayText"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView56" />
@@ -222,7 +224,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="8dp"
 
-                    android:text="Fee layanan"
+                    android:text="Service Fee"
                     android:textAppearance="@style/normalGrayText"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView67" />
@@ -270,7 +272,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Total Pembayaran"
+                    android:text="Total Payment"
                     android:textAppearance="@style/boldText"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -306,7 +308,7 @@
 
 
             android:background="@drawable/custom_active_button"
-            android:text="Diterima"
+            android:text="Accepted"
             android:textAppearance="@style/activeButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

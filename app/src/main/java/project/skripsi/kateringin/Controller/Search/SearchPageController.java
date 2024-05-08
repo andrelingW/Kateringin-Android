@@ -29,7 +29,7 @@ public class SearchPageController extends AppCompatActivity {
         quickSearchSoto = findViewById(R.id.quick_search_soto);
 
         searchView.setIconifiedByDefault(false);
-        searchView.setQueryHint("Mau cari menu apa hari ini?");
+        searchView.setQueryHint("What menu are you looking for?");
 
         backButton.setOnClickListener(v ->{
             finish();

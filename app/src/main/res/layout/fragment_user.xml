@@ -113,12 +113,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/login_button_title_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            android:text="Ubah Informasi Akun"
+            android:text="Change Account Information"
 
             android:textSize="14dp"
             android:textStyle="bold"
@@ -126,12 +125,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/login_button_sub_title_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="16dp"
-            android:text="Nama, nomor telepon, tanggal lahir"
+            android:text="Name, phone number, date of birth"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/login_imageView_1" />
@@ -160,24 +158,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/login_button_title_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            android:text="Syarat dan Ketentuan"
+            android:text="Terms and Condition"
             android:textSize="14dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/login_imageView_2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/login_button_sub_title_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="16dp"
-            android:text="Syarat dan ketentuan dari Ketringin"
+            android:text="Terms and Condition from Kateringin"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/login_imageView_2" />
@@ -206,24 +202,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/login_button_title_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            android:text="Bantuan"
+            android:text="Help"
             android:textSize="14dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/login_imageView_3"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/login_button_sub_title_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="16dp"
-            android:text="Hubungi customer service kami"
+            android:text="Contact our customer service"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/login_imageView_3" />
@@ -252,24 +246,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/login_button_title_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            android:text="Mode katering"
+            android:text="Katering Mode"
             android:textSize="14dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/login_imageView_4"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/login_button_sub_title_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="16dp"
-            android:text="Masuk ke mode penjual"
+            android:text="Become a part of Kateringin community"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/login_imageView_4" />
@@ -298,24 +290,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/login_button_title_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            android:text="Keluar"
+            android:text="Log Out"
             android:textSize="14dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/login_imageView_5"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/login_button_sub_title_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="16dp"
-            android:text="Melakukan log out dari aplikasi"
+            android:text="Log out from Kateringin"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/login_imageView_5" />
@@ -344,7 +334,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/login_button_title_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -356,12 +345,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/login_button_sub_title_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="16dp"
-            android:text="dompet digital pribadi anda"
+            android:text="Your personalized digital wallet"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/login_imageView_6" />

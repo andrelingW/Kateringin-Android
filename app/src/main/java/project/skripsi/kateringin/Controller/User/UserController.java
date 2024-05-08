@@ -23,6 +23,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 
@@ -73,7 +78,17 @@ public class UserController extends AppCompatActivity {
 
         name.setText(user.getName());
         phoneNumber.setText(user.getPhoneNumber());
-        dob.setText(user.getBOD());
+        String inputDate = user.getBOD();
+
+        SimpleDateFormat inputFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("d MMMM yyyy", Locale.ENGLISH);
+
+        try {
+            Date date = inputFormat.parse(inputDate);
+            dob.setText(outputFormat.format(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         gender.setText(user.getGender());
         userId.setText(mAuth.getCurrentUser().getUid());
         email.setText(user.getEmail());

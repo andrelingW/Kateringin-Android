@@ -35,7 +35,7 @@ public class ExploreFragment extends Fragment {
 
     //XML
     RecyclerView recyclerView;
-    ConstraintLayout searchBar;
+    ConstraintLayout searchBar, exploreLoading;
     ImageButton vegan, nasi, mie, kuah, diet, nonHalal;
 
     //FIELD
@@ -71,6 +71,8 @@ public class ExploreFragment extends Fragment {
         kuah = rootView.findViewById(R.id.subMenuKuah);
         diet = rootView.findViewById(R.id.subMenuDiet);
         nonHalal = rootView.findViewById(R.id.subMenuNonHalal);
+        exploreLoading = rootView.findViewById(R.id.explore_loading);
+        exploreLoading.setVisibility(View.VISIBLE);
 
     }
 
@@ -120,6 +122,7 @@ public class ExploreFragment extends Fragment {
     public void menuAdapter(ArrayList<Menu> menuItems){
         if (menuItems.isEmpty()){
         } else{
+            exploreLoading.setVisibility(View.GONE);
             for(int i = 0; i < 5; i++){
                 menuItems.add(new Menu());
             }
@@ -153,7 +156,7 @@ public class ExploreFragment extends Fragment {
                             int menuCalorie = document.getLong("menuCalorie").intValue();
                             int menuPrice = document.getLong("menuPrice").intValue();
 
-                            Double menuRating = document.getLong("menuRating").doubleValue();
+                            Double menuRating = document.getDouble("menuRating");
 
                             Boolean isDiet = document.getBoolean("isDiet");
                             Boolean isNoodle = document.getBoolean("isNoodle");

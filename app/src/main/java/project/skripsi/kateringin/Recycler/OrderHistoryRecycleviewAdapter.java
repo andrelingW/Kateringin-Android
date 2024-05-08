@@ -61,7 +61,7 @@ public class OrderHistoryRecycleviewAdapter extends RecyclerView.Adapter<OrderHi
         mAuth = FirebaseAuth.getInstance();
         final Order orderItem = orderItems.get(position);
 
-        holder.orderId.setText("Order No #" + orderItem.getOrderId());
+        holder.orderId.setText("Order ID #" + orderItem.getOrderId());
         holder.orderStatus.setText(orderItem.getOrderStatus());
 
         if(orderItem.getOrderStatus().equalsIgnoreCase("complete")){

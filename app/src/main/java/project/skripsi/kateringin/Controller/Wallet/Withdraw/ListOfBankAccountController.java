@@ -107,7 +107,7 @@ public class ListOfBankAccountController extends AppCompatActivity {
             });
 
     private void readListOfBankAccount(FirestoreCallback firestoreCallback){
-        CollectionReference collectionRef = database.collection("userBankAccount");
+        CollectionReference collectionRef = database.collection("bankAccount");
         Query query = collectionRef
                 .whereEqualTo("userId", mAuth.getCurrentUser().getUid());
 
@@ -117,7 +117,7 @@ public class ListOfBankAccountController extends AppCompatActivity {
                     String documentId = document.getId();
                     String accountHolderName = document.getString("accountHolderName");
                     String bankName = document.getString("bankName");
-                    String bankNumber = document.getString("bankNumber");
+                    String bankNumber = document.getString("accountNumber");
 
                     userBankAccounts.add(new UserBankAccount(
                             documentId,

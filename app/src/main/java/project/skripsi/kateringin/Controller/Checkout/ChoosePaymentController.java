@@ -115,7 +115,7 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
                         for (DocumentSnapshot document : task.getResult()) {
                             if(document.exists()){
                                 int balance = document.getLong("balance").intValue();
-                                walletBalance.setText("Saldo: " + IdrFormat.format(balance));
+                                walletBalance.setText("Balance  : " + IdrFormat.format(balance));
                             }else {
                                 System.out.println("No such document");
                             }
@@ -294,7 +294,6 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
                 public void onResponse(Call<TransactionResponse> call, Response<TransactionResponse> response) {
                     if(Objects.equals(response.body().getTransaction_status(), "settlement")){
                         pushOrder();
-                        pushWalletHistory();
                         updateCartItemStatus();
                         clearSharedPreferences(getApplicationContext());
                         Intent intent = new Intent(getApplicationContext(), PaymentSuccessController.class);
@@ -391,7 +390,6 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
         Map<String, Object> data = new HashMap<>();
 
         data.put("receiverName", name);
-        data.put("receiverEmail", email);
         data.put("receiverPhone", phone);
         data.put("receiverAddress", address);
 
@@ -442,7 +440,19 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
 
     private void pushWalletHistory() {
         //CREATE TRANSACTION HISTORY
-        CollectionReference collectionRef = database.collection("walletHistory");
+//        CollectionReference collectionRef = database.collection("walletHistory");
+//        Map<String, Object> data = new HashMap<>();
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+//
+//        data.put("userId", mAuth.getCurrentUser().getUid());
+//        data.put("transactionType", "settlement");
+//        data.put("timestamp", Timestamp.now());
+//        data.put("amount", totalPrice);
+//        data.put("date", dateFormat.format(new Date()));
+//
+//        collectionRef.document().set(data);
+
+        CollectionReference collectionRef = database.collection("transaction");
         Map<String, Object> data = new HashMap<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
 
@@ -453,6 +463,7 @@ public class ChoosePaymentController extends AppCompatActivity implements Transa
         data.put("date", dateFormat.format(new Date()));
 
         collectionRef.document().set(data);
+
     }
 
     public static void clearSharedPreferences(Context context) {

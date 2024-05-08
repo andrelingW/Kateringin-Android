@@ -69,7 +69,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         android:textSize="12sp"
-        android:text="*Pastikan nominal penarikan sudah benar"
+        android:text="*Make sure the withdrawal nominal is correct"
         android:textAppearance="@style/normalGrayText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView66" />
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-        android:text="Include biaya admin Rp 1.000,00"
+        android:text="Include admin fee Rp 1.000,00"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/withdraw_confirmation_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

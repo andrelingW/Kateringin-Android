@@ -21,11 +21,10 @@
             android:layout_height="match_parent"
             android:padding="8dp">
             <TextView
-                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="Dimasukkan ke keranjang"
+                android:text="Successfully added to the cart"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
                 android:textStyle="bold"

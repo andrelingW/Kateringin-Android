@@ -8,7 +8,6 @@
     tools:context=".Controller.Order.OrderDetailController">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/review_toolbar"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:background="@drawable/custom_bottom_border"
@@ -54,13 +53,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:text="Lewati"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/custom_second_button"
+            android:text="Skip"
             android:textAllCaps="false"
             android:textAppearance="@style/normalText"
-            android:textColor="@color/gray"
 
-            android:layout_marginBottom="10dp"
+            android:textColor="@color/gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/review_submit_button"
             app:layout_constraintHorizontal_bias="0.5"

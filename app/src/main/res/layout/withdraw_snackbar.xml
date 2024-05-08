@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:elevation="4dp"
-        app:cardBackgroundColor="@color/blue"
+        app:cardBackgroundColor="@color/light_red"
         app:cardCornerRadius="5dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
@@ -21,15 +21,14 @@
             android:layout_height="match_parent"
             android:padding="8dp">
             <TextView
-                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="Authentication Success"
+                android:text="Insufficient balance"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:drawableLeftCompat="@drawable/custom_done_icon"
+                app:drawableLeftCompat="@android:drawable/stat_sys_warning"
                 android:drawablePadding="15dp"
             android:gravity="center_vertical"/>
 

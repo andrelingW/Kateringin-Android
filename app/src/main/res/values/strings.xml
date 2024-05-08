@@ -1,48 +1,22 @@
 <resources>
     <string name="app_name">Kateringin</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="terms_and_conditions">
     <![CDATA[
     \n
-        Syarat dan Ketentuan Penggunaan Aplikasi Kateringin\n\n
-        Diperbarui terakhir pada 12 Maret 2024\n\n
-        Pengantar\n\n
-        Terima kasih telah menggunakan aplikasi Kateringin. Aplikasi ini dirancang untuk menyediakan platform yang menghubungkan pengguna dengan berbagai usaha mikro, kecil, dan menengah (UMKM) di bidang katering. Sebelum Anda melanjutkan penggunaan aplikasi ini, kami meminta Anda untuk membaca dengan seksama dan memahami syarat dan ketentuan penggunaan yang tercantum di bawah ini.\n\n
-        1. Penerimaan Syarat dan Ketentuan\n\nDengan mengakses atau menggunakan aplikasi Kateringin, Anda secara otomatis setuju untuk terikat oleh semua syarat dan ketentuan yang tercantum dalam dokumen ini. Jika Anda tidak setuju dengan salah satu bagian dari syarat dan ketentuan ini, Anda tidak diperbolehkan menggunakan aplikasi Kateringin.\n\n
-        2. Layanan yang Disediakan\n\nAplikasi Kateringin bertujuan untuk menyediakan platform yang menghubungkan pengguna dengan UMKM di bidang katering. Kami tidak bertanggung jawab atas kualitas, ketersediaan, atau kesesuaian produk dan layanan yang disediakan oleh UMKM pihak ketiga. Kami berhak untuk mengubah atau menghentikan layanan, baik secara sementara maupun permanen, tanpa pemberitahuan sebelumnya.\n\n
-        3. Penggunaan Aplikasi\n\nAnda bertanggung jawab penuh atas informasi yang Anda berikan kepada kami selama penggunaan aplikasi. Anda setuju untuk menggunakan aplikasi ini sesuai dengan hukum yang berlaku dan tidak akan menggunakan aplikasi ini untuk tujuan yang melanggar hukum atau merugikan orang lain. Anda tidak diperbolehkan menggunakan aplikasi ini untuk tujuan komersial tanpa izin tertulis dari kami.\n\n
-        4. Privasi dan Keamanan\n\nKami menghargai privasi Anda dan berkomitmen untuk melindungi data pribadi Anda sesuai dengan kebijakan privasi kami. Anda bertanggung jawab untuk menjaga kerahasiaan informasi akun Anda dan tidak boleh memberikan akses ke akun Anda kepada pihak lain.\n\n
-        5. Perubahan pada Syarat dan Ketentuan\n\nKami berhak untuk mengubah syarat dan ketentuan ini kapan saja tanpa pemberitahuan sebelumnya. Setiap perubahan pada syarat dan ketentuan akan efektif segera setelah kami memposting versi yang diperbarui di aplikasi.\n\n
-        6. Penutup\n\nSyarat dan ketentuan ini merupakan kesepakatan lengkap antara Anda dan kami sehubungan dengan penggunaan aplikasi Kateringin. Jika ada ketentuan dalam syarat dan ketentuan ini yang dinyatakan tidak sah oleh pengadilan yang berwenang, ketentuan tersebut akan dihapus tanpa mempengaruhi sisa syarat dan ketentuan.\n\n
-        Jika Anda memiliki pertanyaan atau keluhan tentang syarat dan ketentuan ini, silakan hubungi kami melalui +62412312331.\n\n
-        Terima kasih telah membaca dan memahami syarat dan ketentuan penggunaan aplikasi Kateringin. Silakan hubungi kami jika Anda memiliki pertanyaan lebih lanjut.\n\n\n\n
+        Terms and Conditions of Use for Kateringin Application\n\n
+        Last updated on March 12, 2024\n\nIntroduction\n\n
+        Thank you for using the Kateringin application. This application is designed to provide a platform that connects users with various micro, small, and medium enterprises (MSMEs) in the catering industry. Before you continue using this application, we ask you to read carefully and understand the terms and conditions of use listed below.\n\n
+        1. Acceptance of Terms and Conditions\n\nBy accessing or using the Kateringin application, you automatically agree to be bound by all the terms and conditions stated in this document. If you do not agree with any part of these terms and conditions, you are not allowed to use the Kateringin application.\n\n
+        2. Services Provided\n\nThe Kateringin application aims to provide a platform that connects users with MSMEs in the catering industry. We are not responsible for the quality, availability, or suitability of the products and services provided by third-party MSMEs. We reserve the right to change or discontinue services, either temporarily or permanently, without prior notice.\n\n
+        3. Use of the Application\n\nYou are fully responsible for the information you provide to us during the use of the application. You agree to use this application in accordance with applicable laws and will not use this application for unlawful purposes or to harm others. You are not allowed to use this application for commercial purposes without written permission from us.\n\n
+        4. Privacy and Security\n\nWe respect your privacy and are committed to protecting your personal data in accordance with our privacy policy. You are responsible for maintaining the confidentiality of your account information and must not provide access to your account to others.\n\n
+        5. Changes to Terms and Conditions\n\nWe reserve the right to change these terms and conditions at any time without prior notice. Any changes to the terms and conditions will be effective immediately upon us posting the updated version on the application.\n\n
+        6. Conclusion\n\nThese terms and conditions constitute the entire agreement between you and us regarding the use of the Kateringin application. If any provision of these terms and conditions is declared invalid by a court of competent jurisdiction, that provision shall be deleted without affecting the remaining terms and conditions.\n\nIf you have any questions or complaints about these terms and conditions, please contact us at +62412312331.\n\n
+        Thank you for reading and understanding the terms and conditions of use for the Kateringin application. Please contact us if you have any further questions.\n\n\n\n
     ]]>
 </string>
-    <string name="title_activity_main_activitydasd">MainActivitydasd</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_transform">Transform</string>
-    <string name="menu_reflow">Reflow</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_settings">Settings</string>
-
-    <string name="lorem_ipsum_title">Lorem Ipsum"</string>
-    <string name="lorem_ipsum">Lorem Ipsum is simply placeholder text of the printing and
-        typesetting industry. Lorem Ipsum has been the industry\'s standard placeholder text ever
-        since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-        type specimen book"
-    </string>
-    <string name="fab_content_description">Represents a view to invoke an action</string>
-    <string name="image_view_item_transform_content_description">Represents an image view in the
-        item
-    </string>
 
 
 </resources>

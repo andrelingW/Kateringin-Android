@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="Kontak Penerima"
+                    android:text="Recipient Contact"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -116,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="Lokasi Penerima"
+                    android:text="Recipient Location"
                     android:textAppearance="@style/componentBoldTitle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -133,12 +133,14 @@
 
                 <TextView
                     android:id="@+id/checkout_loc_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="10dp"
                     android:text="TextView"
                     android:textAppearance="@style/normalText"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+                    app:layout_constraintEnd_toStartOf="@+id/checkout_location_edit_button"
                     app:layout_constraintStart_toEndOf="@+id/imageView8"
                     app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
@@ -185,7 +187,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:textAppearance="@style/componentBoldTitle"
-                    android:text="Informasi Pembayaran"
+                    android:text="Payment Information"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="DuplicateIds" />
@@ -197,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="16dp"
-                    android:text="Subtotal pesanan"
+                    android:text="Order Subtotal"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView56" />
 
@@ -209,7 +211,7 @@
                     android:layout_marginTop="8dp"
                     android:textAppearance="@style/normalGrayText"
 
-                    android:text="Fee layanan"
+                    android:text="Service Fee"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView67" />
 
@@ -257,7 +259,7 @@
                     android:layout_marginTop="10dp"
                     android:textAppearance="@style/boldText"
                     android:layout_marginBottom="10dp"
-                    android:text="Total Pembayaran"
+                    android:text="Total Payment"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider19" />

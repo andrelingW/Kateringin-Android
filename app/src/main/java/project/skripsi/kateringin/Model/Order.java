@@ -10,21 +10,19 @@ public class Order implements Serializable {
     String receiverAddress;
     String receiverName;
     String receiverPhone;
-    String receiverEmail;
     String orderStatus;
     ArrayList<OrderItem> orderItems;
 
     public Order() {
     }
 
-    public Order(String orderId, String storeId, String userId, String receiverAddress, String receiverName, String receiverPhone, String receiverEmail, String orderStatus, ArrayList<OrderItem> orderItems) {
+    public Order(String orderId, String storeId, String userId, String receiverAddress, String receiverName, String receiverPhone, String orderStatus, ArrayList<OrderItem> orderItems) {
         this.orderId = orderId;
         this.storeId = storeId;
         this.userId = userId;
         this.receiverAddress = receiverAddress;
         this.receiverName = receiverName;
         this.receiverPhone = receiverPhone;
-        this.receiverEmail = receiverEmail;
         this.orderStatus = orderStatus;
         this.orderItems = orderItems;
     }
@@ -83,14 +81,6 @@ public class Order implements Serializable {
 
     public void setReceiverPhone(String receiverPhone) {
         this.receiverPhone = receiverPhone;
-    }
-
-    public String getReceiverEmail() {
-        return receiverEmail;
-    }
-
-    public void setReceiverEmail(String receiverEmail) {
-        this.receiverEmail = receiverEmail;
     }
 
     public ArrayList<OrderItem> getOrderItems() {

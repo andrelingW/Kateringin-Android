@@ -2,6 +2,7 @@ package project.skripsi.kateringin.Recycler;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class MenuRecycleviewAdapter extends RecyclerView.Adapter<MenuRecycleview
         holder.foodPrice.setText(IdrFormat.format(foodItem.getMenuPrice()));
         holder.foodRate.setText(String.valueOf(foodItem.getMenuRating()));
 
+        Log.d("TAG", "onBindViewHolder: asdadad"+ foodItem.getMenuRating());
         holder.itemView.setOnClickListener(view -> {
             if (onClickListener != null) {
                 onClickListener.onClick(position, foodItem);
