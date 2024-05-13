@@ -84,7 +84,8 @@ public class MenuDetailController extends AppCompatActivity {
 
         menuName.setText(foodItem.getMenuName());
         menuPrice.setText(IdrFormat.format(foodItem.getMenuPrice()));
-        menuRating.setText(String.valueOf(foodItem.getMenuRating()));
+        menuRating.setText(String.format("%.1f", foodItem.getMenuRating()));
+
         menuDescription.setText(foodItem.getMenuDescription());
         menuCalorie.setText(foodItem.getMenuCalorie() + " Kkal");
 

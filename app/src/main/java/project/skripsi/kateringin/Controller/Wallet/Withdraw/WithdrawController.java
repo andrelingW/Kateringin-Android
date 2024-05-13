@@ -109,7 +109,7 @@ public class WithdrawController extends AppCompatActivity {
                 value = 0;
             }
 
-            if(value != 0){
+            if(value != 0 && value <= compare - 1000){
                 CollectionReference collectionReference = database.collection("wallet");
                 Query query = collectionReference.whereEqualTo("userId", mAuth.getCurrentUser().getUid());
                 query.get().addOnCompleteListener(task -> {
@@ -138,7 +138,7 @@ public class WithdrawController extends AppCompatActivity {
                 });
             } else if(value == 0){
                 showSnackbarEmpty(v);
-            } else if(value <= compare){
+            } else if(value >= compare){
                 showSnackbar(v);
             }
         });

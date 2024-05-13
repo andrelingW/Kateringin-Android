@@ -49,9 +49,8 @@ public class MenuRecycleviewAdapter extends RecyclerView.Adapter<MenuRecycleview
 
         holder.foodName.setText(foodItem.getMenuName());
         holder.foodPrice.setText(IdrFormat.format(foodItem.getMenuPrice()));
-        holder.foodRate.setText(String.valueOf(foodItem.getMenuRating()));
+        holder.foodRate.setText(String.format("%.1f", foodItem.getMenuRating()));
 
-        Log.d("TAG", "onBindViewHolder: asdadad"+ foodItem.getMenuRating());
         holder.itemView.setOnClickListener(view -> {
             if (onClickListener != null) {
                 onClickListener.onClick(position, foodItem);

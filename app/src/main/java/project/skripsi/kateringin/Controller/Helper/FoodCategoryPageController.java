@@ -188,7 +188,7 @@ public class FoodCategoryPageController extends AppCompatActivity {
                             int menuCalorie = document.getLong("menuCalorie").intValue();
                             int menuPrice = document.getLong("menuPrice").intValue();
 
-                            Double menuRating = document.getLong("menuRating").doubleValue();
+                            Double menuRating = document.getDouble("menuRating");
 
                             Boolean isDiet = document.getBoolean("isDiet");
                             Boolean isNoodle = document.getBoolean("isNoodle");
