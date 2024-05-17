@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -29,9 +28,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
@@ -41,24 +37,19 @@ import com.canhub.cropper.CropImageContract;
 import com.canhub.cropper.CropImageContractOptions;
 import com.canhub.cropper.CropImageOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import project.skripsi.kateringin.Controller.Store.StoreMainScreenController;
 import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.R;
-import project.skripsi.kateringin.Recycler.ProductRecyclerViewAdapter;
 
 public class EditProductController extends AppCompatActivity {
     //XML
@@ -339,6 +330,7 @@ public class EditProductController extends AppCompatActivity {
                             animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
                             Intent intent = new Intent(getApplicationContext(), ProductController.class);
                             startActivity(intent);
+                            finish();
                         })
                         .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
             });
@@ -420,8 +412,7 @@ public class EditProductController extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Intent intent = new Intent(getApplicationContext(), ProductController.class);
-            startActivity(intent);
+            finish();
             return true;
         }
 

@@ -3,7 +3,6 @@ package project.skripsi.kateringin.Model;
 import android.graphics.Bitmap;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class User implements Serializable{
     String name;

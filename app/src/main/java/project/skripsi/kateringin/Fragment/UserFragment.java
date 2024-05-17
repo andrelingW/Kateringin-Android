@@ -149,7 +149,6 @@ public class UserFragment extends Fragment {
                                             store.setStoreUrlPhoto(document.get("storePhotoUrl").toString());
                                         }
                                         store.setStoreSubDistrict(document.get("storeSubDistrict").toString());
-                                        store.setBalance(Double.parseDouble(document.get("storeBalance").toString()));
 
                                         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
                                         Gson gson = new Gson();

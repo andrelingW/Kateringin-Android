@@ -35,6 +35,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import project.skripsi.kateringin.Controller.Authentication.EmailVerificationController;
 import project.skripsi.kateringin.R;
 
 public class StoreRegisterFormController extends AppCompatActivity {
@@ -43,7 +44,7 @@ public class StoreRegisterFormController extends AppCompatActivity {
     Button storeRegisterButton;
     TextView storeNameAlert, storePhoneAlert, storeSubDistrictAlert, storeDescAlert, storeSubDistrictTxtView;
     ListView listSubdistrictView;
-    String storeName,storePhoneNumber, storeSubDistrict, storeDesc;
+    String storeName,storePhoneNumber, storeSubDistrict, storeDesc, storeId;
     View progressOverlay;
     ArrayList<String> listSubdistrict;
     Dialog dialog;
@@ -65,7 +66,7 @@ public class StoreRegisterFormController extends AppCompatActivity {
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         progressOverlay = findViewById(R.id.progress_overlay);
-
+        progressOverlay.bringToFront();
         storeNameTxt = findViewById(R.id.storeNameEditText);
         storePhoneNumberTxt = findViewById(R.id.storePhoneNumberEditText);
         storeSubDistrictTxtView = findViewById(R.id.storeSubDistrictText);
@@ -80,7 +81,7 @@ public class StoreRegisterFormController extends AppCompatActivity {
 
     }
     private void toolbar(){
-        progressOverlay.bringToFront();
+
         Toolbar toolbar = findViewById(R.id.storeRegisterToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -170,17 +171,28 @@ public class StoreRegisterFormController extends AppCompatActivity {
         newStore.put("storePhoneNumber", storePhoneNumber);
         newStore.put("storePhotoUrl", null);
         newStore.put("storeSubDistrict", storeSubDistrict);
-        newStore.put("storeBalance", 0);
 
-        database.collection("store").document()
+        storeId =  database.collection("store").document().getId().toString();
+
+        database.collection("store").document(storeId)
                 .set(newStore)
                 .addOnCompleteListener(innerTaskAddUser -> {
 
                     updateIsOwner();
 
-                    Intent intent = new Intent(getApplicationContext(), StoreRegisterSuccessController.class);
-                    startActivity(intent);
-                    finish();
+                    Map<String, Object> newWallet = new HashMap<>();
+                    newWallet.put("userId", storeId);
+                    newWallet.put("balance", 0);
+
+                    database.collection("wallet").document()
+                            .set(newWallet)
+                            .addOnCompleteListener(innerTaskAddWallet -> {
+                                animateView(progressOverlay, View.GONE, 0, 200);
+                                Intent intent = new Intent(getApplicationContext(), StoreRegisterSuccessController.class);
+                                startActivity(intent);
+                            })
+                            .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
+
                 })
                 .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
 

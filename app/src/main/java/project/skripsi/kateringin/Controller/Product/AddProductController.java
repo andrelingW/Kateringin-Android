@@ -277,7 +277,7 @@ public class AddProductController extends AppCompatActivity {
                             animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
                             Intent intent = new Intent(getApplicationContext(), ProductController.class);
                             startActivity(intent);
-//
+                            finish();
                         })
                         .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
             });
@@ -350,7 +350,7 @@ public class AddProductController extends AppCompatActivity {
         }
         else
         {
-                productCategoryAlert.setVisibility(View.GONE);
+            productCategoryAlert.setVisibility(View.GONE);
         }
 
         return status;
@@ -359,8 +359,7 @@ public class AddProductController extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Intent intent = new Intent(getApplicationContext(), ProductController.class);
-            startActivity(intent);
+            finish();
             return true;
         }
 

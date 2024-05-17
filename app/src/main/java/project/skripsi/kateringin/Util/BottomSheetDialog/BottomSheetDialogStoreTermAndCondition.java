@@ -38,6 +38,7 @@ public class BottomSheetDialogStoreTermAndCondition extends BottomSheetDialogFra
             if(storeTermsCheckbox.isChecked()){
                 Intent intent = new Intent(getActivity(), StoreRegisterFormController.class);
                 startActivity(intent);
+
             }
 
         });

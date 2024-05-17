@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
-import project.skripsi.kateringin.Controller.User.EditUserController;
 import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.R;
 
@@ -112,8 +111,7 @@ public class StoreProfileController extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Intent intent = new Intent(getApplicationContext(), StoreMainScreenController.class);
-            startActivity(intent);
+            finish();
             return true;
         }
 

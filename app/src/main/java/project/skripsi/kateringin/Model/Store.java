@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Store implements Serializable {
     String storeId;
     String ownerId;
-    Double balance;
+    Integer balance;
     String storeName;
     String storeDesc;
     String storePhone;
@@ -16,7 +16,7 @@ public class Store implements Serializable {
     public Store() {
     }
 
-    public Store(String storeId, String ownerId, Double balance, String storeName, String storeDesc, String storePhone, String storeUrlPhoto, String storeSubDistrict) {
+    public Store(String storeId, String ownerId, Integer balance, String storeName, String storeDesc, String storePhone, String storeUrlPhoto, String storeSubDistrict) {
         this.storeId = storeId;
         this.ownerId = ownerId;
         this.balance = balance;
@@ -43,11 +43,11 @@ public class Store implements Serializable {
         this.ownerId = ownerId;
     }
 
-    public Double getBalance() {
+    public Integer getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(Integer balance) {
         this.balance = balance;
     }
 

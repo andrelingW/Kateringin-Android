@@ -23,7 +23,6 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-import project.skripsi.kateringin.Controller.Store.StoreMainScreenController;
 import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.R;
@@ -179,8 +178,7 @@ public class ProductController extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Intent intent = new Intent(getApplicationContext(), StoreMainScreenController.class);
-            startActivity(intent);
+            finish();
             return true;
         }
 
