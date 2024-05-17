@@ -17,6 +17,288 @@
         Thank you for reading and understanding the terms and conditions of use for the Kateringin application. Please contact us if you have any further questions.\n\n\n\n
     ]]>
 </string>
+    <string name="store_terms_and_conditions">
+    <![CDATA[
+    \n
+        Terms and Conditions of Partnering with the Kateringin Application\n\n
+        Last updated on May 14, 2024\n\nIntroduction\n\n
+        Thank you for using the Kateringin application and joining the Katering community. This application is designed to provide a platform that connects users with various micro, small, and medium enterprises (MSMEs) in the catering industry. Before you continue using this application, we ask you to read carefully and understand the terms and conditions of partnering listed below.\n\n
+        1. Acceptance of Terms and Conditions\n\nBy partnering with the Kateringin application, you are legally required to comply with all the terms and conditions. In the event that a Merchant Partner commits an incident or a violation, Kateringin will work with the authorities to facilitate investigations.\n\n
+        2. Services Provided\n\nThe Kateringin application aims to provide a platform that expands or broaden the scope of MSMEs in the catering industry to the end users. Each Merchant Partner are responsible for their own quality, availability, or suitability of the products and services they provided through Kateringin Application. Should they fail to maintain or uphold their accountability and responsibilities, we reserve the right to change or discontinue services, either temporarily or permanently, without prior notice.\n\n
+        3. Use of the Application\n\nYou are fully responsible for the information you provide including all the appropriate and valid permits or licenses to operate and any other permits that may be required to carry out your business activities during the use of the application. You are also obligated to always update and/or resubmit the same types of documents that have expired or been revoked. Kateringin has the right to request the latest information if necessary and resolve problems that occur as a result of carrying out your business activities through the Kateringin application.\n\n
+        4. Privacy and Security\n\nWe respect your privacy and are committed to protecting your personal data in accordance with our privacy policy. You are responsible for maintaining the confidentiality of your account information and must not provide access to your account to others.\n\n
+        5. Changes to Terms and Conditions\n\nWe reserve the right to change these terms and conditions at any time without prior notice. Any changes to the terms and conditions will be effective immediately upon us posting the updated version on the application.\n\n
+        6. Conclusion\n\nThese terms and conditions constitute the entire agreement between you and us regarding the partnership of the Kateringin application. These Terms and Conditions consist of a set of rules and regulations from Kateringin that help to uphold our Partners accountability as members of the Kateringin community. If any provision of these terms and conditions is declared invalid by a court of competent jurisdiction, that provision shall be deleted without affecting the remaining terms and conditions.\n\nIf you have any questions or complaints about these terms and conditions, please contact us at +62412312331.\n\n
+        Thank you for reading and understanding the terms and conditions of use for the Kateringin application. Please contact us if you have any further questions.\n\n\n\n
+    ]]>
+</string>
+    <string-array name="array_subdistricts">
+        <!-- jakarta pusat subdistrict -->
+        <item>Cempaka Putih Barat</item>
+        <item>Cempaka Putih Timur</item>
+        <item>Rawasari</item>
+        <item>Cideng</item>
+        <item>Duri Pulo</item>
+        <item>Gambir</item>
+        <item>Kebon Kelapa</item>
+        <item>Petojo Selatan</item>
+        <item>Petojo Utara</item>
+        <item>Galur</item>
+        <item>Johar Baru</item>
+        <item>Kampung Rawa</item>
+        <item>Tanah Tinggi</item>
+        <item>Cempaka Baru</item>
+        <item>Harapan Mulya</item>
+        <item>Gunung Sahari Selatan</item>
+        <item>Kebon Kosong</item>
+        <item>Kemayoran</item>
+        <item>Serdang</item>
+        <item>Sumur Batu</item>
+        <item>Utan Panjang</item>
+        <item>Cikini</item>
+        <item>Gondangdia</item>
+        <item>Kebon Sirih</item>
+        <item>Menteng</item>
+        <item>Pegangsaan</item>
+        <item>Gunung Sahari Utara</item>
+        <item>Karang Anyar</item>
+        <item>Kartini</item>
+        <item>Mangga Dua Selatan</item>
+        <item>Pasar Baru</item>
+        <item>Bungur</item>
+        <item>Kenari</item>
+        <item>Kramat</item>
+        <item>Kwitang</item>
+        <item>Paseban</item>
+        <item>Senen</item>
+        <item>Bendungan Hilir</item>
+        <item>Gelora</item>
+        <item>Kampung Bali</item>
+        <item>Karet Tengsin</item>
+        <item>Kebon Kacang</item>
+        <item>Kebon Melati</item>
+        <item>Petamburan</item>
+        <!-- jakarta utara subdistrict -->
+        <item>Kalibaru</item>
+        <item>Marunda</item>
+        <item>Rorotan</item>
+        <item>Semper Barat</item>
+        <item>Semper Timur</item>
+        <item>Sukapura</item>
+        <item>Kelapa Gading Barat</item>
+        <item>Kelapa Gading Timur</item>
+        <item>Pegangsaan Dua</item>
+        <item>Koja</item>
+        <item>Lagoa</item>
+        <item>Rawa Badak Selatan</item>
+        <item>Rawa Badak Utara</item>
+        <item>Tugu Selatan</item>
+        <item>Tugu Utara</item>
+        <item>Ancol</item>
+        <item>Pademangan Barat</item>
+        <item>Pademangan Timur</item>
+        <item>Kamal Muara</item>
+        <item>Kapuk Muara</item>
+        <item>Pejagalan</item>
+        <item>Penjaringan</item>
+        <item>Pluit</item>
+        <item>Kebon Bawang</item>
+        <item>Papanggo</item>
+        <item>Sungai Bambu</item>
+        <item>Sunter Agung</item>
+        <item>Sunter Jaya</item>
+        <item>Tanjung Priok</item>
+        <item>Warakas</item>
+        <!-- jakarta timur subdistrict -->
+        <item>Cakung Barat</item>
+        <item>Cakung Timur</item>
+        <item>Jatinegara</item>
+        <item>Penggilingan</item>
+        <item>Pulo Gebang</item>
+        <item>Rawa Terate</item>
+        <item>Ujung Menteng</item>
+        <item>Bambu Apus</item>
+        <item>Ceger</item>
+        <item>Cilangkap</item>
+        <item>Cipayung</item>
+        <item>Lubang Buaya</item>
+        <item>Munjul</item>
+        <item>Pondok Ranggon</item>
+        <item>Setu</item>
+        <item>Cibubur</item>
+        <item>Ciracas</item>
+        <item>Kelapa Dua Wetan</item>
+        <item>Rambutan</item>
+        <item>Susukan</item>
+        <item>Duren Sawit</item>
+        <item>Klender</item>
+        <item>Malaka Jaya</item>
+        <item>Malaka Sari</item>
+        <item>Pondok Bambu</item>
+        <item>Pondok Kelapa</item>
+        <item>Pondok Kopi</item>
+        <item>Bali Mester</item>
+        <item>Bidara Cina</item>
+        <item>Cipinang Besar Selatan</item>
+        <item>Cipinang Besar Utara</item>
+        <item>Cipinang Cempedak</item>
+        <item>Cipinang Muara</item>
+        <item>Kampung Melayu</item>
+        <item>Rawa Bunga</item>
+        <item>Balekambang</item>
+        <item>Batu Ampar</item>
+        <item>Cawang</item>
+        <item>Cililitan</item>
+        <item>Dukuh</item>
+        <item>Kramat Jati</item>
+        <item>Tengah</item>
+        <item>Cipinang Melayu</item>
+        <item>Halim Perdana Kusuma</item>
+        <item>Kebon Pala</item>
+        <item>Makasar</item>
+        <item>Pinang Ranti</item>
+        <item>Kayu Manis</item>
+        <item>Kebon Manggis</item>
+        <item>Pal Meriam</item>
+        <item>Pisangan Baru</item>
+        <item>Utan Kayu Selatan</item>
+        <item>Utan Kayu Utara</item>
+        <item>Baru</item>
+        <item>Cijantung</item>
+        <item>Gedong</item>
+        <item>Kalisari</item>
+        <item>Pekayon</item>
+        <item>Cipinang</item>
+        <item>Jati</item>
+        <item>Jatinegara Kaum</item>
+        <item>Kayu Putih</item>
+        <item>Pisangan Timur</item>
+        <item>Pulo Gadung</item>
+        <item>Rawamangun</item>
+        <!-- jakarta selatan subdistrict -->
+        <item>Cilandak Barat</item>
+        <item>Cipete Selatan</item>
+        <item>Gandaria Selatan</item>
+        <item>Lebak Bulus</item>
+        <item>Pondok Labu</item>
+        <item>Ciganjur</item>
+        <item>Cipedak</item>
+        <item>Jagakarsa</item>
+        <item>Lenteng Agung</item>
+        <item>Srengseng Sawah</item>
+        <item>Tanjung Barat</item>
+        <item>Cipete Utara</item>
+        <item>Gandaria Utara</item>
+        <item>Gunung</item>
+        <item>Kramat Pela</item>
+        <item>Melawai</item>
+        <item>Petogogan</item>
+        <item>Pulo</item>
+        <item>Rawa Barat</item>
+        <item>Selong</item>
+        <item>Senayan</item>
+        <item>Cipulir</item>
+        <item>Grogol Selatan</item>
+        <item>Grogol Utara</item>
+        <item>Kebayoran Lama Selatan</item>
+        <item>Kebayoran Lama Utara</item>
+        <item>Pondok Pinang</item>
+        <item>Bangka</item>
+        <item>Kuningan Barat</item>
+        <item>Mampang Prapatan</item>
+        <item>Pela Mampang</item>
+        <item>Tegal Parang</item>
+        <item>Cikoko</item>
+        <item>Duren Tiga</item>
+        <item>Kalibata</item>
+        <item>Pancoran</item>
+        <item>Pengadegan</item>
+        <item>Rawajati</item>
+        <item>Cilandak Timur</item>
+        <item>Jati Padang</item>
+        <item>Kebagusan</item>
+        <item>Pasar Minggu</item>
+        <item>Pejaten Barat</item>
+        <item>Pejaten Timur</item>
+        <item>Ragunan</item>
+        <item>Bintaro</item>
+        <item>Pesanggrahan</item>
+        <item>Petukangan Selatan</item>
+        <item>Petukangan Utara</item>
+        <item>Ulujami</item>
+        <item>Guntur</item>
+        <item>Karet Kuningan</item>
+        <item>Karet Semanggi</item>
+        <item>Karet</item>
+        <item>Kuningan Timur</item>
+        <item>Menteng Atas</item>
+        <item>Pasar Manggis</item>
+        <item>Setiabudi</item>
+        <item>Bukit Duri</item>
+        <item>Kebon Baru</item>
+        <item>Manggarai Selatan</item>
+        <item>Manggarai</item>
+        <item>Menteng Dalam</item>
+        <item>Tebet Barat</item>
+        <item>Tebet Timur</item>
+        <!-- jakarta barat subdistrict -->
+        <item>Cengkareng Barat</item>
+        <item>Cengkareng Timur</item>
+        <item>Duri Kosambi</item>
+        <item>Kapuk</item>
+        <item>Kedaung Kali Angke</item>
+        <item>Rawa Buaya</item>
+        <item>Grogol</item>
+        <item>Jelambar Baru</item>
+        <item>Jelambar</item>
+        <item>Tanjung Duren Selatan</item>
+        <item>Tanjung Duren Utara</item>
+        <item>Tomang</item>
+        <item>Wijaya Kusuma</item>
+        <item>Glodok</item>
+        <item>Keagungan</item>
+        <item>Krukut</item>
+        <item>Mangga Besar</item>
+        <item>Maphar</item>
+        <item>Pinangsia</item>
+        <item>Taman Sari</item>
+        <item>Tangki</item>
+        <item>Angke</item>
+        <item>Duri Selatan</item>
+        <item>Duri Utara</item>
+        <item>Jembatan Besi</item>
+        <item>Jembatan Lima</item>
+        <item>Kali Anyar</item>
+        <item>Krendang</item>
+        <item>Pekojan</item>
+        <item>Roa Malaka</item>
+        <item>Tambora</item>
+        <item>Tanah Sereal</item>
+        <item>Duri Kepa</item>
+        <item>Kebon Jeruk</item>
+        <item>Kedoya Selatan</item>
+        <item>Kedoya Utara</item>
+        <item>Kelapa Dua</item>
+        <item>Sukabumi Selatan</item>
+        <item>Sukabumi Utara</item>
+        <item>Kalideres</item>
+        <item>Kamal</item>
+        <item>Pegadungan</item>
+        <item>Semanan</item>
+        <item>Tegal Alur</item>
+        <item>Jatipulo</item>
+        <item>Kemanggisan</item>
+        <item>Kota Bambu Selatan</item>
+        <item>Kota Bambu Utara</item>
+        <item>Palmerah</item>
+        <item>Slipi</item>
+        <item>Joglo</item>
+        <item>Kembangan Selatan</item>
+        <item>Kembangan Utara</item>
+        <item>Meruya Selatan</item>
+        <item>Meruya Utara</item>
+        <item>Srengseng</item>
+    </string-array>
 
 
 </resources>

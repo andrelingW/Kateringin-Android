@@ -145,7 +145,7 @@
         android:background="@drawable/custom_normal_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+        app:layout_constraintTop_toBottomOf="@+id/profileCateringMode">
 
         <ImageView
             android:id="@+id/login_imageView_2"
@@ -224,7 +224,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout4"
+        android:id="@+id/profileCateringMode"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginStart="20dp"
@@ -250,7 +250,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            android:text="Katering Mode"
+            android:text="Catering Mode"
             android:textSize="14dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/login_imageView_4"

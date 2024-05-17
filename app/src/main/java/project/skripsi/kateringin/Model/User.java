@@ -12,6 +12,7 @@ public class User implements Serializable{
     String email;
     String gender;
     String profileImageUrl;
+    Boolean isOwner;
 
     Bitmap profilePlaceHolder;
 
@@ -22,14 +23,14 @@ public class User implements Serializable{
         this.gender = gender;
     }
 
-    public User(String name, String phoneNumber, String BOD, String email, String gender) {
+    public User(String name, String phoneNumber, String BOD, String email, String gender, Boolean isOwner) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.BOD = BOD;
         this.email = email;
         this.gender = gender;
+        this.isOwner = isOwner;
     }
-
     public User() {
     }
 
@@ -80,5 +81,9 @@ public class User implements Serializable{
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+    public Boolean getIsOwner() { return isOwner; }
+    public void setIsOwner(Boolean isOwner) {
+        this.isOwner = isOwner;
     }
 }

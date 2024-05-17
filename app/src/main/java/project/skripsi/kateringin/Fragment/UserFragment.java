@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,17 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.gson.Gson;
 
 import project.skripsi.kateringin.Controller.Helper.TermsAndConditionController;
+import project.skripsi.kateringin.Controller.Store.StoreMainScreenController;
+import project.skripsi.kateringin.Controller.StoreRegistration.StoreRegisterStartController;
 import project.skripsi.kateringin.Controller.Wallet.WalletController;
 import project.skripsi.kateringin.Controller.User.UserController;
+import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Util.BottomSheetDialog.BottomSheetDialogProfileHelp;
@@ -33,7 +39,7 @@ public class UserFragment extends Fragment {
 
     //XML
     TextView nameTxt, emailTxt, phoneTxt;
-    ConstraintLayout editProfile, help, logout, termsAndCondition, wallet;
+    ConstraintLayout editProfile, help, logout, termsAndCondition, cateringMode, wallet;
     ImageView profileImage;
 
     //FIELD
@@ -69,6 +75,7 @@ public class UserFragment extends Fragment {
         logout = rootView.findViewById(R.id.profileLogout);
         wallet = rootView.findViewById(R.id.profileWallet);
         termsAndCondition = rootView.findViewById(R.id.profileTermsAndCondition);
+        cateringMode = rootView.findViewById(R.id.profileCateringMode);
     }
 
     private void setField(){
@@ -119,6 +126,55 @@ public class UserFragment extends Fragment {
         termsAndCondition.setOnClickListener(v ->{
             Intent intent = new Intent(getActivity(), TermsAndConditionController.class);
             startActivity(intent);
+        });
+        cateringMode.setOnClickListener(v -> {
+            User user = getUserSharedPreference();
+
+            if (user.getIsOwner()) {
+                CollectionReference collectionRef = database.collection("store");
+                collectionRef
+                        .whereEqualTo("ownerId", mAuth.getCurrentUser().getUid())
+                        .get().addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    if (document.exists()) {
+                                        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
+
+                                        Store store = new Store();
+                                        store.setStoreId(document.getId());
+                                        store.setStoreName(document.get("storeName").toString());
+                                        store.setStoreDesc(document.get("storeDescription").toString());
+                                        store.setStorePhone(document.get("storePhoneNumber").toString());
+                                        if(document.get("storePhotoUrl") != null){
+                                            store.setStoreUrlPhoto(document.get("storePhotoUrl").toString());
+                                        }
+                                        store.setStoreSubDistrict(document.get("storeSubDistrict").toString());
+                                        store.setBalance(Double.parseDouble(document.get("storeBalance").toString()));
+
+                                        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+                                        Gson gson = new Gson();
+                                        String json = gson.toJson(store);
+                                        prefsEditor.putString("storeObject", json);
+                                        prefsEditor.commit();
+
+                                        Intent intent = new Intent(getActivity(), StoreMainScreenController.class);
+                                        startActivity(intent);
+                                    } else {
+                                        Log.i("TAG", "No such document");
+                                    }
+                                }
+                            } else {
+                                Exception e = task.getException();
+                                if (e != null) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+            } else if (!user.getIsOwner()) {
+                Intent intent = new Intent(getActivity(), StoreRegisterStartController.class);
+                startActivity(intent);
+            }
         });
 
         wallet.setOnClickListener(v ->{

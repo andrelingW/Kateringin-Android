@@ -119,6 +119,7 @@ public class LoginController extends AppCompatActivity {
                                                     user.setProfileImageUrl(document.get("profileImage").toString());
                                                 }
                                                 user.setGender(document.get("gender").toString());
+                                                user.setIsOwner(document.getBoolean("isOwner"));
 
                                                 SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
                                                 Gson gson = new Gson();

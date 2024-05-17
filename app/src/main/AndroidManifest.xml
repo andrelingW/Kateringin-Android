@@ -144,6 +144,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Controller.Store.StoreMainScreenController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.StoreRegistration.StoreRegisterStartController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.StoreRegistration.StoreTermsAndConditionController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.StoreRegistration.StoreRegisterFormController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.StoreRegistration.StoreRegisterSuccessController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Store.StoreProfileController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Store.EditStoreController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Product.ProductController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Product.AddProductController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Product.EditProductController"
+            android:exported="false" />
     </application>
 
 </manifest>

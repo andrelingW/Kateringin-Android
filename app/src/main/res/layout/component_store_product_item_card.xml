@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:elevation="0dp"
+    app:cardElevation="0dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
+    app:cardCornerRadius="15dp"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_normal_border">
+
+        <ImageButton
+            android:id="@+id/store_product_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/custom_edit_square"
+            tools:ignore="DuplicateIds" />
+
+        <ImageButton
+            android:id="@+id/store_product_delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/store_product_edit_button"
+            app:srcCompat="@drawable/custom_delete_icon" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/store_product_menu_image"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/RoundedSquare"
+            app:srcCompat="@drawable/menu_placeholder" />
+
+        <TextView
+            android:id="@+id/store_product_name_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="Product Name"
+            android:maxLines="3"
+            android:textAppearance="@style/componentBoldTitle"
+            app:layout_constraintEnd_toStartOf="@+id/store_product_edit_button"
+            app:layout_constraintStart_toEndOf="@+id/store_product_menu_image"
+            app:layout_constraintTop_toTopOf="@+id/store_product_menu_image" />
+
+        <TextView
+            android:id="@+id/store_product_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Price"
+            android:textAppearance="@style/normalGrayText"
+            app:layout_constraintStart_toStartOf="@+id/store_product_name_text"
+            app:layout_constraintTop_toBottomOf="@+id/store_product_name_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

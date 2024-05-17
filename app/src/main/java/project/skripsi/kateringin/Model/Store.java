@@ -12,6 +12,7 @@ public class Store implements Serializable {
     String storeUrlPhoto;
     String storeSubDistrict;
 
+   
     public Store() {
     }
 
@@ -89,4 +90,5 @@ public class Store implements Serializable {
     public void setStoreSubDistrict(String storeSubDistrict) {
         this.storeSubDistrict = storeSubDistrict;
     }
+
 }
