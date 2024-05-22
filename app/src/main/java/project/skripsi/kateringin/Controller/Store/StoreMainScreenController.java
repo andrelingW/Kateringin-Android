@@ -20,6 +20,8 @@ import com.google.gson.Gson;
 
 import project.skripsi.kateringin.Controller.Product.ProductController;
 import project.skripsi.kateringin.Controller.StoreEarning.StoreEarningController;
+import project.skripsi.kateringin.Controller.StoreOrder.StoreOrderController;
+import project.skripsi.kateringin.Controller.StoreOrder.StoreOrderHistoryController;
 import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
@@ -95,16 +97,14 @@ public class StoreMainScreenController extends AppCompatActivity {
             startActivity(intent);
         });
 
-//        storeOrder.setOnClickListener(v->{
-//            Intent intent = new Intent(getApplicationContext(), StoreTermsAndConditionController.class);
-//            startActivity(intent);
-//            finish();
-//        });
-//        storeHistory.setOnClickListener(v->{
-//            Intent intent = new Intent(getApplicationContext(), StoreTermsAndConditionController.class);
-//            startActivity(intent);
-//            finish();
-//        });
+        storeOrder.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), StoreOrderController.class);
+            startActivity(intent);
+        });
+        storeHistory.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), StoreOrderHistoryController.class);
+            startActivity(intent);
+        });
         storeProfile.setOnClickListener(v->{
             Intent intent = new Intent(getApplicationContext(), StoreProfileController.class);
             startActivity(intent);

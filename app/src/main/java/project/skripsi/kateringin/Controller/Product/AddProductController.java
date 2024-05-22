@@ -4,7 +4,6 @@ import static android.content.ContentValues.TAG;
 import static project.skripsi.kateringin.Util.UtilClass.LoadingUtil.animateView;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -275,8 +274,8 @@ public class AddProductController extends AppCompatActivity {
                         .set(newMenu)
                         .addOnCompleteListener(innerTaskAddUser -> {
                             animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
-                            Intent intent = new Intent(getApplicationContext(), ProductController.class);
-                            startActivity(intent);
+//                            Intent intent = new Intent(getApplicationContext(), ProductController.class);
+//                            startActivity(intent);
                             finish();
                         })
                         .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));

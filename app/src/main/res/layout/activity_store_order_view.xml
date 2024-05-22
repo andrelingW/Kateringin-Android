@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.OrderFragment"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/store_order_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_bottom_border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/CustomActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Order"
+        app:titleTextAppearance="@style/navbarTitle" />
+    <RadioGroup
+        android:id="@+id/orderStatusGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/store_order_toolbar">
+
+        <RadioButton
+            android:id="@+id/orderStatusNewButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginStart="0dp"
+            android:layout_weight="1"
+
+            android:background="@drawable/custom_radio_selector"
+            android:button="@android:color/transparent"
+            android:text="New"
+            android:textAlignment="center"
+            android:textColor="@drawable/custom_radio_button_text_color"
+            android:textSize="12dp" />
+
+        <RadioButton
+            android:id="@+id/orderStatusOngoingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+
+            android:background="@drawable/custom_radio_selector"
+            android:button="@android:color/transparent"
+            android:text="Ongoing"
+            android:textAlignment="center"
+            android:textColor="@drawable/custom_radio_button_text_color"
+            android:textSize="12dp" />
+
+        <RadioButton
+            android:id="@+id/orderStatusShippingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+
+            android:background="@drawable/custom_radio_selector"
+            android:button="@android:color/transparent"
+            android:text="Shipping"
+            android:textAlignment="center"
+            android:textColor="@drawable/custom_radio_button_text_color"
+            android:textSize="12dp" />
+    </RadioGroup>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/storeOrderSwipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderStatusGroup">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/store_order_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:layout_below="@id/orderStatusGroup"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderStatusGroup" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/store_order_warning"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderStatusGroup">
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="150dp"
+            android:src="@drawable/empty_order"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="It seems there is no order!"
+            android:textAlignment="center"
+            android:textAppearance="@style/normalGrayText"
+            app:layout_constraintEnd_toEndOf="@+id/imageView11"
+            app:layout_constraintStart_toStartOf="@+id/imageView11"
+            app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

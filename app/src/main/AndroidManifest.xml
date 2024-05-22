@@ -192,6 +192,21 @@
         <activity
             android:name=".Controller.SuccessMessage.StoreWithdrawSuccessController"
             android:exported="false" />
+        <activity
+            android:name=".Controller.StoreOrder.StoreOrderController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.StoreOrder.StoreOrderDetailController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.StoreOrder.StoreOrderHistoryController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.StoreOrder.StoreOrderHistoryDetailController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.StoreOrder.StoreOrderDeliverController"
+            android:exported="false" />
     </application>
 
 </manifest>

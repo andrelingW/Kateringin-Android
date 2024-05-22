@@ -86,16 +86,6 @@ public class BottomSheetDialogStoreWithdrawConfirmation extends BottomSheetDialo
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("balance", balance - value);
                         documentReference.update(updates).addOnCompleteListener(innerTask -> {
-                            //CREATE TRANSACTION HISTORY
-//                            CollectionReference collectionRef = database.collection("walletHistory");
-//                            Map<String, Object> data = new HashMap<>();
-//                            SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-//
-//                            data.put("userId", storeId);
-//                            data.put("transactionType", "withdraw");
-//                            data.put("timestamp", Timestamp.now());
-//                            data.put("amount", value);
-//                            data.put("date", dateFormat.format(new Date()));
 
                             CollectionReference collectionRef = database.collection("transaction");
                             Map<String, Object> data = new HashMap<>();
