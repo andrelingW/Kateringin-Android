@@ -332,38 +332,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/accepted_order_view"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:gravity="center"-->
-
-<!--            android:background="@drawable/custom_completed_detail_button"-->
-<!--            android:text="Order Accepted"-->
-<!--            android:textColor="@color/green"-->
-<!--            android:textAppearance="@style/activeButton"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            tools:ignore="MissingConstraints"/>-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/cancelled_order_view"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:gravity="center"-->
-
-<!--            android:background="@drawable/custom_canceled_detail_button"-->
-<!--            android:text="Order Cancelled"-->
-<!--            android:textAppearance="@style/activeButton"-->
-<!--            android:textColor="@color/red"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            tools:ignore="MissingConstraints"/>-->
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

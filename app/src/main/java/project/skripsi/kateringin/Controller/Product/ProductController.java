@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -45,13 +46,24 @@ public class ProductController extends AppCompatActivity {
     ProductRecyclerViewAdapter productRecyclerViewAdapter;
     ArrayList<Menu> menuItems = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_product_view);
+        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.storeProductSwipeRefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
         binding();
         setField();
         readMenuData(this::storeProductAdapter);
+        menuItems.clear();
     }
 
     private void binding(){
@@ -69,6 +81,7 @@ public class ProductController extends AppCompatActivity {
 
         return store;
     }
+
     public void storeProductAdapter(ArrayList<Menu> menuItems){
         if(menuItems.isEmpty()){
             storeProductWarning.setVisibility(View.VISIBLE);
@@ -100,22 +113,22 @@ public class ProductController extends AppCompatActivity {
 
     }
 
-
+    public void refreshData() {
+        productRecyclerViewAdapter.clear();
+        readMenuData(this::storeProductAdapter);
+        menuItems.clear();
+    }
     private void setField(){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("Product");
-
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-//        int space = getResources().getDimensionPixelSize(R.dimen.recyclerview_item_2_column_space_other);
-//        recyclerView.addItemDecoration(new RecyclerItemSpacer(this, space));
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
 
 
     }
+
     private void readMenuData(ProductController.FirestoreCallback firestoreCallback){
 
         Store store = getStoreDataFromStorage();
