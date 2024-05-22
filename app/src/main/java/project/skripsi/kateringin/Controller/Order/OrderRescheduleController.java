@@ -118,7 +118,11 @@ public class OrderRescheduleController extends AppCompatActivity {
         rescheduleItemQuantity.setText("x" + order.getQuantity());
         rescheduleItemTime.setText(order.getTimeRange());
         rescheduleItemDate.setText(order.getDate());
-        rescheduleItemNote.setText(order.getNote());
+        if (order.getNote() == null){
+            rescheduleItemNote.setText("-");
+        } else{
+            rescheduleItemNote.setText(order.getNote());
+        }
         rescheduleDate.setText(order.getDate());
         switch (order.getTimeRange()){
             case "08:00 - 12:00":

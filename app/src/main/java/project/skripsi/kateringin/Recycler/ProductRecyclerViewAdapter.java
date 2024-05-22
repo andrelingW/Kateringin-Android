@@ -189,7 +189,10 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     public int getItemCount() {
         return foodItems.size();
     }
-
+    public void clear() {
+        foodItems.clear();
+        notifyDataSetChanged();
+    }
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView storeProductImage;
         TextView storeProductName;

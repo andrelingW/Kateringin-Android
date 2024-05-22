@@ -123,9 +123,6 @@ public class ExploreFragment extends Fragment {
         if (menuItems.isEmpty()){
         } else{
             exploreLoading.setVisibility(View.GONE);
-            for(int i = 0; i < 5; i++){
-                menuItems.add(new Menu());
-            }
         }
         menuRecycleviewAdapter = new MenuRecycleviewAdapter(menuItems,getActivity());
         recyclerView.setAdapter(menuRecycleviewAdapter);
@@ -143,7 +140,10 @@ public class ExploreFragment extends Fragment {
     private void readMenuData(FirestoreCallback firestoreCallback){
         CollectionReference collectionRef = database.collection("menu");
 
-        Query query = collectionRef.limit(10);
+        Query query = collectionRef
+                .whereGreaterThan("menuRating", 4)
+                .orderBy("menuRating", Query.Direction.DESCENDING).
+                limit(10);
 
         query.get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

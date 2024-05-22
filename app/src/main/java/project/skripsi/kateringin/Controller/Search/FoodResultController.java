@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -89,9 +90,6 @@ public class FoodResultController extends AppCompatActivity {
             searchNotFound.setVisibility(View.VISIBLE);
         } else{
             searchNotFound.setVisibility(View.GONE);
-            for(int i = 0; i < 30; i++){
-                menuItems.add(new Menu());
-            }
         }
         menuRecycleviewAdapter = new MenuRecycleviewAdapter(menuItems,this);
         recyclerView.setAdapter(menuRecycleviewAdapter);
@@ -140,6 +138,7 @@ public class FoodResultController extends AppCompatActivity {
         collectionRef
                 .whereGreaterThanOrEqualTo("menuSearch",search)
                 .whereLessThanOrEqualTo("menuSearch", search + "\uf8ff")
+                .orderBy("menuRating", Query.Direction.DESCENDING)
                 .get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {

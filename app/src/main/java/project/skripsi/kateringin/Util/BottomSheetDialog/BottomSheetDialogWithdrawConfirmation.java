@@ -30,7 +30,7 @@ import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class BottomSheetDialogWithdrawConfirmation extends BottomSheetDialogFragment {
 
-    AppCompatButton submit;
+    AppCompatButton submit, cancel;
     TextView withdrawUpAmount;
     int value, balance;
     FirebaseFirestore database;
@@ -57,9 +57,11 @@ public class BottomSheetDialogWithdrawConfirmation extends BottomSheetDialogFrag
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         submit = view.findViewById(R.id.withdraw_confirmation_button);
+        cancel = view.findViewById(R.id.withdraw_confirmation_cancel_button);
         withdrawUpAmount = view.findViewById(R.id.withdraw_confirmation_text);
 
         withdrawUpAmount.setText(IdrFormat.format(value));
+        cancel.setOnClickListener(v -> dismiss());
         submit.setOnClickListener(v ->{
             CollectionReference collectionReference = database.collection("wallet");
             Query query = collectionReference.whereEqualTo("userId", mAuth.getCurrentUser().getUid());

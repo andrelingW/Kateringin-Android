@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.Model.WalletHistory;
 import project.skripsi.kateringin.R;
+import project.skripsi.kateringin.Recycler.StoreWalletRecyclerviewAdapter;
 import project.skripsi.kateringin.Recycler.WalletRecyclerviewAdapter;
 import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
@@ -49,7 +50,7 @@ public class StoreEarningController extends AppCompatActivity {
     int balance;
     String storeId;
     ArrayList<WalletHistory> walletHistories = new ArrayList<>();
-    WalletRecyclerviewAdapter walletRecyclerviewAdapter;
+    StoreWalletRecyclerviewAdapter walletRecyclerviewAdapter;
 
 
     @Override
@@ -129,7 +130,7 @@ public class StoreEarningController extends AppCompatActivity {
             walletWarning.setVisibility(View.GONE);
         }
 
-        walletRecyclerviewAdapter = new WalletRecyclerviewAdapter(list,this);
+        walletRecyclerviewAdapter = new StoreWalletRecyclerviewAdapter(list,this);
         recyclerView.setAdapter(walletRecyclerviewAdapter);
     }
     private Store getStoreDataFromStorage(){

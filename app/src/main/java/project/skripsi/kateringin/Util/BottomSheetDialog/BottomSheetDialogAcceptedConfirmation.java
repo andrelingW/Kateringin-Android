@@ -22,6 +22,7 @@ public class BottomSheetDialogAcceptedConfirmation extends BottomSheetDialogFrag
 
     AppCompatButton yes, no;
     Order order;
+    int totalPrice;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class BottomSheetDialogAcceptedConfirmation extends BottomSheetDialogFrag
         Bundle bundle = getArguments();
         if (bundle != null) {
             order = (Order) bundle.getSerializable("ORDER_REVIEW");
+            totalPrice = bundle.getInt("ORDER_TOTAL_PRICE");
         }
     }
 
@@ -46,6 +48,7 @@ public class BottomSheetDialogAcceptedConfirmation extends BottomSheetDialogFrag
         yes.setOnClickListener(v ->{
             Intent intent = new Intent(getActivity(), ReviewController.class);
             intent.putExtra("ORDER_REVIEW", order);
+            intent.putExtra("ORDER_TOTAL_PRICE", totalPrice);
             startActivity(intent);
             dismiss();
             getActivity().finish();

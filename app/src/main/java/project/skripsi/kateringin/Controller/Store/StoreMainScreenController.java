@@ -3,14 +3,20 @@ package project.skripsi.kateringin.Controller.Store;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,6 +34,7 @@ import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class StoreMainScreenController extends AppCompatActivity {
     TextView totalEarningText;
+    ImageView storeProfileImage;
     ConstraintLayout totalEarning, storeProduct, storeOrder, storeHistory, storeProfile, storeLogout;
 
     FirebaseFirestore database;
@@ -35,12 +42,41 @@ public class StoreMainScreenController extends AppCompatActivity {
     String storeId;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        setStoreImage();
+        getStoreBalance();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_mainscreen_view);
         binding();
+        setStoreImage();
         getStoreBalance();
         button();
+    }
+
+    private void setStoreImage() {
+        Store store = getStoreDataFromStorage();
+        //set image
+        if(store.getStoreUrlPhoto() == null){
+            Glide.with(this)
+                    .load(R.drawable.default_image_profile)
+                    .into(storeProfileImage);
+        }else{
+            RequestBuilder<Drawable> requestBuilder= Glide.with(storeProfileImage.getContext())
+                    .asDrawable().sizeMultiplier(0.1f);
+
+            Glide.with(this)
+                    .load(store.getStoreUrlPhoto())
+                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                    .thumbnail(requestBuilder)
+                    .placeholder(R.drawable.default_image_profile)
+                    .apply(RequestOptions.skipMemoryCacheOf(true))
+                    .into(storeProfileImage);
+        }
     }
 
     private void binding(){
@@ -53,6 +89,7 @@ public class StoreMainScreenController extends AppCompatActivity {
         storeHistory = findViewById(R.id.storeHistory);
         storeProfile = findViewById(R.id.storeProfile);
         storeLogout = findViewById(R.id.storeLogout);
+        storeProfileImage = findViewById(R.id.store_mainscreen_info_imagePicture);
     }
     private Store getStoreDataFromStorage(){
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
@@ -67,7 +104,6 @@ public class StoreMainScreenController extends AppCompatActivity {
         //GET Earning BALANCE
         CollectionReference collectionReference = database.collection("wallet");
         Query query = collectionReference.whereEqualTo("userId", storeId);
-
         query.get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

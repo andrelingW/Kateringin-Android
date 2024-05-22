@@ -130,7 +130,7 @@ public class EditStoreController extends AppCompatActivity {
                 storeSubDistrictEditTxt = dialog.findViewById(R.id.storeSubDistrictEditText);
                 listSubdistrictView = dialog.findViewById(R.id.listSubdistrictView);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(EditStoreController.this, android.R.layout.simple_list_item_1, listSubdistrict);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(EditStoreController.this, R.layout.custom_list, listSubdistrict);
 
                 listSubdistrictView.setAdapter(adapter);
 

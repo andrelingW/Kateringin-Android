@@ -21,11 +21,10 @@
             android:id="@+id/store_product_edit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/store_product_menu_image"
             app:srcCompat="@drawable/custom_edit_square"
             tools:ignore="DuplicateIds" />
 
@@ -33,12 +32,11 @@
             android:id="@+id/store_product_delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
+            android:background="@color/white"
 
+            app:layout_constraintBottom_toBottomOf="@+id/store_product_menu_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/store_product_edit_button"
             app:srcCompat="@drawable/custom_delete_icon" />
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -61,9 +59,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:text="Product Name"
             android:maxLines="3"
+            android:textSize="16sp"
+            android:text="Product Name"
             android:textAppearance="@style/componentBoldTitle"
+            android:textColor="@color/light_black"
             app:layout_constraintEnd_toStartOf="@+id/store_product_edit_button"
             app:layout_constraintStart_toEndOf="@+id/store_product_menu_image"
             app:layout_constraintTop_toTopOf="@+id/store_product_menu_image" />
@@ -73,8 +73,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="Price"
+            android:text="Rp 50,000"
             android:textAppearance="@style/normalGrayText"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/store_product_name_text"
             app:layout_constraintTop_toBottomOf="@+id/store_product_name_text" />
 

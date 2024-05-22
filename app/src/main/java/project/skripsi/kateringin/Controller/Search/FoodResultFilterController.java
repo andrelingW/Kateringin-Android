@@ -92,9 +92,6 @@ public class FoodResultFilterController extends AppCompatActivity {
             searchNotFound.setVisibility(View.VISIBLE);
         } else{
             searchNotFound.setVisibility(View.GONE);
-            for(int i = 0; i < 30; i++){
-                menuItems.add(new Menu());
-            }
         }
         menuRecycleviewAdapter = new MenuRecycleviewAdapter(menuItems,this);
         recyclerView.setAdapter(menuRecycleviewAdapter);
@@ -129,27 +126,31 @@ public class FoodResultFilterController extends AppCompatActivity {
             case 1:
                 query = collectionRef.whereLessThan(menuPriceFlag, 25000)
                         .whereLessThanOrEqualTo(menuSearchFlag, search + "\uf8ff")
-                        .whereGreaterThanOrEqualTo(menuSearchFlag,search);
+                        .whereGreaterThanOrEqualTo(menuSearchFlag,search)
+                        .orderBy("menuRating", Query.Direction.DESCENDING);
                 break;
             case 2:
                 query = collectionRef
                             .whereGreaterThanOrEqualTo(menuPriceFlag,25000)
                             .whereLessThanOrEqualTo(menuPriceFlag,50000)
                             .whereGreaterThanOrEqualTo(menuSearchFlag,search)
-                            .whereLessThanOrEqualTo(menuSearchFlag, search + "\uf8ff");
+                            .whereLessThanOrEqualTo(menuSearchFlag, search + "\uf8ff")
+                            .orderBy("menuRating", Query.Direction.DESCENDING);
                 break;
             case 3:
                 query = collectionRef
                         .whereGreaterThan(menuPriceFlag, 50000)
                         .whereLessThanOrEqualTo(menuPriceFlag, 100000)
                         .whereGreaterThanOrEqualTo(menuSearchFlag,search)
-                        .whereLessThanOrEqualTo(menuSearchFlag, search + "\uf8ff");
+                        .whereLessThanOrEqualTo(menuSearchFlag, search + "\uf8ff")
+                        .orderBy("menuRating", Query.Direction.DESCENDING);
                 break;
             case 4:
                 query = collectionRef
                         .whereGreaterThan(menuPriceFlag, 100000)
                         .whereGreaterThanOrEqualTo(menuSearchFlag,search)
-                        .whereLessThanOrEqualTo(menuSearchFlag, search + "\uf8ff");
+                        .whereLessThanOrEqualTo(menuSearchFlag, search + "\uf8ff")
+                        .orderBy("menuRating", Query.Direction.DESCENDING);
                 break;
         }
 

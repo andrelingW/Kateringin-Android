@@ -109,7 +109,6 @@ public class StoreOrderDeliverController extends AppCompatActivity {
                     deliverOrderItemName.setText(document.getString("menuName"));
                     long menuPriceTemp = document.getLong("menuPrice");
                     deliverOrderItemPrice.setText(IdrFormat.format(menuPriceTemp));
-
                     Glide.with(this)
                             .load(document.getString("menuPhotoUrl"))
                             .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
@@ -129,7 +128,11 @@ public class StoreOrderDeliverController extends AppCompatActivity {
         deliverOrderItemQuantity.setText("x" + order.getQuantity());
         deliverOrderItemTime.setText(order.getTimeRange());
         deliverOrderItemDate.setText(order.getDate());
-        deliverOrderItemNote.setText(order.getNote());
+        if (order.getNote() == null){
+            deliverOrderItemNote.setText("-");
+        } else{
+            deliverOrderItemNote.setText(order.getNote());
+        }
     }
 
     private void buttonAndLogic() {

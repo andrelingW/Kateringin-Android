@@ -44,6 +44,7 @@ public class OrderDetailController extends AppCompatActivity {
     FirebaseFirestore database;
     FirebaseAuth mAuth;
     Order order;
+    int subTotalPrice;
 
 
     @Override
@@ -118,13 +119,10 @@ public class OrderDetailController extends AppCompatActivity {
 
     private void button(){
         accepted.setOnClickListener(v ->{
-//            Intent intent = new Intent(this, ReviewController.class);
-//            intent.putExtra("ORDER_REVIEW", order);
-//            startActivity(intent);
-//            finish();
 
             Bundle bundle = new Bundle();
             bundle.putSerializable("ORDER_REVIEW", order);
+            bundle.putInt("ORDER_TOTAL_PRICE", subTotalPrice);
 
             BottomSheetDialogAcceptedConfirmation bottomSheetDialogFragment = new BottomSheetDialogAcceptedConfirmation();
             bottomSheetDialogFragment.setArguments(bundle);
@@ -138,7 +136,7 @@ public class OrderDetailController extends AppCompatActivity {
     }
 
     private void setTotalPrice(ArrayList<OrderItem> cartItems){
-        int subTotalPrice = calculateSubTotalPrice(cartItems);
+        subTotalPrice = calculateSubTotalPrice(cartItems);
         int feeLayanan = subTotalPrice / 100;
         int totalPrice = subTotalPrice + feeLayanan;
 

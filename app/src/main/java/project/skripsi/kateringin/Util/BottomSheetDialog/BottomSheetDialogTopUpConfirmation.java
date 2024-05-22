@@ -18,7 +18,7 @@ import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class BottomSheetDialogTopUpConfirmation extends BottomSheetDialogFragment {
 
-    AppCompatButton submit;
+    AppCompatButton submit, cancel;
     TextView topUpAmount;
     int value, balance;
 
@@ -42,8 +42,12 @@ public class BottomSheetDialogTopUpConfirmation extends BottomSheetDialogFragmen
         super.onViewCreated(view, savedInstanceState);
         submit = view.findViewById(R.id.top_up_confirmation_button);
         topUpAmount = view.findViewById(R.id.top_up_confirmation_text);
+        cancel = view.findViewById(R.id.top_up_confirmation_cancel_button);
 
         topUpAmount.setText(IdrFormat.format(value+1000));
+        cancel.setOnClickListener(v ->{
+            dismiss();
+        });
         submit.setOnClickListener(v ->{
             Intent intent = new Intent(getActivity(), TopUpPaymentController.class);
             intent.putExtra("CURRENT_BALANCE", balance);

@@ -1,5 +1,6 @@
 package project.skripsi.kateringin.Controller.Review;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -9,18 +10,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import project.skripsi.kateringin.Controller.Helper.MainScreenController;
 import project.skripsi.kateringin.Controller.SuccessMessage.ReviewSuccessController;
 import project.skripsi.kateringin.Controller.SuccessMessage.ThankYouController;
+import project.skripsi.kateringin.Model.Menu;
 import project.skripsi.kateringin.Model.Order;
 import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.Model.Review;
@@ -40,6 +51,7 @@ public class ReviewController extends AppCompatActivity {
     FirebaseFirestore database;
     FirebaseAuth mAuth;
     Order order;
+    int totalPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +70,7 @@ public class ReviewController extends AppCompatActivity {
         pass = findViewById(R.id.review_ignore_button);
         recyclerView = findViewById(R.id.review_page_recyclerView);
         order = (Order) getIntent().getSerializableExtra("ORDER_REVIEW");
+        totalPrice = (int) getIntent().getSerializableExtra("ORDER_TOTAL_PRICE");
     }
 
     private void setField() {
@@ -81,16 +94,59 @@ public class ReviewController extends AppCompatActivity {
             if(recycleviewAdapter != null){
                 recycleviewAdapter.pushToFirestore();
                 updateOrderStatus();
+                updateStoreWallet();
+                setTransactionHistory();
                 Intent intent = new Intent(this, ReviewSuccessController.class);
                 intent.putExtra("RATING_CALCULATE", order);
                 startActivity(intent);
             }
         });
         pass.setOnClickListener(v ->{
-            Intent intent = new Intent(this, ThankYouController.class);
             updateOrderStatus();
+            updateStoreWallet();
+            setTransactionHistory();
+            Intent intent = new Intent(this, ThankYouController.class);
             startActivity(intent);
         });
+    }
+
+    private void setTransactionHistory() {
+        CollectionReference collectionRef = database.collection("transaction");
+        Map<String, Object> data = new HashMap<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+
+        data.put("userId", order.getStoreId());
+        data.put("transactionType", "settlement");
+        data.put("timestamp", Timestamp.now());
+        data.put("amount", totalPrice);
+        data.put("date", dateFormat.format(new Date()));
+
+        collectionRef.document().set(data);
+    }
+
+    public void updateStoreWallet(){
+        String storeId = order.getStoreId();
+        CollectionReference collectionReference = database.collection("wallet");
+        Query query = collectionReference.whereEqualTo("userId", storeId);
+        query.get()
+                .addOnCompleteListener(Innertask -> {
+                    if (Innertask.isSuccessful()) {
+                        for (DocumentSnapshot documentSnapshot : Innertask.getResult()) {
+                            String documentId = documentSnapshot.getId();
+                            int balance = documentSnapshot.getLong("balance").intValue();
+
+                            DocumentReference documentReference = database.collection("wallet").document(documentId);
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put("balance", balance + totalPrice);
+                            documentReference.update(updates);
+                        }
+                    } else {
+                        Exception e = Innertask.getException();
+                        if (e != null) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     public void updateOrderStatus(){
@@ -103,13 +159,11 @@ public class ReviewController extends AppCompatActivity {
                     String storeId = document.getString("storeId");
                     String userId = document.getString("userId");
                     String receiverName = document.getString("receiverName");
-                    String receiverEmail = document.getString("receiverEmail");
                     String receiverPhone = document.getString("receiverPhone");
                     String receiverAddress = document.getString("receiverAddress");
 
                     ArrayList<Map<String, Object>> orderItemsList = (ArrayList<Map<String, Object>>) document.get("orderItems");
                     ArrayList<OrderItem> listOfOrderItem = new ArrayList<>();
-
                     for (Map<String, Object> item : orderItemsList) {
                         OrderItem order = new OrderItem();
                         order.setDate((String) item.get("date"));
@@ -137,7 +191,6 @@ public class ReviewController extends AppCompatActivity {
                         );
 
                         docRef.set(newOrder);
-                        finish();
                     }
                 }else{
                     Log.i("TAG", "No such document");
@@ -145,10 +198,7 @@ public class ReviewController extends AppCompatActivity {
             } else {
                 Log.i("TAG", "get failed with ", task.getException());
             }
-//        DocumentReference docRef = database.collection("order").document(order.getOrderId());
-//        Map<String, Object> updates = new HashMap<>();
-//        updates.put("orderStatus", "complete");
-//        docRef.update(updates);
+
         });
     }
 

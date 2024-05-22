@@ -109,9 +109,6 @@ public class FoodCategoryPageController extends AppCompatActivity {
             searchNotFound.setVisibility(View.VISIBLE);
         } else{
             searchNotFound.setVisibility(View.GONE);
-            for(int i = 0; i < 30; i++){
-                menuItems.add(new Menu());
-            }
         }
         menuRecycleviewAdapter = new MenuRecycleviewAdapter(menuItems,this);
         recyclerView.setAdapter(menuRecycleviewAdapter);
@@ -158,22 +155,28 @@ public class FoodCategoryPageController extends AppCompatActivity {
         Query query = null;
         switch (foodCategory){
             case "VEGAN":
-                query = collectionRef.whereEqualTo("isVegan", true);
+                query = collectionRef.whereEqualTo("isVegan", true)
+                        .orderBy("menuRating", Query.Direction.DESCENDING);
                 break;
             case "NASI":
-                query = collectionRef.whereEqualTo("isRice", true);
+                query = collectionRef.whereEqualTo("isRice", true)
+                        .orderBy("menuRating", Query.Direction.DESCENDING);
                 break;
             case "MIE":
-                query = collectionRef.whereEqualTo("isNoodle", true);
+                query = collectionRef.whereEqualTo("isNoodle", true)
+                        .orderBy("menuRating", Query.Direction.DESCENDING);
                 break;
             case "KUAH":
-                query = collectionRef.whereEqualTo("isSoup", true);
+                query = collectionRef.whereEqualTo("isSoup", true)
+                        .orderBy("menuRating", Query.Direction.DESCENDING);
                 break;
             case "DIET":
-                query = collectionRef.whereEqualTo("isDiet", true);
+                query = collectionRef.whereEqualTo("isDiet", true)
+                        .orderBy("menuRating", Query.Direction.DESCENDING);
                 break;
             case "NONHALAL":
-                query = collectionRef.whereEqualTo("isPork", true);
+                query = collectionRef.whereEqualTo("isPork", true)
+                        .orderBy("menuRating", Query.Direction.DESCENDING);
                 break;
         }
 

@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/custom_default_bottom_sheet_style"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/custom_default_bottom_sheet_style">
 
     <TextView
         android:id="@+id/top_up_confirmation_text"
@@ -22,20 +22,38 @@
         app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/top_up_confirmation_button"
-        android:layout_width="match_parent"
+        android:id="@+id/top_up_confirmation_cancel_button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/custom_second_button"
+        android:text="Cancel"
+        android:textAppearance="@style/activeButton"
+        android:textColor="@color/gray"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/top_up_confirmation_button"
+        app:layout_constraintEnd_toStartOf="@+id/top_up_confirmation_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/top_up_confirmation_button" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/top_up_confirmation_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="40dp"
         android:background="@drawable/custom_active_button"
-        android:text="Continue payment"
+        android:text="Continue"
         android:textAppearance="@style/activeButton"
-        android:textSize="15sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/top_up_confirmation_cancel_button"
         app:layout_constraintTop_toBottomOf="@+id/textView69" />
 
     <TextView

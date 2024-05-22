@@ -13,8 +13,7 @@
         android:id="@+id/store_product_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-
+        android:background="@drawable/custom_bottom_border"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/CustomActionBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,17 +23,24 @@
         app:title="Product"
         app:titleTextAppearance="@style/navbarTitle" />
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/storeProductRecyclerView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/storeProductSwipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/store_product_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/store_product_toolbar">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/storeProductRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
 
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/store_product_toolbar" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <ImageButton
         android:id="@+id/store_add_product_button"
         android:layout_width="50dp"
