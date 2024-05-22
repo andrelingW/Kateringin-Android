@@ -43,6 +43,7 @@ public class StoreRegisterStartController extends AppCompatActivity {
         startRegister.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), StoreTermsAndConditionController.class);
             startActivity(intent);
+            finish();
         });
     }
     @Override

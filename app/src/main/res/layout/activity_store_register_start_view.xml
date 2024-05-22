@@ -9,22 +9,20 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/startStoreRegistrationToolbar"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
-        android:paddingStart="20dp"
-        android:paddingEnd="25dp"
-        app:title=" "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title=" " />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="415dp"
-        android:layout_height="332dp"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,29 +31,33 @@
         app:srcCompat="@drawable/food"
         tools:ignore="MissingConstraints" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/startStoreRegistration"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginStart="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/custom_active_button"
         android:text="Start Now"
         android:textSize="16dp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="371dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
 
+        android:layout_marginEnd="30dp"
         android:text="Start your own store at\nKateringin!"
-        android:textSize="30dp"
-        android:textStyle="bold"
+        android:textAppearance="@style/boldText"
+        android:textSize="22sp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,12 +67,14 @@
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="30dp"
         android:gravity="left"
+        android:textSize="16sp"
         android:text="Earn additional income from the Kateringin application!"
-        android:textSize="18dp"
+        android:textAppearance="@style/normalBlackText"
+        android:textColor="@color/light_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />

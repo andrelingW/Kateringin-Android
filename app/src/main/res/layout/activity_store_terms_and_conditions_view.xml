@@ -9,18 +9,17 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/storeTermAndConditionToolbar"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
         android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
-        android:paddingStart="20dp"
-        android:paddingEnd="25dp"
         android:theme="@style/CustomActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Terms &amp; and Conditions"
-        app:titleTextAppearance="@color/blue" />
+        app:title="Terms and Conditions"
+        app:titleTextAppearance="@style/navbarTitle"
+        app:titleTextColor="@color/light_black"/>
 
     <View
         android:id="@+id/divider10"
@@ -35,9 +34,9 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="63dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +46,66 @@
             android:id="@+id/tncText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="130dp"
             android:text="@string/store_terms_and_conditions"
             android:textSize="14dp" />
     </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_top_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <CheckBox
+            android:id="@+id/store_regis_form_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="I agree to the terms and conditions"
+            android:textColor="@color/light_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/store_regis_form_accept_button"
+            android:layout_width="0dp"
+            android:stateListAnimator="@null"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/custom_active_button"
+            android:paddingStart="39dp"
+            android:paddingEnd="39dp"
+            android:text="Accept"
+            android:textAppearance="@style/activeButton"
+            app:layout_constraintBottom_toBottomOf="@+id/store_regis_form_cancel_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/store_regis_form_cancel_button"
+            app:layout_constraintTop_toTopOf="@+id/store_regis_form_cancel_button" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/store_regis_form_cancel_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:stateListAnimator="@null"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_second_button"
+            android:paddingStart="39dp"
+            android:paddingEnd="39dp"
+            android:text="Cancel"
+            android:textAppearance="@style/normalGrayText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/store_regis_form_accept_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/store_regis_form_checkBox" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

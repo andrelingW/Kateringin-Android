@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -18,12 +19,17 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.gson.Gson;
 
+import project.skripsi.kateringin.Controller.Helper.MainScreenController;
 import project.skripsi.kateringin.Controller.Helper.TermsAndConditionController;
 import project.skripsi.kateringin.Controller.Store.StoreMainScreenController;
 import project.skripsi.kateringin.Controller.StoreRegistration.StoreRegisterStartController;
@@ -34,6 +40,7 @@ import project.skripsi.kateringin.Model.User;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Util.BottomSheetDialog.BottomSheetDialogProfileHelp;
 import project.skripsi.kateringin.Util.BottomSheetDialog.BottomSheetDialogProfileLogout;
+import project.skripsi.kateringin.Util.UtilClass.LoadingUtil;
 
 public class UserFragment extends Fragment {
 
@@ -128,52 +135,60 @@ public class UserFragment extends Fragment {
             startActivity(intent);
         });
         cateringMode.setOnClickListener(v -> {
-            User user = getUserSharedPreference();
+                    DocumentReference docRef = database.collection("user").document(mAuth.getCurrentUser().getUid().toString());
+                    docRef.get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Boolean check = document.getBoolean("isOwner");
 
-            if (user.getIsOwner()) {
-                CollectionReference collectionRef = database.collection("store");
-                collectionRef
-                        .whereEqualTo("ownerId", mAuth.getCurrentUser().getUid())
-                        .get().addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    if (document.exists()) {
-                                        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
+                                if (check) {
+                                    CollectionReference collectionRef = database.collection("store");
+                                    collectionRef
+                                            .whereEqualTo("ownerId", mAuth.getCurrentUser().getUid())
+                                            .get().addOnCompleteListener(innerTask -> {
+                                                if (innerTask.isSuccessful()) {
+                                                    for (QueryDocumentSnapshot innerDocument : innerTask.getResult()) {
+                                                        if (innerDocument.exists()) {
+                                                            SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPrefer", Context.MODE_PRIVATE);
 
-                                        Store store = new Store();
-                                        store.setStoreId(document.getId());
-                                        store.setStoreName(document.get("storeName").toString());
-                                        store.setStoreDesc(document.get("storeDescription").toString());
-                                        store.setStorePhone(document.get("storePhoneNumber").toString());
-                                        if(document.get("storePhotoUrl") != null){
-                                            store.setStoreUrlPhoto(document.get("storePhotoUrl").toString());
-                                        }
-                                        store.setStoreSubDistrict(document.get("storeSubDistrict").toString());
+                                                            Store store = new Store();
+                                                            store.setStoreId(innerDocument.getId());
+                                                            store.setStoreName(innerDocument.get("storeName").toString());
+                                                            store.setStoreDesc(innerDocument.get("storeDescription").toString());
+                                                            store.setStorePhone(innerDocument.get("storePhoneNumber").toString());
+                                                            if (innerDocument.get("storePhotoUrl") != null) {
+                                                                store.setStoreUrlPhoto(innerDocument.get("storePhotoUrl").toString());
+                                                            }
+                                                            store.setStoreSubDistrict(innerDocument.get("storeSubDistrict").toString());
 
-                                        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
-                                        Gson gson = new Gson();
-                                        String json = gson.toJson(store);
-                                        prefsEditor.putString("storeObject", json);
-                                        prefsEditor.commit();
+                                                            SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+                                                            Gson gson = new Gson();
+                                                            String json = gson.toJson(store);
+                                                            prefsEditor.putString("storeObject", json);
+                                                            prefsEditor.commit();
 
-                                        Intent intent = new Intent(getActivity(), StoreMainScreenController.class);
-                                        startActivity(intent);
-                                    } else {
-                                        Log.i("TAG", "No such document");
-                                    }
-                                }
-                            } else {
-                                Exception e = task.getException();
-                                if (e != null) {
-                                    e.printStackTrace();
+                                                            Intent intent = new Intent(getActivity(), StoreMainScreenController.class);
+                                                            startActivity(intent);
+                                                        } else {
+                                                            Log.i("TAG", "No such innerDocument");
+                                                        }
+                                                    }
+                                                } else {
+                                                    Exception e = task.getException();
+                                                    if (e != null) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            });
+                                } else {
+                                    Intent intent = new Intent(getActivity(), StoreRegisterStartController.class);
+                                    startActivity(intent);
                                 }
                             }
-                        });
+                        }
+                    });
 
-            } else if (!user.getIsOwner()) {
-                Intent intent = new Intent(getActivity(), StoreRegisterStartController.class);
-                startActivity(intent);
-            }
         });
 
         wallet.setOnClickListener(v ->{

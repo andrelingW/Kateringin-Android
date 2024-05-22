@@ -23,7 +23,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.WindowCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -36,12 +38,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import project.skripsi.kateringin.Controller.Authentication.EmailVerificationController;
+import project.skripsi.kateringin.Controller.Helper.MainScreenController;
+import project.skripsi.kateringin.Controller.Wallet.WalletController;
 import project.skripsi.kateringin.R;
 
 public class StoreRegisterFormController extends AppCompatActivity {
 
     EditText storeNameTxt, storePhoneNumberTxt, storeDescTxt, storeSubDistrictEditTxt;
-    Button storeRegisterButton;
+    AppCompatButton storeRegisCancel, storeRegisterButton;
     TextView storeNameAlert, storePhoneAlert, storeSubDistrictAlert, storeDescAlert, storeSubDistrictTxtView;
     ListView listSubdistrictView;
     String storeName,storePhoneNumber, storeSubDistrict, storeDesc, storeId;
@@ -56,6 +60,7 @@ public class StoreRegisterFormController extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_store_register_form_view);
         binding();
         subdistrictDropdown();
@@ -78,24 +83,12 @@ public class StoreRegisterFormController extends AppCompatActivity {
         storeDescAlert = findViewById(R.id.storeDescriptionAlert);
 
         storeRegisterButton = findViewById(R.id.storeRegisterButton);
+        storeRegisCancel = findViewById(R.id.storeRegisterButtonCancel);
 
     }
     private void toolbar(){
-
         Toolbar toolbar = findViewById(R.id.storeRegisterToolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("Catering Registration");
-
-    }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void button() {
@@ -108,7 +101,18 @@ public class StoreRegisterFormController extends AppCompatActivity {
 
             if(checkStoreData()){
                 insertStoreData();
+            } else{
+                animateView(progressOverlay, View.GONE, 0, 200);
             }
+        });
+
+        storeRegisCancel.setOnClickListener(v ->{
+//            Intent intent = new Intent(this, MainScreenController.class);
+//            intent.putExtra("fragmentId", R.layout.fragment_user);
+//            intent.putExtra("menuItemId", R.id.menu_profile);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+            finish();
         });
     }
 
@@ -131,7 +135,7 @@ public class StoreRegisterFormController extends AppCompatActivity {
                 storeSubDistrictEditTxt = dialog.findViewById(R.id.storeSubDistrictEditText);
                 listSubdistrictView = dialog.findViewById(R.id.listSubdistrictView);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(StoreRegisterFormController.this, android.R.layout.simple_list_item_1, listSubdistrict);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(StoreRegisterFormController.this, R.layout.custom_list, listSubdistrict);
 
                 listSubdistrictView.setAdapter(adapter);
 
@@ -188,8 +192,10 @@ public class StoreRegisterFormController extends AppCompatActivity {
                             .set(newWallet)
                             .addOnCompleteListener(innerTaskAddWallet -> {
                                 animateView(progressOverlay, View.GONE, 0, 200);
-                                Intent intent = new Intent(getApplicationContext(), StoreRegisterSuccessController.class);
+                                Intent intent = new Intent(this, StoreRegisterSuccessController.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
+                                finish();
                             })
                             .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
 
