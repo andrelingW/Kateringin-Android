@@ -141,7 +141,6 @@ public class StoreOrderDetailRecycleviewAdapter extends RecyclerView.Adapter<Sto
             SimpleDateFormat sdfDate = new SimpleDateFormat("MM-dd-yyyy");
 
             String currDate = sdfDate.format(date);
-            holder.deliverButton.setEnabled(true);
 
             if(currDate.equals(orderItem.getDate())){
                 holder.deliverButton.setEnabled(true);
