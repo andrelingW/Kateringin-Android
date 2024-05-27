@@ -63,6 +63,7 @@ public class StoreTransactionHistoryController extends AppCompatActivity {
     private void setField() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setTitle("Transaction History");
     }
 
     public void walletHistoryAdapter(ArrayList<WalletHistory> list){
