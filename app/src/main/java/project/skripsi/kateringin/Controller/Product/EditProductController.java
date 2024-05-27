@@ -180,8 +180,8 @@ public class EditProductController extends AppCompatActivity {
     }
     private void button(){
         editProductSaveButton.setOnClickListener(v ->{
-            animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
             if(getAndCheckMenuData()){
+                animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
                 updateMenuData();
             }
         });
@@ -327,8 +327,6 @@ public class EditProductController extends AppCompatActivity {
                         .update(map)
                         .addOnCompleteListener(innerTaskAddUser -> {
                             animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
-//                            Intent intent = new Intent(getApplicationContext(), ProductController.class);
-//                            startActivity(intent);
                             finish();
                         })
                         .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));

@@ -124,8 +124,8 @@ public class AddProductController extends AppCompatActivity {
     }
     private void button(){
         addProductSaveButton.setOnClickListener(v ->{
-            animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
             if(getAndCheckMenuData()){
+                animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
                 insertMenuData();
             }
         });
@@ -274,8 +274,6 @@ public class AddProductController extends AppCompatActivity {
                         .set(newMenu)
                         .addOnCompleteListener(innerTaskAddUser -> {
                             animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
-//                            Intent intent = new Intent(getApplicationContext(), ProductController.class);
-//                            startActivity(intent);
                             finish();
                         })
                         .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));

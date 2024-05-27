@@ -3,7 +3,6 @@ package project.skripsi.kateringin.Recycler;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,48 +21,46 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-import project.skripsi.kateringin.Controller.StoreOrder.StoreOrderDetailController;
-import project.skripsi.kateringin.Fragment.OrderFragment;
+import project.skripsi.kateringin.Controller.StoreOrder.StoreOrderHistoryDetailController;
 import project.skripsi.kateringin.Model.Order;
 import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
-public class StoreOrderRecycleviewAdapter extends RecyclerView.Adapter<StoreOrderRecycleviewAdapter.ViewHolder> {
+public class StoreOrderHistoryRecycleviewAdapter extends RecyclerView.Adapter<StoreOrderHistoryRecycleviewAdapter.ViewHolder> {
 
     private ArrayList<Order> orderItems;
     private OnClickListener onClickListener;
-    private OrderFragment fragment;
     private Context context;
     private FirebaseFirestore database;
     private FirebaseAuth mAuth;
     private String menuName;
-    private int counter;
+    private int counter = 0;
 
-    public StoreOrderRecycleviewAdapter(ArrayList<Order> orderItems, Context context) {
+    public StoreOrderHistoryRecycleviewAdapter(ArrayList<Order> orderItems, Context context) {
         this.orderItems = orderItems;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StoreOrderHistoryRecycleviewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.component_store_order_item_card, parent, false);
         return new ViewHolder(view);
     }
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onBindViewHolder(@NonNull StoreOrderRecycleviewAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull StoreOrderHistoryRecycleviewAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         database = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         final Order orderItem = orderItems.get(position);
 
         holder.orderId.setText("Order ID #" + orderItem.getOrderId());
 
-        if(orderItem.getOrderStatus().equalsIgnoreCase("waiting")){
-            holder.orderStatusIndicator.setColorFilter(ContextCompat.getColor(this.context, R.color.blue));
-        } else if(orderItem.getOrderStatus().equalsIgnoreCase("ongoing") || orderItem.getOrderStatus().equalsIgnoreCase("shipping")){
-            holder.orderStatusIndicator.setColorFilter(ContextCompat.getColor(this.context, R.color.yellow));
+        if(orderItem.getOrderStatus().equalsIgnoreCase("complete")){
+            holder.orderStatusIndicator.setColorFilter(ContextCompat.getColor(this.context, R.color.green));
+        } else if(orderItem.getOrderStatus().equalsIgnoreCase("canceled")){
+            holder.orderStatusIndicator.setColorFilter(ContextCompat.getColor(this.context, R.color.red));
         }
 
         int totalPrice = 0, count = 0;
@@ -112,8 +103,10 @@ public class StoreOrderRecycleviewAdapter extends RecyclerView.Adapter<StoreOrde
             }
         });
 
+
+
         holder.detailButton.setOnClickListener(v ->{
-                Intent intent = new Intent(context, StoreOrderDetailController.class);
+                Intent intent = new Intent(context, StoreOrderHistoryDetailController.class);
                 intent.putExtra("DETAILS_SCREEN", orderItem);
                 context.startActivity(intent);
         });
@@ -132,11 +125,6 @@ public class StoreOrderRecycleviewAdapter extends RecyclerView.Adapter<StoreOrde
 
     public interface OnClickListener {
         void onClick(int position, Order model);
-    }
-
-    public void clear() {
-        orderItems.clear();
-        notifyDataSetChanged();
     }
 
     @Override
