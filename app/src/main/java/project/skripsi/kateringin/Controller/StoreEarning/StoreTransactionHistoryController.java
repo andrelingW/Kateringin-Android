@@ -25,9 +25,10 @@ import java.util.ArrayList;
 import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.Model.WalletHistory;
 import project.skripsi.kateringin.R;
+import project.skripsi.kateringin.Recycler.StoreWalletRecyclerviewAdapter;
 import project.skripsi.kateringin.Recycler.WalletHistoryRecyclerviewAdapter;
 
-public class StoreWithdrawHistoryController extends AppCompatActivity {
+public class StoreTransactionHistoryController extends AppCompatActivity {
 
     //XML
     FirebaseFirestore database;
@@ -38,7 +39,7 @@ public class StoreWithdrawHistoryController extends AppCompatActivity {
 
     //FIELD
     ArrayList<WalletHistory> walletHistories = new ArrayList<>();
-    WalletHistoryRecyclerviewAdapter walletHistoryRecyclerviewAdapter;
+    StoreWalletRecyclerviewAdapter walletHistoryRecyclerviewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,6 @@ public class StoreWithdrawHistoryController extends AppCompatActivity {
     private void setField() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setTitle("Withdraw History");
     }
 
     public void walletHistoryAdapter(ArrayList<WalletHistory> list){
@@ -72,7 +72,7 @@ public class StoreWithdrawHistoryController extends AppCompatActivity {
             walletHistoryWarning.setVisibility(View.GONE);
         }
 
-        walletHistoryRecyclerviewAdapter = new WalletHistoryRecyclerviewAdapter(list,this);
+        walletHistoryRecyclerviewAdapter = new StoreWalletRecyclerviewAdapter(list,this);
         recyclerView.setAdapter(walletHistoryRecyclerviewAdapter);
     }
     private Store getStoreDataFromStorage(){

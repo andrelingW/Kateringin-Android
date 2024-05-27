@@ -37,7 +37,7 @@ public class StoreOrderDetailController extends AppCompatActivity {
 
     //XML
     RecyclerView recyclerView;
-    TextView orderId, receiverName, receiverPhone, receiverAddress, subTotalPriceTV, feeLayananTV, totalPriceTV;
+    TextView orderId, receiverName, receiverPhone, receiverAddress, totalPriceTV;
     AppCompatButton acceptOrder, cancelOrder;
     Toolbar toolbar;
     ConstraintLayout manageOrderLayout;
@@ -74,9 +74,7 @@ public class StoreOrderDetailController extends AppCompatActivity {
         receiverName = findViewById(R.id.store_order_detail_contact_name_tv);
         receiverPhone = findViewById(R.id.store_order_detail_contact_phone_tv);
         receiverAddress = findViewById(R.id.store_order_detail_loc_tv);
-        subTotalPriceTV = findViewById(R.id.store_order_detail_subtotal_tv);
-        feeLayananTV = findViewById(R.id.store_order_detail_fee_tv);
-        totalPriceTV = findViewById(R.id.store_order_detail_total_payment_tv);
+        totalPriceTV = findViewById(R.id.store_order_detail_total_tv);
         acceptOrder = findViewById(R.id.store_order_detail_accept_button);
         cancelOrder = findViewById(R.id.store_order_detail_cancel_button);
         manageOrderLayout = findViewById(R.id.store_order_detail_layout);
@@ -122,17 +120,11 @@ public class StoreOrderDetailController extends AppCompatActivity {
     }
 
     private void setTotalPrice(ArrayList<OrderItem> cartItems){
-        int subTotalPrice = calculateSubTotalPrice(cartItems);
-        int feeLayanan = subTotalPrice / 100;
-        int totalPrice = subTotalPrice + feeLayanan;
-
-        subTotalPriceTV.setText(IdrFormat.format(subTotalPrice));
-        feeLayananTV.setText(IdrFormat.format(feeLayanan));
+        int totalPrice = calculateTotalPrice(cartItems);
         totalPriceTV.setText(IdrFormat.format(totalPrice));
-
     }
 
-    private int calculateSubTotalPrice(ArrayList<OrderItem> orderItems) {
+    private int calculateTotalPrice(ArrayList<OrderItem> orderItems) {
         int totalPrice = 0;
         for (OrderItem item : orderItems) {
             totalPrice += item.getPrice() * item.getQuantity();

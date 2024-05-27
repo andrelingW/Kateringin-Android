@@ -187,7 +187,7 @@
             android:name=".Controller.StoreEarning.StoreWithdrawController"
             android:exported="false" />
         <activity
-            android:name=".Controller.StoreEarning.StoreWithdrawHistoryController"
+            android:name=".Controller.StoreEarning.StoreTransactionHistoryController"
             android:exported="false" />
         <activity
             android:name=".Controller.SuccessMessage.StoreWithdrawSuccessController"

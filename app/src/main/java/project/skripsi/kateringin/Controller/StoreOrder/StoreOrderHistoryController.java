@@ -29,6 +29,7 @@ import project.skripsi.kateringin.Model.OrderItem;
 import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.OrderHistoryRecycleviewAdapter;
+import project.skripsi.kateringin.Recycler.StoreOrderHistoryRecycleviewAdapter;
 
 public class StoreOrderHistoryController extends AppCompatActivity {
 
@@ -40,7 +41,7 @@ public class StoreOrderHistoryController extends AppCompatActivity {
     //FIELD
     FirebaseFirestore database;
     FirebaseAuth mAuth;
-    OrderHistoryRecycleviewAdapter orderHistoryRecycleviewAdapter;
+    StoreOrderHistoryRecycleviewAdapter orderHistoryRecycleviewAdapter;
     ArrayList<Order> orders = new ArrayList<>();
     String storeId;
 
@@ -74,7 +75,7 @@ public class StoreOrderHistoryController extends AppCompatActivity {
         }else{
             orderHistoryWarning.setVisibility(View.GONE);
         }
-        orderHistoryRecycleviewAdapter = new OrderHistoryRecycleviewAdapter(orders,this);
+        orderHistoryRecycleviewAdapter = new StoreOrderHistoryRecycleviewAdapter(orders,this);
         recyclerView.setAdapter(orderHistoryRecycleviewAdapter);
     }
     private Store getStoreDataFromStorage(){

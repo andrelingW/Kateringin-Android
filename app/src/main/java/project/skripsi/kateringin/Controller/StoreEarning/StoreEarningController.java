@@ -32,7 +32,6 @@ import project.skripsi.kateringin.Model.Store;
 import project.skripsi.kateringin.Model.WalletHistory;
 import project.skripsi.kateringin.R;
 import project.skripsi.kateringin.Recycler.StoreWalletRecyclerviewAdapter;
-import project.skripsi.kateringin.Recycler.WalletRecyclerviewAdapter;
 import project.skripsi.kateringin.Util.UtilClass.IdrFormat;
 
 public class StoreEarningController extends AppCompatActivity {
@@ -66,7 +65,7 @@ public class StoreEarningController extends AppCompatActivity {
 
     private void button() {
         viewAllWithdrawHistory.setOnClickListener(v ->{
-            Intent intent = new Intent(this, StoreWithdrawHistoryController.class);
+            Intent intent = new Intent(this, StoreTransactionHistoryController.class);
             startActivity(intent);
         });
 

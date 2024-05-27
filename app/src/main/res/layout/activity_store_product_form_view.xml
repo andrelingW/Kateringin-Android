@@ -40,8 +40,8 @@
                 android:id="@+id/store_product_imagePicture"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginEnd="35dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="15dp"
                 android:scaleType="centerCrop"
@@ -55,8 +55,8 @@
                 android:id="@+id/store_product_image_button"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginEnd="35dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/custom_active_button"
                 android:drawableLeft="@drawable/baseline_camera_alt_24"
@@ -71,7 +71,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Name"
                 android:textAppearance="@style/componentBoldTitle"
@@ -82,9 +82,9 @@
                 android:id="@+id/store_product_name_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="35dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/custom_normal_edit_text"
                 android:ems="10"
 
@@ -105,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:text="*Enter your product name"
                 android:textColor="@color/red"
                 android:visibility="gone"
@@ -116,7 +116,7 @@
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Price"
                 android:textAppearance="@style/componentBoldTitle"
@@ -125,9 +125,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="35dp">
+                android:layout_marginEnd="20dp">
                 <TextView
                     android:id="@+id/store_product_price_hint"
                     android:layout_width="match_parent"
@@ -163,7 +163,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="10dp"
                 android:textAppearance="@style/normalGrayText"
@@ -175,7 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:text="*Enter your product price"
                 android:textColor="@color/red"
                 android:visibility="gone"
@@ -187,7 +187,7 @@
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Description"
                 android:textAppearance="@style/componentBoldTitle"
@@ -199,9 +199,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="100dp"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="35dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/custom_normal_edit_text"
                 android:ems="10"
                 android:inputType="textMultiLine"
@@ -221,7 +221,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:text="*Enter your product description"
                 android:textColor="@color/red"
                 android:visibility="gone"
@@ -232,7 +232,7 @@
                 android:id="@+id/textView21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Calories"
                 android:textAppearance="@style/componentBoldTitle"
@@ -242,9 +242,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="35dp">
+                android:layout_marginEnd="20dp">
                 <TextView
                     android:id="@+id/store_product_calorie_hint"
                     android:layout_width="match_parent"
@@ -285,7 +285,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:text="*Enter your product calorie"
                 android:textColor="@color/red"
                 android:visibility="gone"
@@ -296,7 +296,7 @@
             <!--                android:id="@+id/textView22"-->
             <!--                android:layout_width="wrap_content"-->
             <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginStart="35dp"-->
+            <!--                android:layout_marginStart="20dp"-->
             <!--                android:layout_marginTop="20dp"-->
             <!--                android:text="Minimum"-->
             <!--                android:textAppearance="@style/componentBoldTitle"-->
@@ -307,9 +307,9 @@
             <!--                android:id="@+id/store_product_minimum_field"-->
             <!--                android:layout_width="match_parent"-->
             <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginStart="35dp"-->
+            <!--                android:layout_marginStart="20dp"-->
             <!--                android:layout_marginTop="10dp"-->
-            <!--                android:layout_marginEnd="35dp"-->
+            <!--                android:layout_marginEnd="20dp"-->
             <!--                android:background="@drawable/custom_normal_edit_text"-->
             <!--                android:ems="10"-->
             <!--                android:hint="1"-->
@@ -329,7 +329,7 @@
                 android:id="@+id/textView23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Food Category"
                 android:textAppearance="@style/componentBoldTitle"
@@ -340,8 +340,8 @@
                 android:id="@+id/store_product_category_radioGroup1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginEnd="35dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -408,8 +408,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginStart="35dp"
-                android:layout_marginEnd="35dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -472,7 +472,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:text="*Select your product category"
                 android:textColor="@color/red"
                 android:visibility="gone"

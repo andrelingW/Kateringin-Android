@@ -109,6 +109,7 @@ public class StoreOrderDetailRecycleviewAdapter extends RecyclerView.Adapter<Sto
         holder.date.setText(orderItem.getDate());
         holder.timeRange.setText(orderItem.getTimeRange());
         holder.orderStatus.setText(orderItem.getOrderItemStatus());
+
         if(orderItem.getOrderItemStatus().equalsIgnoreCase("waiting")){
             holder.orderStatus.setBackgroundResource(R.drawable.custom_waiting_detail_button);
             holder.orderStatus.setTextColor(ContextCompat.getColor(context, R.color.blue));
@@ -124,17 +125,17 @@ public class StoreOrderDetailRecycleviewAdapter extends RecyclerView.Adapter<Sto
             holder.orderStatus.setTextColor(ContextCompat.getColor(context, R.color.green));
         }
 
-
+        holder.deliverButton.setVisibility(View.GONE);
+        holder.rescheduleIndicator.setVisibility(View.GONE);
         if(orderItem.getOrderItemStatus().equalsIgnoreCase("waiting")){
-            holder.rescheduleIndicator.setVisibility(View.GONE);
-            holder.deliverButton.setEnabled(false);
-            holder.deliverButton.setBackgroundResource(R.drawable.custom_unactive_button);
+//            holder.rescheduleIndicator.setVisibility(View.GONE);
+//            holder.deliverButton.setEnabled(false);
+//            holder.deliverButton.setBackgroundResource(R.drawable.custom_unactive_button);
 
         } else if(orderItem.getOrderItemStatus().equalsIgnoreCase("ongoing")){
-
+            holder.deliverButton.setVisibility(View.VISIBLE);
             holder.deliverButton.setEnabled(false);
             holder.deliverButton.setBackgroundResource(R.drawable.custom_unactive_button);
-            holder.rescheduleIndicator.setVisibility(View.GONE);
 
             Long currentTime = System.currentTimeMillis();
             Date date = new Date(currentTime);
@@ -153,20 +154,27 @@ public class StoreOrderDetailRecycleviewAdapter extends RecyclerView.Adapter<Sto
                 }
             }
 
-        } else if(orderItem.getOrderItemStatus().equalsIgnoreCase("shipping") ||
-                orderItem.getOrderItemStatus().equalsIgnoreCase("canceled") ||
-                orderItem.getOrderItemStatus().equalsIgnoreCase("complete")){
+        } else if(orderItem.getOrderItemStatus().equalsIgnoreCase("shipping")){
             Log.d("TAG", "onBindViewHolderASD: " + orderItem.getReschedule());
 
-            holder.rescheduleIndicator.setVisibility(View.GONE);
             if(orderItem.getReschedule() != null){
                 if(orderItem.getReschedule()){
                     holder.rescheduleIndicator.setVisibility(View.VISIBLE);
                 }
             }
+            holder.deliverButton.setVisibility(View.GONE);
+//            holder.deliverButton.setEnabled(false);
+//            holder.deliverButton.setBackgroundResource(R.drawable.custom_unactive_button);
+        }
+        else if(orderItem.getOrderItemStatus().equalsIgnoreCase("canceled") ||
+                orderItem.getOrderItemStatus().equalsIgnoreCase("complete")){
+            Log.d("TAG", "onBindViewHolderASD: " + orderItem.getReschedule());
 
-            holder.deliverButton.setEnabled(false);
-            holder.deliverButton.setBackgroundResource(R.drawable.custom_unactive_button);
+            if(orderItem.getReschedule() != null){
+                if(orderItem.getReschedule()){
+                    holder.rescheduleIndicator.setVisibility(View.VISIBLE);
+                }
+            }
         }
 
         if(orderItem.getOrderItemLinkTracker() == null){
