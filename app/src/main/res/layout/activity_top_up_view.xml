@@ -202,4 +202,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView53" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/customNominalAlert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/red"
+        android:layout_marginEnd="20dp"
+        android:visibility="gone"
+        android:text="*Ensure the top-up amount entered is at least Rp 10,000."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_up_payment_page_other_amount_edit_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

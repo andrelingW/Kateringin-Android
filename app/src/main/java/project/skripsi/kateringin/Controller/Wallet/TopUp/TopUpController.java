@@ -27,7 +27,7 @@ public class TopUpController extends AppCompatActivity {
     RadioButton radioButton;
     EditText otherAmount;
     AppCompatButton submit;
-    TextView otherAmountText, amount;
+    TextView otherAmountText, amount, customAmountAlert;
 
     int topUpValue, currentBalance;
 
@@ -105,7 +105,13 @@ public class TopUpController extends AppCompatActivity {
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
                             if(!s.toString().isEmpty()){
                                 int value = Integer.parseInt(s.toString());
-                                amount.setText(IdrFormat.format(value));
+                                if(value < 10000){
+                                    customAmountAlert.setVisibility(View.VISIBLE);
+                                    amount.setText(IdrFormat.format(0));
+                                } else {
+                                    customAmountAlert.setVisibility(View.GONE);
+                                    amount.setText(IdrFormat.format(value));
+                                }
                             } else{
                                 amount.setText(IdrFormat.format(0));
                             }
@@ -125,6 +131,7 @@ public class TopUpController extends AppCompatActivity {
     public void hideOtherAmount(){
         otherAmountText.setVisibility(View.GONE);
         otherAmount.setVisibility(View.GONE);
+        customAmountAlert.setVisibility(View.GONE);
         amount.setText(IdrFormat.format(topUpValue));
         otherAmountChecker = false;
     }
@@ -143,6 +150,7 @@ public class TopUpController extends AppCompatActivity {
         otherAmount = findViewById(R.id.top_up_payment_page_other_amount_edit_text);
         otherAmountText = findViewById(R.id.top_up_payment_page_other_amount_text);
         currentBalance = (int) getIntent().getSerializableExtra("CURRENT_BALANCE");
+        customAmountAlert = findViewById(R.id.customNominalAlert);
         amount = findViewById(R.id.top_up_payment_page_total_top_up_text);
         submit = findViewById(R.id.top_up_payment_page_submit_button);
         toolbar = findViewById(R.id.top_up_payment_page_toolbar);

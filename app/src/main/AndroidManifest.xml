@@ -20,6 +20,12 @@
         android:windowSoftInputMode="adjustResize"
         tools:targetApi="31">
         <activity
+            android:name=".Controller.Admin.ManageWithdrawDetailController"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Admin.ManageWithdraw"
+            android:exported="false" />
+        <activity
             android:name=".Controller.Review.ReviewViewAllController"
             android:exported="false" />
         <activity

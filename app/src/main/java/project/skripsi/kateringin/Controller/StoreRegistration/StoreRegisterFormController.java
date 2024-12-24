@@ -27,24 +27,32 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.WindowCompat;
 
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import project.skripsi.kateringin.Controller.Authentication.EmailVerificationController;
 import project.skripsi.kateringin.Controller.Helper.MainScreenController;
 import project.skripsi.kateringin.Controller.Wallet.WalletController;
 import project.skripsi.kateringin.R;
+import project.skripsi.kateringin.Util.UtilClass.CustomBeforeDateValidator;
+import project.skripsi.kateringin.Util.UtilClass.CustomDateValidator;
 
 public class StoreRegisterFormController extends AppCompatActivity {
 
-    EditText storeNameTxt, storePhoneNumberTxt, storeDescTxt, storeSubDistrictEditTxt;
+    EditText storeNameTxt, storePhoneNumberTxt, storeDescTxt, storeSubDistrictEditTxt, storeOpeningText;
     AppCompatButton storeRegisCancel, storeRegisterButton;
     TextView storeNameAlert, storePhoneAlert, storeSubDistrictAlert, storeDescAlert, storeSubDistrictTxtView;
     ListView listSubdistrictView;
@@ -56,6 +64,7 @@ public class StoreRegisterFormController extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseFirestore database;
+    String DOB;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +85,7 @@ public class StoreRegisterFormController extends AppCompatActivity {
         storePhoneNumberTxt = findViewById(R.id.storePhoneNumberEditText);
         storeSubDistrictTxtView = findViewById(R.id.storeSubDistrictText);
         storeDescTxt = findViewById(R.id.storeDescriptionEditText);
+        storeOpeningText = findViewById(R.id.StoreOpeningCalendar);
 
         storeNameAlert = findViewById(R.id.storeNameAlert);
         storePhoneAlert = findViewById(R.id.storephoneNumberAlert);
@@ -92,6 +102,24 @@ public class StoreRegisterFormController extends AppCompatActivity {
     }
 
     private void button() {
+        storeOpeningText.setOnClickListener(v ->{
+            MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
+                    .setTitleText("Select Date")
+                    .setTheme(R.style.ThemeOverlay_App_MaterialCalendar)
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .setCalendarConstraints(new CalendarConstraints.Builder().setValidator(new CustomDateValidator()).build())
+                    .build();
+
+            materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+                @Override
+                public void onPositiveButtonClick(Long selection) {
+                    DOB = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date(selection));
+                    storeOpeningText.setText(DOB);
+                }
+            });
+            materialDatePicker.show(getSupportFragmentManager(), "tag");
+        });
+
         storeRegisterButton.setOnClickListener(v -> {
             animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
             storeName = storeNameTxt.getText().toString();
