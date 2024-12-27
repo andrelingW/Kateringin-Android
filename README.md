@@ -25,7 +25,7 @@
 - **Android**: Core platform for the app.  
 - **Midtrans Payment Gateway**: For secure and reliable payment processing.  
 - **Firebase**: For real-time data synchronization and storage.  
-- **Java/Kotlin**: Backend logic and app functionalities.  
+- **Java**: Backend logic and app functionalities.  
 
 ## How It Works  
 
